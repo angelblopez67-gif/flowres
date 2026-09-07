@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+            <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
@@ -8,7 +8,7 @@
         body {
             margin: 0;
             padding: 0;
-            background: radial-gradient(circle at center, #1b0f2e 0%, #0a0410 100%);
+            background: radial-gradient(circle at center, #0d0415 0%, #020005 100%);
             color: #fce4ec;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             overflow: hidden;
@@ -18,7 +18,7 @@
             height: 100vh;
         }
 
-        #space-sky {
+        #space-sky, #stardust-canvas {
             position: absolute;
             width: 100%;
             height: 100%;
@@ -26,16 +26,28 @@
             z-index: 1;
         }
 
+        #stardust-canvas {
+            z-index: 5;
+        }
+
+        /* Estrellas que aparecen poco a poco desde la oscuridad */
         .background-star {
             position: absolute;
             background: #fff;
             border-radius: 50%;
-            animation: twinkle var(--duration) infinite ease-in-out;
+            opacity: 0;
+            animation: fadeInStars var(--fadeDelay) forwards, twinkle var(--duration) infinite ease-in-out;
+            animation-delay: var(--startDelay), var(--fadeDelay);
+        }
+
+        @keyframes fadeInStars {
+            0% { opacity: 0; }
+            100% { opacity: var(--maxOpacity); }
         }
 
         @keyframes twinkle {
-            0%, 100% { opacity: 0.1; transform: scale(0.7); }
-            50% { opacity: 0.9; transform: scale(1.3); }
+            0%, 100% { transform: scale(0.5); filter: brightness(0.7); }
+            50% { transform: scale(1.3); filter: brightness(1.3); }
         }
 
         .screen {
@@ -49,7 +61,7 @@
             flex-direction: column;
             opacity: 0;
             transform: scale(0.95);
-            transition: opacity 1s ease, transform 1s ease;
+            transition: opacity 1s cubic-bezier(0.4, 0, 0.2, 1), transform 1s cubic-bezier(0.4, 0, 0.2, 1);
             padding: 20px;
             box-sizing: border-box;
             z-index: 10;
@@ -65,124 +77,141 @@
             position: relative;
             width: 100%;
             height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
         }
 
-        .star-node {
+        /* Mensaje inicial apareciendo como constelación */
+        .intro-message {
             position: absolute;
+            top: 32%;
+            font-weight: 300;
+            letter-spacing: 2.5px;
+            font-size: 1.7rem;
+            color: #f8bbd0;
+            text-shadow: 0 0 20px rgba(244, 143, 177, 0.6);
+            opacity: 0;
+            animation: fadeInConstellation 2.5s forwards 1.5s;
+            z-index: 6;
+            text-align: center;
+            padding: 0 20px;
+        }
+
+        @keyframes fadeInConstellation {
+            0% { opacity: 0; transform: translateY(10px) scale(0.98); text-shadow: 0 0 5px rgba(244,143,177,0); }
+            100% { opacity: 1; transform: translateY(0) scale(1); text-shadow: 0 0 25px rgba(244, 143, 177, 0.8), 0 0 40px rgba(186, 104, 200, 0.5); }
+        }
+
+        /* Sirio: Estrella principal con brillo lila/blanco */
+        .sirius-star {
+            position: absolute;
+            top: 55%;
+            width: 26px;
+            height: 26px;
             background: #fff;
             border-radius: 50%;
             cursor: pointer;
-            box-shadow: 0 0 20px #f48fb1;
-            transition: transform 0.3s, box-shadow 0.3s;
+            opacity: 0;
+            box-shadow: 0 0 25px #e1bee7, 0 0 50px #ba68c8;
+            animation: appearSirius 2s forwards 3s, siriusPulse 2s infinite alternate;
+            animation-delay: 3s, 5s;
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            z-index: 6;
         }
 
-        .star-node:hover {
+        @keyframes appearSirius {
+            0% { opacity: 0; transform: scale(0.2); }
+            100% { opacity: 1; transform: scale(1); }
+        }
+
+        @keyframes siriusPulse {
+            0% { transform: scale(1); box-shadow: 0 0 25px #e1bee7, 0 0 45px #ba68c8; }
+            100% { transform: scale(1.35); box-shadow: 0 0 45px #f48fb1, 0 0 80px #ab47bc; }
+        }
+
+        .sirius-star:hover {
             transform: scale(1.6);
-            box-shadow: 0 0 30px #ce93d8;
         }
 
-        #star-info {
+        #sky-hint {
             position: absolute;
-            bottom: 90px;
-            background: rgba(26, 14, 43, 0.95);
-            border: 1px solid rgba(244, 143, 177, 0.5);
-            padding: 14px 26px;
-            border-radius: 25px;
+            bottom: 60px;
+            width: 100%;
+            text-align: center;
+            color: #d1c4e9;
             font-size: 0.95rem;
-            color: #f8bbd0;
-            box-shadow: 0 0 25px rgba(186, 104, 200, 0.4);
-            display: none;
-            max-width: 85%;
-            z-index: 20;
-            animation: fadeIn 0.5s ease;
+            letter-spacing: 0.5px;
+            text-shadow: 0 0 10px rgba(186,104,200,0.5);
+            opacity: 0;
+            animation: fadeInHint 2s forwards 4s;
+        }
+
+        @keyframes fadeInHint {
+            to { opacity: 1; }
         }
 
         .btn-custom {
             background: linear-gradient(135deg, #ab47bc, #ec407a);
             border: none;
             color: white;
-            padding: 14px 32px;
+            padding: 14px 34px;
             font-size: 1.1rem;
             border-radius: 35px;
             cursor: pointer;
             box-shadow: 0 0 25px rgba(171, 71, 188, 0.5);
             transition: transform 0.3s ease, box-shadow 0.3s ease;
-            margin-top: 25px;
+            margin-top: 20px;
             letter-spacing: 1px;
         }
 
         .btn-custom:hover {
-            transform: scale(1.06);
-            box-shadow: 0 0 35px rgba(236, 64, 122, 0.8);
+            transform: scale(1.08);
+            box-shadow: 0 0 40px rgba(236, 64, 122, 0.9);
         }
 
-        /* Ramo Artístico Realista en CSS */
-        .bouquet-container {
-            position: relative;
-            width: 220px;
+        /* Ramo Cósmico Vectorial (Lila y Rosa Pastel) */
+        .vector-bouquet {
+            width: 200px;
             height: 240px;
-            margin-bottom: 20px;
+            margin-bottom: 10px;
+            filter: drop-shadow(0 0 30px rgba(244, 143, 177, 0.6));
             animation: floatBouquet 4s ease-in-out infinite;
         }
 
         @keyframes floatBouquet {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-8px); }
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-8px) rotate(1.2deg); }
         }
 
-        .b-flower {
-            position: absolute;
-            border-radius: 50%;
-            box-shadow: 0 0 20px rgba(244, 143, 177, 0.7);
-        }
-
-        /* Tulipanes y rosas estilizados con gradientes suaves */
-        .rose-1 { width: 65px; height: 65px; background: radial-gradient(circle, #f48fb1 0%, #ad1457 100%); top: 15px; left: 75px; z-index: 3; }
-        .tulip-1 { width: 55px; height: 55px; background: radial-gradient(circle, #ce93d8 0%, #7b1fa2 100%); top: 40px; left: 30px; z-index: 2; border-radius: 50% 50% 40% 40%; }
-        .tulip-2 { width: 55px; height: 55px; background: radial-gradient(circle, #f8bbd0 0%, #c2185b 100%); top: 40px; left: 135px; z-index: 2; border-radius: 50% 50% 40% 40%; }
-        .cherry-1 { width: 45px; height: 45px; background: radial-gradient(circle, #e1bee7 0%, #8e24aa 100%); top: 90px; left: 55px; z-index: 4; }
-        .cherry-2 { width: 45px; height: 45px; background: radial-gradient(circle, #fce4ec 0%, #d81b60 100%); top: 90px; left: 120px; z-index: 4; }
-        
-        .b-stem {
-            position: absolute;
-            bottom: 0;
-            left: 105px;
-            width: 12px;
-            height: 110px;
-            background: linear-gradient(to bottom, #81c784, #388e3c);
-            border-radius: 6px;
-            z-index: 1;
-            transform-origin: top;
-            transform: rotate(-3deg);
-        }
-        
-        .b-bow {
-            position: absolute;
-            bottom: 40px;
-            left: 88px;
-            width: 45px;
-            height: 25px;
-            background: #ba68c8;
-            border-radius: 12px;
-            z-index: 5;
-            box-shadow: 0 0 10px rgba(186, 104, 200, 0.8);
-        }
-
-        /* Carta */
+        /* Estilo optimizado para que la carta completa luzca impecable y scrolleable si es necesario */
         .letter-box {
-            max-width: 460px;
-            padding: 30px;
-            background: rgba(26, 14, 43, 0.92);
+            max-width: 480px;
+            max-height: 65vh;
+            overflow-y: auto;
+            padding: 25px 30px;
+            background: rgba(26, 14, 43, 0.94);
             border: 1px solid rgba(244, 143, 177, 0.4);
             border-radius: 20px;
-            box-shadow: 0 0 35px rgba(186, 104, 200, 0.3);
+            box-shadow: 0 0 40px rgba(186, 104, 200, 0.35);
             text-align: left;
-            line-height: 1.7;
-            font-size: 1.05rem;
+            line-height: 1.65;
+            font-size: 0.98rem;
+            animation: letterSlide 1s cubic-bezier(0.2, 0.8, 0.2, 1);
+            box-sizing: border-box;
         }
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
+        .letter-box::-webkit-scrollbar {
+            width: 5px;
+        }
+        .letter-box::-webkit-scrollbar-thumb {
+            background: rgba(244, 143, 177, 0.4);
+            border-radius: 10px;
+        }
+
+        @keyframes letterSlide {
+            from { opacity: 0; transform: translateY(30px); }
             to { opacity: 1; transform: translateY(0); }
         }
     </style>
@@ -190,62 +219,77 @@
 <body>
 
     <div id="space-sky"></div>
+    <canvas id="stardust-canvas"></canvas>
 
-    <!-- Pantalla 1 -->
+    <!-- Pantalla 1: Fondo espacial, estrellas graduales y el mensaje inicial -->
     <div class="screen active" id="screen1">
-        <h1 style="font-weight: 300; letter-spacing: 2px; font-size: 1.8rem; text-shadow: 0 0 15px rgba(244,143,177,0.5);">Tengo algo para ti, Getsi ✨</h1>
-        <button class="btn-custom" onclick="nextScreen(2)">Entrar al universo 🌌</button>
-    </div>
-
-    <!-- Pantalla 2 -->
-    <div class="screen" id="screen2">
         <div class="sky-container">
-            <div class="star-node" style="width: 16px; height: 16px; top: 25%; left: 25%;" onclick="showStarInfo('Sirio: La estrella que ilumina todo con más fuerza. ⭐')"></div>
-            <div class="star-node" style="width: 12px; height: 12px; top: 20%; left: 70%;" onclick="showStarInfo('Andrómeda: Un guiño infinito en el cielo nocturno. 🌌')"></div>
-            <div class="star-node" style="width: 18px; height: 18px; top: 65%; left: 75%;" onclick="showStarInfo('La Luna: Silenciosa testigo de todo esto. 🌙')"></div>
-            <div class="star-node" style="width: 14px; height: 14px; top: 60%; left: 20%;" onclick="showStarInfo('Estrella Fugaz: El destello de un deseo cumplido. 🌠')"></div>
-            <div class="star-node" style="width: 22px; height: 22px; top: 45%; left: 48%; box-shadow: 0 0 30px #ab47bc; animation: pulse 1.5s infinite;" onclick="nextScreen(3)"></div>
+            <div class="intro-message">Tengo algo para ti, Getsi ✨</div>
+            <div class="sirius-star" onclick="triggerStardustAndAdvance(event)"></div>
+            <div id="sky-hint">Toca la estrella más brillante para descubrirlo 🌌</div>
+        </div>
+    </div>
+
+    <!-- Pantalla 2: El jardín cósmico floreciendo -->
+    <div class="screen" id="screen2">
+        <svg class="vector-bouquet" viewBox="0 0 200 250" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M100 130 L90 220" stroke="#81c784" stroke-width="4" stroke-linecap="round"/>
+            <path d="M100 130 L110 220" stroke="#a5d6a7" stroke-width="4" stroke-linecap="round"/>
+            <path d="M100 130 L100 230" stroke="#66bb6a" stroke-width="5" stroke-linecap="round"/>
             
-            <div style="position: absolute; bottom: 35px; width: 100%; text-align: center; color: #d1c4e9; font-size: 0.9rem; padding: 0 20px;">
-                Toca las estrellas del firmamento... (la del centro guarda un secreto 💫)
-            </div>
-            <div id="star-info">Toca una estrella para descubrir su mensaje. ✨</div>
-        </div>
+            <path d="M70 180 C85 170 115 170 130 180 C140 200 120 215 100 210 C80 215 60 200 70 180 Z" fill="#ba68c8" opacity="0.9"/>
+            <path d="M60 175 C45 160 50 140 70 155 Z" fill="#ab47bc"/>
+            <path d="M140 175 C155 160 150 140 130 155 Z" fill="#ab47bc"/>
+
+            <circle cx="100" cy="85" r="32" fill="url(#gradRose1)" />
+            <circle cx="100" cy="85" r="20" fill="url(#gradRose2)" opacity="0.8"/>
+            <circle cx="65" cy="100" r="26" fill="url(#gradTulip1)" />
+            <circle cx="135" cy="100" r="26" fill="url(#gradTulip2)" />
+            <circle cx="80" cy="55" r="24" fill="url(#gradRose2)" />
+            <circle cx="120" cy="55" r="24" fill="url(#gradRose1)" />
+
+            <circle cx="95" cy="78" r="3.5" fill="#fff" filter="drop-shadow(0 0 6px #fff)" />
+            <circle cx="125" cy="95" r="3" fill="#fff" filter="drop-shadow(0 0 6px #fff)" />
+            <circle cx="75" cy="95" r="3" fill="#fff" filter="drop-shadow(0 0 6px #fff)" />
+            <circle cx="100" cy="45" r="2.5" fill="#fff" />
+
+            <defs>
+                <radialGradient id="gradRose1" cx="50%" cy="50%" r="50%">
+                    <stop offset="0%" stop-color="#f48fb1" />
+                    <stop offset="100%" stop-color="#ad1457" />
+                </radialGradient>
+                <radialGradient id="gradRose2" cx="50%" cy="50%" r="50%">
+                    <stop offset="0%" stop-color="#f8bbd0" />
+                    <stop offset="100%" stop-color="#c2185b" />
+                </radialGradient>
+                <radialGradient id="gradTulip1" cx="50%" cy="50%" r="50%">
+                    <stop offset="0%" stop-color="#e1bee7" />
+                    <stop offset="100%" stop-color="#7b1fa2" />
+                </radialGradient>
+                <radialGradient id="gradTulip2" cx="50%" cy="50%" r="50%">
+                    <stop offset="0%" stop-color="#ce93d8" />
+                    <stop offset="100%" stop-color="#8e24aa" />
+                </radialGradient>
+            </defs>
+        </svg>
+
+        <h3 style="font-weight: 300; color: #f8bbd0; font-size: 1.2rem; margin: 5px 0 10px 0;">Esto es para ti, Getsi. 💜✨</h3>
+        <button class="btn-custom" onclick="nextScreen(3)">Leer la carta 💌</button>
     </div>
 
-    <!-- Pantalla 3 -->
+    <!-- Pantalla 3: La Carta Completa -->
     <div class="screen" id="screen3">
-        <h2 style="font-weight: 300; letter-spacing: 1px; color: #d1c4e9; font-size: 1.5rem;">Hay cosas que todavía no te he contado…</h2>
-        <button class="btn-custom" onclick="nextScreen(4)">Descubrir el ramo 💐</button>
-    </div>
-
-    <!-- Pantalla 4: Ramo Rediseñado -->
-    <div class="screen" id="screen4">
-        <div class="bouquet-container">
-            <div class="b-stem"></div>
-            <div class="b-bow"></div>
-            <div class="b-flower rose-1"></div>
-            <div class="b-flower tulip-1"></div>
-            <div class="b-flower tulip-2"></div>
-            <div class="b-flower cherry-1"></div>
-            <div class="b-flower cherry-2"></div>
-        </div>
-        <h3 style="font-weight: 300; color: #f8bbd0; font-size: 1.3rem; margin-top: 15px;">Esto es para ti, Getsi. 💜✨</h3>
-        <button class="btn-custom" onclick="nextScreen(5)">Leer la carta 💌</button>
-    </div>
-
-    <!-- Pantalla 5 -->
-    <div class="screen" id="screen5">
         <div class="letter-box">
-            <p>Estas flores y este detalle es con mucho amor y cariño para ti mi Getsi. Sé que has pasado por momentos difíciles y decepciones de personas que no valen la pena, pero como las estrellas, llegaste a mi vida para iluminarla y llenarla de color...</p>
+            <p>Estas flores y este gran detalle es con mucho amor y cariño para ti mi Getsi. Sé que has pasado por momentos difíciles y decepciones de personas que no valen la pena, pero como las estrellas, llegaste a mi vida para iluminarla y llenarla de color, y afortunadamente yo también llegué a la tuya con el mismo propósito.</p>
+            <p style="margin-top: 12px;">En verdad que te quiero muchísimo y si nadie es capaz para ver la persona que eres, tus cualidades, tus virtudes, yo lo haré y estaré dispuesto a hacer esto y más por qué es lo que te mereces y por qué vales totalmente la pena para poder darlo todo.</p>
             <p style="margin-top: 15px;"><strong>Te amo con todo mi corazón. ❤️✨</strong></p>
-            <p style="text-align: right; margin-top: 15px; color: #f8bbd0;"><em>Tu rabanito 🥹❤️</em></p>
+            <p style="text-align: right; margin-top: 12px; color: #f8bbd0;"><em>Tu rabanito 🥹❤️</em></p>
         </div>
-        <button class="btn-custom" onclick="nextScreen(6)">Ver el cielo final ⭐</button>
+        <button class="btn-custom" onclick="nextScreen(4)">Ver el cielo final ⭐</button>
     </div>
 
-    <!-- Pantalla 6 -->
-    <div class="screen" id="screen6">
+    <!-- Pantalla 4: Can Mayor y Constelación Final -->
+    <div class="screen" id="screen4">
         <svg width="340" height="140" viewBox="0 0 340 140" style="overflow: visible; margin-bottom: 15px;">
             <path d="M 20,70 L 45,30 L 70,70 L 45,110 Z M 90,30 L 90,110 M 115,30 L 140,30 L 115,70 L 140,110 M 165,30 L 165,110 M 190,30 L 215,30 L 190,70 L 215,70 M 240,30 L 240,110 L 265,110 M 290,30 L 290,110 M 290,30 L 315,70 L 290,70" 
                   stroke="rgba(244, 143, 177, 0.7)" stroke-width="2.5" fill="none" stroke-dasharray="800" stroke-dashoffset="800">
@@ -284,19 +328,90 @@
     </div>
 
     <script>
+        // Generador de estrellas de fondo graduales
         const sky = document.getElementById('space-sky');
-        const starCount = 90;
-        for (let i = 0; i < starCount; i++) {
+        for (let i = 0; i < 85; i++) {
             const star = document.createElement('div');
             star.classList.add('background-star');
-            const size = Math.random() * 3 + 1;
+            const size = Math.random() * 2.5 + 1;
             star.style.width = `${size}px`;
             star.style.height = `${size}px`;
             star.style.top = `${Math.random() * 100}%`;
             star.style.left = `${Math.random() * 100}%`;
+            
+            const startDelay = Math.random() * 2;
+            const fadeDelay = Math.random() * 1.5 + 1;
+            star.style.setProperty('--startDelay', `${startDelay}s`);
+            star.style.setProperty('--fadeDelay', `${fadeDelay}s`);
+            star.style.setProperty('--maxOpacity', Math.random() * 0.7 + 0.3);
             star.style.setProperty('--duration', `${Math.random() * 3 + 2}s`);
-            star.style.animationDelay = `${Math.random() * 5}s`;
+            
             sky.appendChild(star);
+        }
+
+        // Canvas para el polvo estelar al tocar a Sirio
+        const canvas = document.getElementById('stardust-canvas');
+        const ctx = canvas.getContext('2d');
+        let particles = [];
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+
+        function triggerStardustAndAdvance(event) {
+            const rect = event.target.getBoundingClientRect();
+            const startX = rect.left + rect.width / 2;
+            const startY = rect.top + rect.height / 2;
+
+            for (let i = 0; i < 80; i++) {
+                const angle = Math.random() * Math.PI * 2;
+                const speed = Math.random() * 7 + 2;
+                particles.push({
+                    x: startX,
+                    y: startY,
+                    vx: Math.cos(angle) * speed,
+                    vy: Math.sin(angle) * speed,
+                    radius: Math.random() * 4 + 1,
+                    color: Math.random() > 0.5 ? '#f48fb1' : '#ce93d8',
+                    alpha: 1,
+                    decay: Math.random() * 0.018 + 0.012
+                });
+            }
+
+            animateStardust();
+
+            setTimeout(() => {
+                nextScreen(2);
+            }, 800);
+        }
+
+        function animateStardust() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            particles.forEach((p, index) => {
+                p.x += p.vx;
+                p.y += p.vy;
+                p.alpha -= p.decay;
+                if (p.alpha <= 0) {
+                    particles.splice(index, 1);
+                    return;
+                }
+                ctx.save();
+                ctx.globalAlpha = p.alpha;
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+                ctx.fillStyle = p.color;
+                ctx.shadowBlur = 15;
+                ctx.shadowColor = p.color;
+                ctx.fill();
+                ctx.restore();
+            });
+
+            if (particles.length > 0) {
+                requestAnimationFrame(animateStardust);
+            }
         }
 
         function nextScreen(screenNumber) {
@@ -309,16 +424,7 @@
                 if (nextTarget) {
                     nextTarget.classList.add('active');
                 }
-            }, 600);
-        }
-
-        function showStarInfo(text) {
-            const infoBox = document.getElementById('star-info');
-            infoBox.innerText = text;
-            infoBox.style.display = 'block';
-            setTimeout(() => {
-                infoBox.style.display = 'none';
-            }, 4000);
+            }, 500);
         }
     </script>
 
