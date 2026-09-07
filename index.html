@@ -17,7 +17,7 @@
             color: #f3e8ff;
             font-family: 'Quicksand', sans-serif;
             min-height: 100vh;
-            overflow-x: hidden;
+            overflow: hidden;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -36,11 +36,12 @@
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            transition: opacity 1.5s ease;
+            transition: opacity 1s ease;
             opacity: 0;
             pointer-events: none;
             padding: 20px;
             text-align: center;
+            z-index: 10;
         }
 
         .screen.active {
@@ -54,38 +55,37 @@
             left: 0;
             width: 100%;
             height: 100%;
-            z-index: -1;
+            z-index: 1;
             background: radial-gradient(circle at center, #15062b 0%, #030008 100%);
         }
 
         /* Pantalla 1 */
         #screen-1 .mystic-text {
-            font-size: 2.2rem;
+            font-size: 2.4rem;
             color: #d8b4fe;
-            margin-bottom: 30px;
+            margin-bottom: 25px;
             animation: pulseText 3s infinite ease-in-out;
             text-shadow: 0 0 15px rgba(216, 180, 254, 0.5);
         }
 
         .star-container {
-            position: relative;
             cursor: pointer;
-            width: 80px;
-            height: 80px;
+            padding: 20px;
             display: flex;
             justify-content: center;
             align-items: center;
+            z-index: 20;
         }
 
         .main-star {
-            font-size: 3rem;
+            font-size: 3.5rem;
             animation: floatStar 3s infinite ease-in-out, glowSirius 2s infinite alternate;
             filter: drop-shadow(0 0 20px #e9d5ff);
             transition: transform 0.3s ease;
         }
 
         .main-star:hover {
-            transform: scale(1.2);
+            transform: scale(1.25);
         }
 
         /* Pantalla 2: Ramo Animado */
@@ -149,7 +149,7 @@
         }
 
         .next-step-btn {
-            margin-top: 30px;
+            margin-top: 25px;
             background: linear-gradient(135deg, #c084fc, #f472b6);
             color: #fff;
             border: none;
@@ -162,6 +162,7 @@
             transition: transform 0.2s, box-shadow 0.2s;
             opacity: 0;
             transform: translateY(20px);
+            z-index: 20;
         }
 
         .bouquet-wrapper.illuminated + .next-step-btn {
@@ -195,6 +196,7 @@
             font-size: 1.4rem;
             transition: all 0.4s ease;
             box-shadow: 0 0 15px rgba(216, 180, 254, 0.3);
+            z-index: 20;
         }
 
         .explore-star:hover {
@@ -224,7 +226,7 @@
             opacity: 0;
             pointer-events: none;
             transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            z-index: 10;
+            z-index: 30;
         }
 
         .popup-card.show {
@@ -267,6 +269,7 @@
             text-align: left;
             max-height: 75vh;
             overflow-y: auto;
+            z-index: 20;
         }
 
         .letter-card p {
@@ -318,7 +321,7 @@
     <!-- PANTALLA 1 -->
     <div id="screen-1" class="screen active">
         <p class="mystic-text">Tengo algo para ti, Getsi ✨</p>
-        <div class="star-container" onclick="goToScreen(2)">
+        <div class="star-container" id="startBtn">
             <div class="main-star">⭐</div>
         </div>
     </div>
@@ -330,17 +333,17 @@
             <div class="stardust-particles" id="stardust"></div>
             <img src="ramo.png" alt="Ramo Cósmico" class="bouquet-img-animated" id="animatedBouquet">
         </div>
-        <button id="after-bouquet-btn" class="next-step-btn" onclick="goToScreen(3)">Explorar el cielo ✨</button>
+        <button id="toSkyBtn" class="next-step-btn">Explorar el cielo ✨</button>
     </div>
 
     <!-- PANTALLA 3 -->
     <div id="screen-3" class="screen">
         <div class="sky-exploration">
-            <div id="star-sirio" class="explore-star" onclick="openStar('sirio')">⭐</div>
-            <div id="star-andromeda" class="explore-star" onclick="openStar('andromeda')">🌌</div>
-            <div id="star-luna" class="explore-star" onclick="openStar('luna')">🌙</div>
-            <div id="star-fugaz" class="explore-star" onclick="openStar('fugaz')">🌠</div>
-            <div id="star-desconocida" class="explore-star" onclick="openStar('desconocida')">💫</div>
+            <div id="star-sirio" class="explore-star">⭐</div>
+            <div id="star-andromeda" class="explore-star">🌌</div>
+            <div id="star-luna" class="explore-star">🌙</div>
+            <div id="star-fugaz" class="explore-star">🌠</div>
+            <div id="star-desconocida" class="explore-star">💫</div>
         </div>
 
         <div id="popup-sirio" class="popup-card">
@@ -372,19 +375,19 @@
             <p>Desde el momento en que llegaste, mi universo entero cambió de color. Cada rincón brilla con una intensidad distinta, y quise crear este pequeño pedazo de cielo solo para recordarte lo especial que eres para mí.</p>
             <p>Gracias por ser esa luz constante que guía mis días y por llenar todo con tu magia.</p>
             <p class="signature">Te amo con todo mi corazón 💖</p>
-            <button class="next-step-btn" style="margin: 20px auto 0; display: block;" onclick="startConstellationFinale()">Ver Constelación Final ✨</button>
+            <button id="toFinaleBtn" class="next-step-btn" style="margin: 20px auto 0; display: block;">Ver Constelación Final ✨</button>
         </div>
     </div>
 
     <!-- PANTALLA 5: Constelación GETSI -->
     <div id="screen-5" class="screen">
-        <div id="final-message" style="opacity: 0; transition: opacity 2s ease; position: absolute; bottom: 15vh; text-align: center; width: 100%;">
+        <div id="final-message" style="opacity: 0; transition: opacity 2s ease; position: absolute; bottom: 15vh; text-align: center; width: 100%; z-index: 20;">
             <p style="font-size: 1.8rem; color: #d8b4fe; text-shadow: 0 0 15px rgba(216,180,254,0.6);">Eres mi constelación favorita, Getsi. ✨❤️</p>
         </div>
     </div>
 
     <script>
-        // Fondo de estrellas dinámicas y fugaces
+        // Fondo de estrellas
         const starCanvas = document.getElementById('starfield');
         const starCtx = starCanvas.getContext('2d');
         let stars = [];
@@ -397,7 +400,7 @@
         window.addEventListener('resize', resizeCanvas);
         resizeCanvas();
 
-        for (let i = 0; i < 150; i++) {
+        for (let i = 0; i < 120; i++) {
             stars.push({
                 x: Math.random() * starCanvas.width,
                 y: Math.random() * starCanvas.height,
@@ -419,12 +422,12 @@
                 if (s.alpha > 1 || s.alpha < 0.2) s.speed = -s.speed;
             });
 
-            if (Math.random() < 0.03) {
+            if (Math.random() < 0.02) {
                 shootingStars.push({
                     x: Math.random() * starCanvas.width,
                     y: 0,
-                    length: Math.random() * 80 + 40,
-                    speed: Math.random() * 10 + 6,
+                    length: Math.random() * 70 + 30,
+                    speed: Math.random() * 8 + 5,
                     opacity: 1
                 });
             }
@@ -447,7 +450,7 @@
         }
         animateStars();
 
-        // Control de pantallas
+        // Control de pantallas por listeners directos (evita bloqueos táctiles)
         let currentScreen = 1;
         function goToScreen(screenNumber) {
             document.getElementById(`screen-${currentScreen}`).classList.remove('active');
@@ -459,7 +462,11 @@
             }
         }
 
-        // Animación del Ramo (Florecimiento + Polvo Estelar + Luz)
+        document.getElementById('startBtn').addEventListener('click', () => goToScreen(2));
+        document.getElementById('toSkyBtn').addEventListener('click', () => goToScreen(3));
+        document.getElementById('toFinaleBtn').addEventListener('click', () => startConstellationFinale());
+
+        // Animación del Ramo
         function triggerBouquetAnimation() {
             const wrapper = document.getElementById('bouquetContainer');
             wrapper.classList.add('show');
@@ -476,10 +483,10 @@
 
         function createStardustExplosion() {
             const container = document.getElementById('stardust');
-            for (let i = 0; i < 30; i++) {
+            for (let i = 0; i < 25; i++) {
                 const particle = document.createElement('div');
                 const angle = Math.random() * Math.PI * 2;
-                const distance = Math.random() * 120 + 40;
+                const distance = Math.random() * 110 + 35;
                 const tx = Math.cos(angle) * distance;
                 const ty = Math.sin(angle) * distance;
 
@@ -509,15 +516,16 @@
         }
 
         // Popups de estrellas
-        let openedStars = 0;
-        function openStar(starId) {
-            document.getElementById(`popup-${starId}`).classList.add('show');
-            document.getElementById(`star-${starId}`).classList.add('clicked');
-        }
+        const starsData = ['sirio', 'andromeda', 'luna', 'fugaz', 'desconocida'];
+        starsData.forEach(starId => {
+            document.getElementById(`star-${starId}`).addEventListener('click', () => {
+                document.getElementById(`popup-${starId}`).classList.add('show');
+                document.getElementById(`star-${starId}`).style.borderColor = '#f472b6';
+            });
+        });
 
         function closePopup(starId) {
             document.getElementById(`popup-${starId}`).classList.remove('show');
-            openedStars++;
         }
 
         function openLetter() {
@@ -525,7 +533,7 @@
             goToScreen(4);
         }
 
-        // Cierre final: Constelación GETSI limpia y precisa
+        // Cierre final: Constelación GETSI limpia
         function startConstellationFinale() {
             goToScreen(5);
             const fxCanvas = document.getElementById('fx-canvas');
@@ -533,28 +541,27 @@
             fxCanvas.width = window.innerWidth;
             fxCanvas.height = window.innerHeight;
 
-            // Coordenadas fijas limpias para formar GETSI en el centro superior de la pantalla
-            const cx = window.innerWidth / 2 - 200;
-            const cy = window.innerHeight / 3 - 50;
+            const cx = window.innerWidth / 2 - 180;
+            const cy = window.innerHeight / 3 - 40;
 
             const letters = {
                 G: [
-                    {x: cx + 50, y: cy}, {x: cx, y: cy}, {x: cx, y: cy + 60},
-                    {x: cx + 50, y: cy + 60}, {x: cx + 50, y: cy + 30}, {x: cx + 25, y: cy + 30}
+                    {x: cx + 45, y: cy}, {x: cx, y: cy}, {x: cx, y: cy + 55},
+                    {x: cx + 45, y: cy + 55}, {x: cx + 45, y: cy + 28}, {x: cx + 22, y: cy + 28}
                 ],
                 E: [
-                    {x: cx + 110, y: cy}, {x: cx + 70, y: cy}, {x: cx + 70, y: cy + 60}, {x: cx + 110, y: cy + 60},
-                    {x: cx + 70, y: cy + 30}, {x: cx + 100, y: cy + 30}
+                    {x: cx + 100, y: cy}, {x: cx + 65, y: cy}, {x: cx + 65, y: cy + 55}, {x: cx + 100, y: cy + 55},
+                    {x: cx + 65, y: cy + 28}, {x: cx + 90, y: cy + 28}
                 ],
                 T: [
-                    {x: cx + 130, y: cy}, {x: cx + 170, y: cy}, {x: cx + 150, y: cy}, {x: cx + 150, y: cy + 60}
+                    {x: cx + 118, y: cy}, {x: cx + 152, y: cy}, {x: cx + 135, y: cy}, {x: cx + 135, y: cy + 55}
                 ],
                 S: [
-                    {x: cx + 230, y: cy}, {x: cx + 190, y: cy}, {x: cx + 190, y: cy + 30},
-                    {x: cx + 230, y: cy + 30}, {x: cx + 230, y: cy + 60}, {x: cx + 190, y: cy + 60}
+                    {x: cx + 205, y: cy}, {x: cx + 170, y: cy}, {x: cx + 170, y: cy + 28},
+                    {x: cx + 205, y: cy + 28}, {x: cx + 205, y: cy + 55}, {x: cx + 170, y: cy + 55}
                 ],
                 I: [
-                    {x: cx + 265, y: cy}, {x: cx + 265, y: cy + 60}
+                    {x: cx + 235, y: cy}, {x: cx + 235, y: cy + 55}
                 ]
             };
 
@@ -564,54 +571,5 @@
             }
 
             let currentPointIndex = 0;
-            let progress = 0;
 
-            function drawConstellationStep() {
-                fxCtx.clearRect(0, 0, fxCanvas.width, fxCanvas.height);
-
-                // Dibujar conexiones completadas
-                fxCtx.strokeStyle = 'rgba(216, 180, 254, 0.8)';
-                fxCtx.lineWidth = 2;
-                fxCtx.shadowBlur = 12;
-                fxCtx.shadowColor = '#d8b4fe';
-
-                let letterKeys = ['G', 'E', 'T', 'S', 'I'];
-                let drawnCount = 0;
-
-                letterKeys.forEach(lKey => {
-                    let pts = letters[lKey];
-                    fxCtx.beginPath();
-                    for (let i = 0; i < pts.length; i++) {
-                        if (drawnCount + i <= currentPointIndex) {
-                            if (i === 0) fxCtx.moveTo(pts[i].x, pts[i].y);
-                            else fxCtx.lineTo(pts[i].x, pts[i].y);
-                        }
-                    }
-                    fxCtx.stroke();
-                    drawnCount += pts.length;
-                });
-
-                // Dibujar estrellas en los nodos
-                allPoints.forEach((pt, idx) => {
-                    if (idx <= currentPointIndex) {
-                        fxCtx.fillStyle = '#ffffff';
-                        fxCtx.beginPath();
-                        fxCtx.arc(pt.x, pt.y, 4, 0, Math.PI * 2);
-                        fxCtx.fill();
-                    }
-                });
-
-                if (currentPointIndex < allPoints.length - 1) {
-                    currentPointIndex++;
-                    setTimeout(drawConstellationStep, 250);
-                } else {
-                    // Mostrar mensaje final de amor
-                    document.getElementById('final-message').style.opacity = '1';
-                }
-            }
-
-            setTimeout(drawConstellationStep, 500);
-        }
-    </script>
-</body>
-</html>
+ 
