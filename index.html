@@ -78,7 +78,7 @@
             filter: drop-shadow(0 0 20px #e9d5ff);
         }
 
-        /* Pantalla 2: Animación de Fotogramas del Ramo */
+        /* Pantalla 2: Ramo Animado por Fotogramas */
         .bouquet-wrapper {
             position: relative;
             width: 300px;
@@ -418,7 +418,6 @@
             }
         }
 
-        // Tocar toda la pantalla 1 avanza de inmediato
         document.getElementById('screen-1').addEventListener('click', () => goToScreen(2));
         document.getElementById('toSkyBtn').addEventListener('click', () => goToScreen(3));
         document.getElementById('toFinaleBtn').addEventListener('click', () => startConstellationFinale());
@@ -427,7 +426,6 @@
             const wrapper = document.getElementById('bouquetContainer');
             wrapper.classList.add('show');
 
-            // Muestra el botón de continuar después de que termine la animación del ramo (2.5 segundos)
             setTimeout(() => {
                 const btn = document.getElementById('toSkyBtn');
                 btn.style.opacity = '1';
