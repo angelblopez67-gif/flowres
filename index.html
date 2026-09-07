@@ -78,7 +78,7 @@
             filter: drop-shadow(0 0 20px #e9d5ff);
         }
 
-        /* Pantalla 2: Tulipanes, Lavandas y Polvo Estelar Brillante */
+        /* Pantalla 2: Racimo de Tulipanes Lila/Lavanda y Polvo Estelar */
         .bouquet-wrapper {
             position: relative;
             width: 320px;
@@ -97,19 +97,18 @@
             transform: scale(1);
         }
 
-        /* Contenedor del brillo trasero (Polvo estelar iluminando atrás) */
         .starlight-glow {
             position: absolute;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            width: 50px;
-            height: 50px;
-            background: radial-gradient(circle, rgba(250, 204, 21, 0.8) 0%, rgba(216, 180, 254, 0.4) 40%, transparent 70%);
+            width: 60px;
+            height: 60px;
+            background: radial-gradient(circle, rgba(216, 180, 254, 0.8) 0%, rgba(168, 85, 247, 0.4) 40%, transparent 70%);
             border-radius: 50%;
             opacity: 0;
             z-index: 15;
-            box-shadow: 0 0 50px 30px rgba(250, 204, 21, 0.4), 0 0 90px 50px rgba(192, 132, 252, 0.3);
+            box-shadow: 0 0 60px 30px rgba(216, 180, 254, 0.5), 0 0 100px 50px rgba(168, 85, 247, 0.4);
             animation: burstGlow 1.8s ease-out 1s forwards;
         }
 
@@ -120,80 +119,60 @@
             z-index: 20;
         }
 
-        /* Tulipanes centrales */
-        .tulip-center-stem {
+        /* Tallos múltiples */
+        .stem {
             position: absolute;
             bottom: 0;
-            left: 50%;
-            width: 6px;
+            width: 5px;
             height: 0px;
             background: linear-gradient(to top, #15803d, #22c55e);
-            transform: translateX(-50%);
             border-radius: 4px;
+            transform-origin: bottom center;
             animation: growStem 1.4s ease-out forwards;
         }
 
+        .stem-1 { left: 45%; height: 0px; animation-name: growStem1; }
+        .stem-2 { left: 52%; height: 0px; animation-name: growStem2; }
+        .stem-3 { left: 38%; height: 0px; animation-name: growStem3; }
+        .stem-4 { left: 60%; height: 0px; animation-name: growStem4; }
+
+        /* Tulipanes Lila y Lavanda */
         .tulip-head {
             position: absolute;
             bottom: 0px;
-            left: 50%;
-            width: 76px;
-            height: 85px;
-            transform: translateX(-50%) scale(0);
+            width: 55px;
+            height: 65px;
+            transform: scale(0);
             transform-origin: bottom center;
-            animation: bloomTulip 1.2s cubic-bezier(0.175, 0.885, 0.32, 1.275) 1.2s forwards;
+            animation: bloomTulipGroup 1.2s cubic-bezier(0.175, 0.885, 0.32, 1.275) 1.2s forwards;
         }
+
+        .head-1 { left: calc(45% - 27px); animation-name: bloomTulip1; }
+        .head-2 { left: calc(52% - 25px); animation-name: bloomTulip2; }
+        .head-3 { left: calc(38% - 28px); animation-name: bloomTulip3; }
+        .head-4 { left: calc(60% - 25px); animation-name: bloomTulip4; }
 
         .tulip-petal {
             position: absolute;
-            background: linear-gradient(135deg, #facc15, #ca8a04);
             border-radius: 50% 50% 40% 40%;
-            box-shadow: 0 0 12px rgba(250, 204, 21, 0.6);
+            box-shadow: 0 0 10px rgba(216, 180, 254, 0.6);
         }
 
-        .t-center { width: 40px; height: 70px; left: 18px; top: 5px; z-index: 3; }
-        .t-left { width: 34px; height: 60px; left: 5px; top: 15px; transform: rotate(-15deg); z-index: 2; }
-        .t-right { width: 34px; height: 60px; right: 5px; top: 15px; transform: rotate(15deg); z-index: 2; }
+        /* Colores Lavanda y Lila */
+        .lavender-tone .p-center { background: linear-gradient(135deg, #d8b4fe, #a855f7); width: 30px; height: 50px; left: 12px; top: 4px; z-index: 3; }
+        .lavender-tone .p-left { background: linear-gradient(135deg, #e9d5ff, #c084fc); width: 26px; height: 44px; left: 2px; top: 12px; transform: rotate(-15deg); z-index: 2; }
+        .lavender-tone .p-right { background: linear-gradient(135deg, #e9d5ff, #c084fc); width: 26px; height: 44px; right: 2px; top: 12px; transform: rotate(15deg); z-index: 2; }
 
-        /* Lavandas a los lados */
-        .lavender-side {
-            position: absolute;
-            bottom: 0;
-            width: 20px;
-            height: 0px;
-            background: #a855f7;
-            border-radius: 4px;
-            animation: growLavender 1.5s ease-out 0.3s forwards;
-        }
-
-        .lavender-left {
-            left: 30%;
-            transform: rotate(-18deg);
-            transform-origin: bottom center;
-        }
-
-        .lavender-right {
-            right: 30%;
-            transform: rotate(18deg);
-            transform-origin: bottom center;
-        }
-
-        .lavender-bud {
-            position: absolute;
-            width: 12px;
-            height: 12px;
-            background: #c084fc;
-            border-radius: 50%;
-            box-shadow: 0 0 8px #d8b4fe;
-            opacity: 0.8;
-        }
+        .lila-tone .p-center { background: linear-gradient(135deg, #c084fc, #7e22ce); width: 30px; height: 50px; left: 12px; top: 4px; z-index: 3; }
+        .lila-tone .p-left { background: linear-gradient(135deg, #d8b4fe, #9333ea); width: 26px; height: 44px; left: 2px; top: 12px; transform: rotate(-15deg); z-index: 2; }
+        .lila-tone .p-right { background: linear-gradient(135deg, #d8b4fe, #9333ea); width: 26px; height: 44px; right: 2px; top: 12px; transform: rotate(15deg); z-index: 2; }
 
         /* Partículas de Polvo Estelar */
         .star-dust {
             position: absolute;
             background: #fff;
             border-radius: 50%;
-            box-shadow: 0 0 8px #facc15, 0 0 15px #d8b4fe;
+            box-shadow: 0 0 8px #d8b4fe, 0 0 15px #a855f7;
             opacity: 0;
             pointer-events: none;
             z-index: 25;
@@ -324,21 +303,16 @@
             margin-top: 15px;
         }
 
-        /* Animaciones */
-        @keyframes growStem {
-            0% { height: 0px; }
-            100% { height: 160px; }
-        }
+        /* Keyframes de Crecimiento Conjunto */
+        @keyframes growStem1 { 0% { height: 0px; } 100% { height: 160px; transform: rotate(-5deg); } }
+        @keyframes growStem2 { 0% { height: 0px; } 100% { height: 145px; transform: rotate(8deg); } }
+        @keyframes growStem3 { 0% { height: 0px; } 100% { height: 130px; transform: rotate(-15deg); } }
+        @keyframes growStem4 { 0% { height: 0px; } 100% { height: 135px; transform: rotate(18deg); } }
 
-        @keyframes growLavender {
-            0% { height: 0px; }
-            100% { height: 130px; }
-        }
-
-        @keyframes bloomTulip {
-            0% { bottom: 0px; transform: translateX(-50%) scale(0); }
-            100% { bottom: 150px; transform: translateX(-50%) scale(1); }
-        }
+        @keyframes bloomTulip1 { 0% { bottom: 0px; transform: scale(0) rotate(-5deg); } 100% { bottom: 150px; transform: scale(1) rotate(-5deg); } }
+        @keyframes bloomTulip2 { 0% { bottom: 0px; transform: scale(0) rotate(8deg); } 100% { bottom: 135px; transform: scale(1) rotate(8deg); } }
+        @keyframes bloomTulip3 { 0% { bottom: 0px; transform: scale(0) rotate(-15deg); } 100% { bottom: 120px; transform: scale(1) rotate(-15deg); } }
+        @keyframes bloomTulip4 { 0% { bottom: 0px; transform: scale(0) rotate(18deg); } 100% { bottom: 125px; transform: scale(1) rotate(18deg); } }
 
         @keyframes burstGlow {
             0% { opacity: 0; transform: translate(-50%, -50%) scale(0.2); }
@@ -347,14 +321,8 @@
         }
 
         @keyframes explodeDust {
-            0% {
-                opacity: 1;
-                transform: translate(0, 0) scale(0.5);
-            }
-            100% {
-                opacity: 0;
-                transform: translate(var(--tx), var(--ty)) scale(1.5);
-            }
+            0% { opacity: 1; transform: translate(0, 0) scale(0.5); }
+            100% { opacity: 0; transform: translate(var(--tx), var(--ty)) scale(1.5); }
         }
 
         @keyframes pulseText {
@@ -401,35 +369,41 @@
             <div class="starlight-glow"></div>
 
             <div class="garden-container">
-                <!-- Lavandas a los lados -->
-                <div class="lavender-side lavender-left">
-                    <div class="lavender-bud" style="top: 10px; left: 4px;"></div>
-                    <div class="lavender-bud" style="top: 25px; left: 2px;"></div>
-                    <div class="lavender-bud" style="top: 40px; left: 4px;"></div>
-                    <div class="lavender-bud" style="top: 55px; left: 3px;"></div>
-                </div>
-                <div class="lavender-side lavender-right">
-                    <div class="lavender-bud" style="top: 10px; right: 4px;"></div>
-                    <div class="lavender-bud" style="top: 25px; right: 2px;"></div>
-                    <div class="lavender-bud" style="top: 40px; right: 4px;"></div>
-                    <div class="lavender-bud" style="top: 55px; right: 3px;"></div>
-                </div>
+                <!-- Tallos -->
+                <div class="stem stem-1"></div>
+                <div class="stem stem-2"></div>
+                <div class="stem stem-3"></div>
+                <div class="stem stem-4"></div>
 
-                <!-- Tulipán central -->
-                <div class="tulip-center-stem"></div>
-                <div class="tulip-head">
-                    <div class="tulip-petal t-left"></div>
-                    <div class="tulip-petal t-right"></div>
-                    <div class="tulip-petal t-center"></div>
+                <!-- Tulipanes Lila y Lavanda agrupados -->
+                <div class="tulip-head head-1 lavender-tone">
+                    <div class="tulip-petal p-left"></div>
+                    <div class="tulip-petal p-right"></div>
+                    <div class="tulip-petal p-center"></div>
+                </div>
+                <div class="tulip-head head-2 lila-tone">
+                    <div class="tulip-petal p-left"></div>
+                    <div class="tulip-petal p-right"></div>
+                    <div class="tulip-petal p-center"></div>
+                </div>
+                <div class="tulip-head head-3 lila-tone">
+                    <div class="tulip-petal p-left"></div>
+                    <div class="tulip-petal p-right"></div>
+                    <div class="tulip-petal p-center"></div>
+                </div>
+                <div class="tulip-head head-4 lavender-tone">
+                    <div class="tulip-petal p-left"></div>
+                    <div class="tulip-petal p-right"></div>
+                    <div class="tulip-petal p-center"></div>
                 </div>
 
                 <!-- Partículas de polvo estelar desplegándose -->
-                <div class="star-dust" style="top: 40%; left: 50%; --tx: -70px; --ty: -60px; width: 6px; height: 6px;"></div>
-                <div class="star-dust" style="top: 45%; left: 50%; --tx: 70px; --ty: -50px; width: 5px; height: 5px;"></div>
-                <div class="star-dust" style="top: 50%; left: 45%; --tx: -90px; --ty: 20px; width: 7px; height: 7px;"></div>
-                <div class="star-dust" style="top: 45%; left: 55%; --tx: 85px; --ty: 30px; width: 6px; height: 6px;"></div>
-                <div class="star-dust" style="top: 35%; left: 48%; --tx: -20px; --ty: -90px; width: 5px; height: 5px;"></div>
-                <div class="star-dust" style="top: 38%; left: 52%; --tx: 30px; --ty: -80px; width: 6px; height: 6px;"></div>
+                <div class="star-dust" style="top: 40%; left: 50%; --tx: -80px; --ty: -70px; width: 6px; height: 6px;"></div>
+                <div class="star-dust" style="top: 45%; left: 50%; --tx: 80px; --ty: -60px; width: 5px; height: 5px;"></div>
+                <div class="star-dust" style="top: 50%; left: 45%; --tx: -100px; --ty: 10px; width: 7px; height: 7px;"></div>
+                <div class="star-dust" style="top: 45%; left: 55%; --tx: 90px; --ty: 20px; width: 6px; height: 6px;"></div>
+                <div class="star-dust" style="top: 35%; left: 48%; --tx: -30px; --ty: -100px; width: 5px; height: 5px;"></div>
+                <div class="star-dust" style="top: 38%; left: 52%; --tx: 40px; --ty: -90px; width: 6px; height: 6px;"></div>
             </div>
         </div>
         <button id="toSkyBtn" class="next-step-btn">Explorar el cielo ✨</button>
@@ -536,143 +510,4 @@
                 starCtx.globalAlpha = ss.opacity;
                 starCtx.beginPath();
                 starCtx.moveTo(ss.x, ss.y);
-                starCtx.lineTo(ss.x - ss.length, ss.y + ss.length);
-                starCtx.stroke();
-                ss.x -= ss.speed;
-                ss.y += ss.speed;
-                ss.opacity -= 0.03;
-                if (ss.opacity <= 0) shootingStars.splice(index, 1);
-            });
-
-            requestAnimationFrame(animateStars);
-        }
-        animateStars();
-
-        let currentScreen = 1;
-        function goToScreen(screenNumber) {
-            document.getElementById(`screen-${currentScreen}`).classList.remove('active');
-            currentScreen = screenNumber;
-            document.getElementById(`screen-${currentScreen}`).classList.add('active');
-
-            if (screenNumber === 2) {
-                setTimeout(triggerBouquetAnimation, 300);
-            }
-        }
-
-        document.getElementById('screen-1').addEventListener('click', () => goToScreen(2));
-        document.getElementById('toSkyBtn').addEventListener('click', () => goToScreen(3));
-        document.getElementById('toFinaleBtn').addEventListener('click', () => startConstellationFinale());
-
-        function triggerBouquetAnimation() {
-            const wrapper = document.getElementById('bouquetContainer');
-            wrapper.classList.add('show');
-
-            setTimeout(() => {
-                const btn = document.getElementById('toSkyBtn');
-                btn.style.opacity = '1';
-                btn.style.transform = 'translateY(0)';
-                btn.style.transition = 'opacity 1s ease, transform 1s ease';
-            }, 2500);
-        }
-
-        const starsData = ['sirio', 'andromeda', 'luna', 'fugaz', 'desconocida'];
-        starsData.forEach(starId => {
-            document.getElementById(`star-${starId}`).addEventListener('click', () => {
-                document.getElementById(`popup-${starId}`).classList.add('show');
-                document.getElementById(`star-${starId}`).style.borderColor = '#f472b6';
-            });
-        });
-
-        function closePopup(starId) {
-            document.getElementById(`popup-${starId}`).classList.remove('show');
-        }
-
-        function openLetter() {
-            document.getElementById('popup-desconocida').classList.remove('show');
-            goToScreen(4);
-        }
-
-        function startConstellationFinale() {
-            goToScreen(5);
-            const fxCanvas = document.getElementById('fx-canvas');
-            const fxCtx = fxCanvas.getContext('2d');
-            fxCanvas.width = window.innerWidth;
-            fxCanvas.height = window.innerHeight;
-
-            const cx = window.innerWidth / 2 - 180;
-            const cy = window.innerHeight / 3 - 40;
-
-            const letters = {
-                G: [
-                    {x: cx + 45, y: cy}, {x: cx, y: cy}, {x: cx, y: cy + 55},
-                    {x: cx + 45, y: cy + 55}, {x: cx + 45, y: cy + 28}, {x: cx + 22, y: cy + 28}
-                ],
-                E: [
-                    {x: cx + 100, y: cy}, {x: cx + 65, y: cy}, {x: cx + 65, y: cy + 55}, {x: cx + 100, y: cy + 55},
-                    {x: cx + 65, y: cy + 28}, {x: cx + 90, y: cy + 28}
-                ],
-                T: [
-                    {x: cx + 118, y: cy}, {x: cx + 152, y: cy}, {x: cx + 135, y: cy}, {x: cx + 135, y: cy + 55}
-                ],
-                S: [
-                    {x: cx + 205, y: cy}, {x: cx + 170, y: cy}, {x: cx + 170, y: cy + 28},
-                    {x: cx + 205, y: cy + 28}, {x: cx + 205, y: cy + 55}, {x: cx + 170, y: cy + 55}
-                ],
-                I: [
-                    {x: cx + 235, y: cy}, {x: cx + 235, y: cy + 55}
-                ]
-            };
-
-            let allPoints = [];
-            for (let l in letters) {
-                allPoints.push(...letters[l]);
-            }
-
-            let currentPointIndex = 0;
-
-            function drawConstellationStep() {
-                fxCtx.clearRect(0, 0, fxCanvas.width, fxCanvas.height);
-
-                fxCtx.strokeStyle = 'rgba(216, 180, 254, 0.85)';
-                fxCtx.lineWidth = 2;
-                fxCtx.shadowBlur = 12;
-                fxCtx.shadowColor = '#d8b4fe';
-
-                let letterKeys = ['G', 'E', 'T', 'S', 'I'];
-                let drawnCount = 0;
-
-                letterKeys.forEach(lKey => {
-                    let pts = letters[lKey];
-                    fxCtx.beginPath();
-                    for (let i = 0; i < pts.length; i++) {
-                        if (drawnCount + i <= currentPointIndex) {
-                            if (i === 0) fxCtx.moveTo(pts[i].x, pts[i].y);
-                            else fxCtx.lineTo(pts[i].x, pts[i].y);
-                        }
-                    }
-                    fxCtx.stroke();
-                    drawnCount += pts.length;
-                });
-
-                allPoints.forEach((pt, idx) => {
-                    if (idx <= currentPointIndex) {
-                        fxCtx.fillStyle = '#ffffff';
-                        fxCtx.beginPath();
-                        fxCtx.arc(pt.x, pt.y, 4, 0, Math.PI * 2);
-                        fxCtx.fill();
-                    }
-                });
-
-                if (currentPointIndex < allPoints.length - 1) {
-                    currentPointIndex++;
-                    setTimeout(drawConstellationStep, 250);
-                } else {
-                    document.getElementById('final-message').style.opacity = '1';
-                }
-            }
-
-            setTimeout(drawConstellationStep, 500);
-        }
-    </script>
-</body>
-</html>
+                starCtx.li
