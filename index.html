@@ -4,7 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Para Getsi ✨</title>
+
     <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Quicksand:wght@400;500;600&display=swap" rel="stylesheet">
+
     <style>
         * {
             margin: 0;
@@ -13,34 +15,47 @@
         }
 
         body {
-            background-color: #030008;
+            background: #030008;
             color: #f3e8ff;
             font-family: 'Quicksand', sans-serif;
             min-height: 100vh;
             overflow: hidden;
-            display: flex;
-            justify-content: center;
-            align-items: center;
         }
 
-        h1, p, button, .mystic-text, .popup-card p, .letter-card p, .signature, #final-message p, .side-text {
+        h1,
+        p,
+        button,
+        .mystic-text,
+        .popup-card p,
+        .letter-card p,
+        .signature,
+        #final-message p,
+        .side-text {
             font-family: 'Caveat', cursive !important;
             letter-spacing: 0.5px;
         }
 
+        /* =========================
+           PANTALLAS
+        ========================= */
+
         .screen {
             position: absolute;
+            inset: 0;
             width: 100%;
             height: 100vh;
+
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            transition: opacity 1s ease;
+
+            padding: 20px;
+
             opacity: 0;
             pointer-events: none;
-            padding: 20px;
-            text-align: center;
+
+            transition: opacity 1s ease;
         }
 
         .screen.active {
@@ -48,712 +63,2217 @@
             pointer-events: auto;
         }
 
+        /* =========================
+           FONDO
+        ========================= */
+
         #starfield {
             position: fixed;
-            top: 0;
-            left: 0;
+            inset: 0;
             width: 100%;
             height: 100%;
+
             z-index: 1;
-            background: radial-gradient(circle at center, #15062b 0%, #030008 100%);
+
+            background:
+                radial-gradient(
+                    circle at center,
+                    #15062b 0%,
+                    #080014 45%,
+                    #030008 100%
+                );
         }
 
-        /* Pantalla 1: Estilo video (Hola / Click aquí) */
+        #fx-canvas {
+            position: fixed;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+
+            pointer-events: none;
+            z-index: 10;
+        }
+
+        /* =========================
+           PANTALLA 1
+        ========================= */
+
         #screen-1 {
             cursor: pointer;
             z-index: 50;
         }
 
         .welcome-title {
-            font-size: 4rem;
+            font-size: clamp(3.5rem, 10vw, 5rem);
             color: #d8b4fe;
+
             margin-bottom: 5px;
+
             animation: pulseText 2s infinite ease-in-out;
-            text-shadow: 0 0 20px rgba(216, 180, 254, 0.6);
+
+            text-shadow:
+                0 0 20px rgba(216, 180, 254, 0.6),
+                0 0 45px rgba(168, 85, 247, 0.3);
         }
 
         .welcome-subtitle {
-            font-size: 1.8rem;
+            font-size: clamp(1.5rem, 5vw, 2rem);
             color: #e9d5ff;
+
             margin-bottom: 30px;
         }
 
         .click-btn {
             background: transparent;
+
             border: 2px solid #d8b4fe;
+
             color: #d8b4fe;
+
             padding: 10px 30px;
+
             border-radius: 25px;
+
             font-family: 'Quicksand', sans-serif !important;
             font-weight: 600;
+
             font-size: 1rem;
+
             letter-spacing: 1px;
+
             cursor: pointer;
-            box-shadow: 0 0 15px rgba(216, 180, 254, 0.3);
+
+            box-shadow:
+                0 0 15px rgba(216, 180, 254, 0.3);
+
             transition: all 0.3s ease;
         }
 
         .click-btn:hover {
             background: #d8b4fe;
             color: #030008;
-            box-shadow: 0 0 25px rgba(216, 180, 254, 0.6);
+
+            box-shadow:
+                0 0 25px rgba(216, 180, 254, 0.7);
         }
 
-        /* Pantalla 2: Ramo de Tulipanes Lila/Lavanda, Flores de Cerezo y Textos Laterales */
+        /* =========================
+           PANTALLA 2
+           RAMO
+        ========================= */
+
         .garden-scene {
             position: relative;
-            width: 100%;
-            max-width: 800px;
+
+            width: min(1100px, 100%);
             height: 100vh;
+
             display: flex;
             justify-content: center;
             align-items: center;
+
             z-index: 20;
         }
 
-        .side-text {
-            position: absolute;
-            font-size: 1.8rem;
-            color: #e9d5ff;
-            text-shadow: 0 0 12px rgba(216, 180, 254, 0.5);
-            opacity: 0;
-            transition: opacity 1.5s ease;
-            max-width: 260px;
-            line-height: 1.4;
-        }
-
-        .text-left {
-            left: 2%;
-            top: 38%;
-            text-align: right;
-        }
-
-        .text-right {
-            right: 2%;
-            bottom: 38%;
-            text-align: left;
-        }
-
-        .side-text.show {
-            opacity: 1;
-        }
+        /*
+           ZONA CENTRAL DEL RAMO
+        */
 
         .bouquet-wrapper {
-            position: relative;
-            width: 280px;
-            height: 380px;
+            position: absolute;
+
+            left: 50%;
+            top: 50%;
+
+            transform: translate(-50%, -45%);
+
+            width: 360px;
+            height: 470px;
+
             display: flex;
             justify-content: center;
             align-items: flex-end;
-        }
 
-        .starlight-glow {
-            position: absolute;
-            top: 45%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 90px;
-            height: 90px;
-            background: radial-gradient(circle, rgba(216, 180, 254, 0.9) 0%, rgba(168, 85, 247, 0.5) 40%, transparent 70%);
-            border-radius: 50%;
-            opacity: 0;
-            z-index: 15;
-            box-shadow: 0 0 60px 30px rgba(216, 180, 254, 0.4);
-            animation: burstGlow 1.5s ease-out 0.5s forwards;
+            z-index: 20;
         }
 
         .garden-container {
             position: relative;
+
             width: 100%;
             height: 100%;
+
             z-index: 20;
         }
 
-        /* Tallos */
+        /* Luz detrás del ramo */
+
+        .starlight-glow {
+            position: absolute;
+
+            top: 45%;
+            left: 50%;
+
+            transform: translate(-50%, -50%);
+
+            width: 130px;
+            height: 130px;
+
+            border-radius: 50%;
+
+            background:
+                radial-gradient(
+                    circle,
+                    rgba(216,180,254,0.85) 0%,
+                    rgba(168,85,247,0.35) 40%,
+                    transparent 72%
+                );
+
+            opacity: 0;
+
+            z-index: 15;
+
+            box-shadow:
+                0 0 80px 35px rgba(216,180,254,0.25);
+
+            animation:
+                burstGlow 1.5s ease-out 0.5s forwards;
+        }
+
+        /* =========================
+           TEXTOS LATERALES
+        ========================= */
+
+        .side-text {
+            position: absolute;
+
+            width: 250px;
+
+            font-size: clamp(1.4rem, 2.4vw, 1.8rem);
+
+            line-height: 1.25;
+
+            color: #e9d5ff;
+
+            text-shadow:
+                0 0 12px rgba(216,180,254,0.5);
+
+            opacity: 0;
+
+            transition:
+                opacity 1.5s ease,
+                transform 1.5s ease;
+
+            z-index: 40;
+        }
+
+        .text-left {
+            left: 3%;
+
+            top: 42%;
+
+            text-align: right;
+
+            transform: translateX(-25px);
+        }
+
+        .text-right {
+            right: 3%;
+
+            top: 42%;
+
+            text-align: left;
+
+            transform: translateX(25px);
+        }
+
+        .side-text.show {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        /* =========================
+           TALLOS
+        ========================= */
+
         .stem {
             position: absolute;
-            bottom: 0;
-            width: 4px;
-            height: 0px;
-            background: linear-gradient(to top, #15803d, #22c55e);
-            border-radius: 4px;
+
+            bottom: 35px;
+
+            left: 50%;
+
+            width: 5px;
+
+            background:
+                linear-gradient(
+                    to top,
+                    #166534,
+                    #22c55e
+                );
+
+            border-radius: 10px;
+
             transform-origin: bottom center;
-            animation: growStem 1.5s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+
+            z-index: 8;
+
+            animation-duration: 1.5s;
+            animation-fill-mode: forwards;
+
+            box-shadow:
+                0 0 4px rgba(34,197,94,0.25);
         }
 
-        .stem-1 { left: 44%; animation-name: growStem1; }
-        .stem-2 { left: 52%; animation-name: growStem2; }
-        .stem-3 { left: 36%; animation-name: growStem3; }
-        .stem-4 { left: 60%; animation-name: growStem4; }
-        .stem-5 { left: 48%; animation-name: growStem5; }
+        .stem-1 {
+            margin-left: -55px;
+            animation-name: growStem1;
+        }
 
-        /* Tulipanes Lila y Lavanda */
+        .stem-2 {
+            margin-left: 35px;
+            animation-name: growStem2;
+        }
+
+        .stem-3 {
+            margin-left: -105px;
+            animation-name: growStem3;
+        }
+
+        .stem-4 {
+            margin-left: 85px;
+            animation-name: growStem4;
+        }
+
+        .stem-5 {
+            margin-left: -10px;
+            animation-name: growStem5;
+        }
+
+        /* =========================
+           TULIPANES
+        ========================= */
+
         .tulip-head {
             position: absolute;
-            bottom: 0px;
-            width: 46px;
-            height: 56px;
-            transform: scale(0);
+
+            bottom: 35px;
+
+            left: 50%;
+
+            width: 55px;
+            height: 65px;
+
             transform-origin: bottom center;
-            animation: bloomTulipGroup 1.2s cubic-bezier(0.175, 0.885, 0.32, 1.275) 1s forwards;
+
+            z-index: 12;
+
+            animation-duration: 1.2s;
+            animation-fill-mode: forwards;
         }
 
-        .head-1 { left: calc(44% - 23px); animation-name: bloomTulip1; }
-        .head-2 { left: calc(52% - 23px); animation-name: bloomTulip2; }
-        .head-3 { left: calc(36% - 23px); animation-name: bloomTulip3; }
-        .head-4 { left: calc(60% - 23px); animation-name: bloomTulip4; }
-        .head-5 { left: calc(48% - 23px); animation-name: bloomTulip5; }
+        .head-1 {
+            margin-left: -78px;
+            animation-name: bloomTulip1;
+        }
+
+        .head-2 {
+            margin-left: 18px;
+            animation-name: bloomTulip2;
+        }
+
+        .head-3 {
+            margin-left: -128px;
+            animation-name: bloomTulip3;
+        }
+
+        .head-4 {
+            margin-left: 68px;
+            animation-name: bloomTulip4;
+        }
+
+        .head-5 {
+            margin-left: -30px;
+            animation-name: bloomTulip5;
+        }
 
         .tulip-petal {
             position: absolute;
-            border-radius: 50% 50% 40% 40%;
-            box-shadow: 0 0 10px rgba(216, 180, 254, 0.6);
+
+            border-radius:
+                50% 50% 42% 42%;
+
+            box-shadow:
+                0 0 12px rgba(216,180,254,0.55);
         }
 
-        .lavender-tone .p-center { background: linear-gradient(135deg, #d8b4fe, #a855f7); width: 26px; height: 42px; left: 10px; top: 4px; z-index: 3; }
-        .lavender-tone .p-left { background: linear-gradient(135deg, #e9d5ff, #c084fc); width: 22px; height: 36px; left: 2px; top: 10px; transform: rotate(-18deg); z-index: 2; }
-        .lavender-tone .p-right { background: linear-gradient(135deg, #e9d5ff, #c084fc); width: 22px; height: 36px; right: 2px; top: 10px; transform: rotate(18deg); z-index: 2; }
+        /* Lavanda */
 
-        .lila-tone .p-center { background: linear-gradient(135deg, #c084fc, #7e22ce); width: 26px; height: 42px; left: 10px; top: 4px; z-index: 3; }
-        .lila-tone .p-left { background: linear-gradient(135deg, #d8b4fe, #9333ea); width: 22px; height: 36px; left: 2px; top: 10px; transform: rotate(-18deg); z-index: 2; }
-        .lila-tone .p-right { background: linear-gradient(135deg, #d8b4fe, #9333ea); width: 22px; height: 36px; right: 2px; top: 10px; transform: rotate(18deg); z-index: 2; }
+        .lavender-tone .p-center {
+            background:
+                linear-gradient(
+                    135deg,
+                    #e9d5ff,
+                    #a855f7
+                );
 
-        /* Extras: Flores de Cerezo (Sakura) integradas con tallos sutiles */
+            width: 30px;
+            height: 50px;
+
+            left: 12px;
+            top: 4px;
+
+            z-index: 3;
+        }
+
+        .lavender-tone .p-left {
+            background:
+                linear-gradient(
+                    135deg,
+                    #f3e8ff,
+                    #c084fc
+                );
+
+            width: 25px;
+            height: 43px;
+
+            left: 3px;
+            top: 12px;
+
+            transform: rotate(-18deg);
+
+            z-index: 2;
+        }
+
+        .lavender-tone .p-right {
+            background:
+                linear-gradient(
+                    135deg,
+                    #f3e8ff,
+                    #c084fc
+                );
+
+            width: 25px;
+            height: 43px;
+
+            right: 3px;
+            top: 12px;
+
+            transform: rotate(18deg);
+
+            z-index: 2;
+        }
+
+        /* Lila */
+
+        .lila-tone .p-center {
+            background:
+                linear-gradient(
+                    135deg,
+                    #d8b4fe,
+                    #7e22ce
+                );
+
+            width: 30px;
+            height: 50px;
+
+            left: 12px;
+            top: 4px;
+
+            z-index: 3;
+        }
+
+        .lila-tone .p-left {
+            background:
+                linear-gradient(
+                    135deg,
+                    #e9d5ff,
+                    #9333ea
+                );
+
+            width: 25px;
+            height: 43px;
+
+            left: 3px;
+            top: 12px;
+
+            transform: rotate(-18deg);
+
+            z-index: 2;
+        }
+
+        .lila-tone .p-right {
+            background:
+                linear-gradient(
+                    135deg,
+                    #e9d5ff,
+                    #9333ea
+                );
+
+            width: 25px;
+            height: 43px;
+
+            right: 3px;
+            top: 12px;
+
+            transform: rotate(18deg);
+
+            z-index: 2;
+        }
+
+        /* =========================
+           FLORES DE CEREZO
+        ========================= */
+
         .sakura-stem {
             position: absolute;
-            bottom: 0;
-            width: 3px;
-            height: 0px;
-            background: linear-gradient(to top, #15803d, #4ade80);
-            border-radius: 2px;
+
+            bottom: 35px;
+
+            left: 50%;
+
+            width: 4px;
+
+            background:
+                linear-gradient(
+                    to top,
+                    #166534,
+                    #4ade80
+                );
+
+            border-radius: 5px;
+
             transform-origin: bottom center;
-            animation: growStemSakura 1.5s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+
+            z-index: 7;
+
+            animation-duration: 1.5s;
+            animation-fill-mode: forwards;
         }
-        .sakura-1 { left: 26%; animation-name: growSakuraStem1; }
-        .sakura-2 { left: 72%; animation-name: growSakuraStem2; }
+
+        .sakura-1 {
+            margin-left: -155px;
+            animation-name: growSakuraStem1;
+        }
+
+        .sakura-2 {
+            margin-left: 135px;
+            animation-name: growSakuraStem2;
+        }
 
         .sakura-cluster {
             position: absolute;
-            bottom: 0px;
-            width: 40px;
-            height: 40px;
-            transform: scale(0);
+
+            bottom: 35px;
+
+            left: 50%;
+
+            width: 52px;
+            height: 52px;
+
             transform-origin: bottom center;
-            animation: bloomSakura 1.2s cubic-bezier(0.175, 0.885, 0.32, 1.275) 1.1s forwards;
+
+            z-index: 16;
+
+            animation-duration: 1.2s;
+            animation-fill-mode: forwards;
         }
-        .sakura-c1 { left: calc(26% - 20px); animation-name: bloomSakura1; }
-        .sakura-c2 { left: calc(72% - 20px); animation-name: bloomSakura2; }
+
+        .sakura-c1 {
+            margin-left: -180px;
+            animation-name: bloomSakura1;
+        }
+
+        .sakura-c2 {
+            margin-left: 110px;
+            animation-name: bloomSakura2;
+        }
 
         .sakura-petal {
             position: absolute;
-            width: 14px;
-            height: 20px;
-            background: linear-gradient(135deg, #fbcfe8, #f472b6);
-            border-radius: 50% 50% 20% 20%;
-            box-shadow: 0 0 8px rgba(244, 114, 182, 0.6);
-            top: 10px;
-            left: 13px;
+
+            width: 17px;
+            height: 23px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #fce7f3,
+                    #f472b6
+                );
+
+            border-radius:
+                50% 50% 25% 25%;
+
+            box-shadow:
+                0 0 10px rgba(244,114,182,0.5);
+
+            top: 12px;
+            left: 17px;
+
+            transform-origin: bottom center;
         }
-        .sp-1 { transform: rotate(0deg) translateY(-12px); }
-        .sp-2 { transform: rotate(72deg) translateY(-12px); transform-origin: bottom center; }
-        .sp-3 { transform: rotate(144deg) translateY(-12px); transform-origin: bottom center; }
-        .sp-4 { transform: rotate(216deg) translateY(-12px); transform-origin: bottom center; }
-        .sp-5 { transform: rotate(288deg) translateY(-12px); transform-origin: bottom center; }
+
+        .sp-1 {
+            transform: rotate(0deg) translateY(-14px);
+        }
+
+        .sp-2 {
+            transform: rotate(72deg) translateY(-14px);
+        }
+
+        .sp-3 {
+            transform: rotate(144deg) translateY(-14px);
+        }
+
+        .sp-4 {
+            transform: rotate(216deg) translateY(-14px);
+        }
+
+        .sp-5 {
+            transform: rotate(288deg) translateY(-14px);
+        }
+
         .sakura-center {
             position: absolute;
-            width: 10px;
-            height: 10px;
+
+            width: 11px;
+            height: 11px;
+
             background: #fde047;
+
             border-radius: 50%;
-            top: 15px;
-            left: 15px;
-            box-shadow: 0 0 6px #facc15;
+
+            top: 20px;
+            left: 20px;
+
+            box-shadow:
+                0 0 8px #facc15;
+
             z-index: 4;
         }
 
-        /* Botón para continuar al cielo */
+        /* =========================
+           BOTÓN
+        ========================= */
+
         .next-step-btn {
             position: absolute;
-            bottom: 30px;
-            background: linear-gradient(135deg, #c084fc, #f472b6);
-            color: #fff;
+
+            bottom: 28px;
+
+            left: 50%;
+
+            transform:
+                translateX(-50%)
+                translateY(20px);
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #c084fc,
+                    #f472b6
+                );
+
+            color: white;
+
             border: none;
-            padding: 10px 25px;
+
+            padding: 11px 27px;
+
             border-radius: 30px;
-            font-size: 1.2rem;
+
+            font-size: 1.25rem;
+
             font-weight: bold;
+
             cursor: pointer;
-            box-shadow: 0 4px 15px rgba(192, 132, 252, 0.4);
-            transition: transform 0.2s, box-shadow 0.2s;
+
+            box-shadow:
+                0 4px 18px rgba(192,132,252,0.4);
+
             opacity: 0;
-            transform: translateY(20px);
-            z-index: 30;
+
+            transition:
+                opacity 1s ease,
+                transform 0.3s ease,
+                box-shadow 0.3s ease;
+
+            z-index: 50;
         }
 
         .next-step-btn:hover {
-            transform: scale(1.05);
-            box-shadow: 0 6px 20px rgba(244, 114, 182, 0.6);
+            transform:
+                translateX(-50%)
+                scale(1.05);
+
+            box-shadow:
+                0 6px 25px rgba(244,114,182,0.6);
         }
 
-        /* Pantallas 3 y 4: Exploración y Carta */
+        /* =========================
+           PANTALLA 3
+        ========================= */
+
         .sky-exploration {
             position: relative;
+
             width: 100%;
             max-width: 450px;
+
             height: 55vh;
+
             z-index: 20;
         }
 
         .explore-star {
             position: absolute;
+
             cursor: pointer;
-            background: rgba(216, 180, 254, 0.15);
-            border: 2px solid rgba(216, 180, 254, 0.6);
+
+            background:
+                rgba(216,180,254,0.15);
+
+            border:
+                2px solid rgba(216,180,254,0.6);
+
             border-radius: 50%;
+
             display: flex;
             justify-content: center;
             align-items: center;
+
             font-size: 1.4rem;
-            transition: all 0.4s ease;
-            box-shadow: 0 0 15px rgba(216, 180, 254, 0.3);
+
+            transition:
+                all 0.4s ease;
+
+            box-shadow:
+                0 0 15px rgba(216,180,254,0.3);
+
             z-index: 25;
         }
 
-        #star-sirio { top: 15%; left: 20%; width: 50px; height: 50px; }
-        #star-andromeda { top: 30%; right: 15%; width: 48px; height: 48px; }
-        #star-luna { bottom: 35%; left: 15%; width: 48px; height: 48px; }
-        #star-fugaz { top: 10%; right: 35%; width: 42px; height: 42px; }
-        #star-desconocida { bottom: 20%; right: 25%; width: 50px; height: 50px; }
+        .explore-star:hover {
+            transform: scale(1.15);
+
+            box-shadow:
+                0 0 30px rgba(216,180,254,0.7);
+        }
+
+        #star-sirio {
+            top: 15%;
+            left: 20%;
+
+            width: 50px;
+            height: 50px;
+        }
+
+        #star-andromeda {
+            top: 30%;
+            right: 15%;
+
+            width: 48px;
+            height: 48px;
+        }
+
+        #star-luna {
+            bottom: 35%;
+            left: 15%;
+
+            width: 48px;
+            height: 48px;
+        }
+
+        #star-fugaz {
+            top: 10%;
+            right: 35%;
+
+            width: 42px;
+            height: 42px;
+        }
+
+        #star-desconocida {
+            bottom: 20%;
+            right: 25%;
+
+            width: 50px;
+            height: 50px;
+        }
+
+        /* =========================
+           POPUPS
+        ========================= */
 
         .popup-card {
             position: absolute;
+
             bottom: 5vh;
             left: 50%;
-            transform: translateX(-50%) translateY(20px);
-            background: rgba(16, 5, 33, 0.95);
-            border: 1px solid rgba(216, 180, 254, 0.3);
+
+            transform:
+                translateX(-50%)
+                translateY(20px);
+
+            background:
+                rgba(16,5,33,0.96);
+
+            border:
+                1px solid rgba(216,180,254,0.3);
+
             padding: 18px 22px;
+
             border-radius: 16px;
+
             max-width: 90%;
+
             width: 360px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+
+            box-shadow:
+                0 10px 30px rgba(0,0,0,0.6);
+
             opacity: 0;
+
             pointer-events: none;
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+
+            transition:
+                all 0.4s ease;
+
             z-index: 30;
         }
 
         .popup-card.show {
             opacity: 1;
-            transform: translateX(-50%) translateY(0);
+
+            transform:
+                translateX(-50%)
+                translateY(0);
+
             pointer-events: auto;
         }
 
         .popup-card p {
             font-size: 1.3rem;
+
             line-height: 1.4;
+
             color: #f3e8ff;
+
             margin-bottom: 12px;
         }
 
         .close-btn {
             background: #d8b4fe;
+
             color: #030008;
+
             border: none;
+
             padding: 5px 16px;
+
             border-radius: 20px;
+
             font-weight: bold;
+
             font-size: 1.1rem;
+
             cursor: pointer;
         }
 
+        /* =========================
+           CARTA
+        ========================= */
+
         .letter-card {
-            background: rgba(16, 5, 33, 0.9);
-            border: 1px solid rgba(216, 180, 254, 0.2);
+            background:
+                rgba(16,5,33,0.93);
+
+            border:
+                1px solid rgba(216,180,254,0.2);
+
             padding: 25px;
+
             border-radius: 20px;
+
             max-width: 440px;
             width: 90%;
-            box-shadow: 0 15px 40px rgba(0,0,0,0.7);
+
+            box-shadow:
+                0 15px 40px rgba(0,0,0,0.7);
+
             text-align: left;
+
             max-height: 75vh;
+
             overflow-y: auto;
+
             z-index: 20;
         }
 
         .letter-card p {
             font-size: 1.3rem;
+
             line-height: 1.5;
+
             color: #e9d5ff;
+
             margin-bottom: 12px;
         }
 
         .letter-card .signature {
             text-align: right;
+
             font-weight: bold;
+
             font-size: 1.3rem;
+
             color: #f472b6;
+
             margin-top: 15px;
         }
 
-        /* Animaciones de Crecimiento */
-        @keyframes growStem1 { 0% { height: 0px; } 100% { height: 175px; transform: rotate(-4deg); } }
-        @keyframes growStem2 { 0% { height: 0px; } 100% { height: 190px; transform: rotate(2deg); } }
-        @keyframes growStem3 { 0% { height: 0px; } 100% { height: 150px; transform: rotate(-14deg); } }
-        @keyframes growStem4 { 0% { height: 0px; } 100% { height: 155px; transform: rotate(15deg); } }
-        @keyframes growStem5 { 0% { height: 0px; } 100% { height: 205px; transform: rotate(0deg); } }
-        @keyframes growSakuraStem1 { 0% { height: 0px; } 100% { height: 130px; transform: rotate(-22deg); } }
-        @keyframes growSakuraStem2 { 0% { height: 0px; } 100% { height: 135px; transform: rotate(24deg); } }
+        /* =========================
+           FINAL
+        ========================= */
 
-        @keyframes bloomTulip1 { 0% { bottom: 0px; transform: scale(0) rotate(-4deg); } 100% { bottom: 165px; transform: scale(1) rotate(-4deg); } }
-        @keyframes bloomTulip2 { 0% { bottom: 0px; transform: scale(0) rotate(2deg); } 100% { bottom: 180px; transform: scale(1) rotate(2deg); } }
-        @keyframes bloomTulip3 { 0% { bottom: 0px; transform: scale(0) rotate(-14deg); } 100% { bottom: 140px; transform: scale(1) rotate(-14deg); } }
-        @keyframes bloomTulip4 { 0% { bottom: 0px; transform: scale(0) rotate(15deg); } 100% { bottom: 145px; transform: scale(1) rotate(15deg); } }
-        @keyframes bloomTulip5 { 0% { bottom: 0px; transform: scale(0) rotate(0deg); } 100% { bottom: 195px; transform: scale(1) rotate(0deg); } }
+        #final-message {
+            opacity: 0;
 
-        @keyframes bloomSakura1 { 0% { bottom: 0px; transform: scale(0) rotate(-22deg); } 100% { bottom: 120px; transform: scale(1) rotate(-22deg); } }
-        @keyframes bloomSakura2 { 0% { bottom: 0px; transform: scale(0) rotate(24deg); } 100% { bottom: 125px; transform: scale(1) rotate(24deg); } }
+            transition:
+                opacity 2s ease;
+
+            position: absolute;
+
+            bottom: 15vh;
+
+            text-align: center;
+
+            width: 100%;
+
+            z-index: 20;
+        }
+
+        #final-message p {
+            font-size: clamp(1.5rem, 5vw, 1.9rem);
+
+            color: #d8b4fe;
+
+            text-shadow:
+                0 0 15px rgba(216,180,254,0.6);
+        }
+
+        /* =========================
+           ANIMACIONES
+        ========================= */
+
+        @keyframes growStem1 {
+            0% {
+                height: 0;
+            }
+
+            100% {
+                height: 205px;
+                transform: rotate(-8deg);
+            }
+        }
+
+        @keyframes growStem2 {
+            0% {
+                height: 0;
+            }
+
+            100% {
+                height: 220px;
+                transform: rotate(4deg);
+            }
+        }
+
+        @keyframes growStem3 {
+            0% {
+                height: 0;
+            }
+
+            100% {
+                height: 175px;
+                transform: rotate(-16deg);
+            }
+        }
+
+        @keyframes growStem4 {
+            0% {
+                height: 0;
+            }
+
+            100% {
+                height: 185px;
+                transform: rotate(17deg);
+            }
+        }
+
+        @keyframes growStem5 {
+            0% {
+                height: 0;
+            }
+
+            100% {
+                height: 235px;
+                transform: rotate(0deg);
+            }
+        }
+
+        @keyframes growSakuraStem1 {
+            0% {
+                height: 0;
+            }
+
+            100% {
+                height: 160px;
+                transform: rotate(-25deg);
+            }
+        }
+
+        @keyframes growSakuraStem2 {
+            0% {
+                height: 0;
+            }
+
+            100% {
+                height: 165px;
+                transform: rotate(25deg);
+            }
+        }
+
+        @keyframes bloomTulip1 {
+            0% {
+                bottom: 35px;
+                transform: scale(0) rotate(-8deg);
+            }
+
+            100% {
+                bottom: 225px;
+                transform: scale(1) rotate(-8deg);
+            }
+        }
+
+        @keyframes bloomTulip2 {
+            0% {
+                bottom: 35px;
+                transform: scale(0) rotate(4deg);
+            }
+
+            100% {
+                bottom: 240px;
+                transform: scale(1) rotate(4deg);
+            }
+        }
+
+        @keyframes bloomTulip3 {
+            0% {
+                bottom: 35px;
+                transform: scale(0) rotate(-16deg);
+            }
+
+            100% {
+                bottom: 195px;
+                transform: scale(1) rotate(-16deg);
+            }
+        }
+
+        @keyframes bloomTulip4 {
+            0% {
+                bottom: 35px;
+                transform: scale(0) rotate(17deg);
+            }
+
+            100% {
+                bottom: 205px;
+                transform: scale(1) rotate(17deg);
+            }
+        }
+
+        @keyframes bloomTulip5 {
+            0% {
+                bottom: 35px;
+                transform: scale(0) rotate(0deg);
+            }
+
+            100% {
+                bottom: 260px;
+                transform: scale(1) rotate(0deg);
+            }
+        }
+
+        @keyframes bloomSakura1 {
+            0% {
+                bottom: 35px;
+                transform: scale(0) rotate(-25deg);
+            }
+
+            100% {
+                bottom: 175px;
+                transform: scale(1) rotate(-25deg);
+            }
+        }
+
+        @keyframes bloomSakura2 {
+            0% {
+                bottom: 35px;
+                transform: scale(0) rotate(25deg);
+            }
+
+            100% {
+                bottom: 180px;
+                transform: scale(1) rotate(25deg);
+            }
+        }
 
         @keyframes burstGlow {
-            0% { opacity: 0; transform: translate(-50%, -50%) scale(0.2); }
-            50% { opacity: 1; transform: translate(-50%, -50%) scale(1.3); }
-            100% { opacity: 0.8; transform: translate(-50%, -50%) scale(1); }
+            0% {
+                opacity: 0;
+
+                transform:
+                    translate(-50%, -50%)
+                    scale(0.2);
+            }
+
+            50% {
+                opacity: 1;
+
+                transform:
+                    translate(-50%, -50%)
+                    scale(1.3);
+            }
+
+            100% {
+                opacity: 0.8;
+
+                transform:
+                    translate(-50%, -50%)
+                    scale(1);
+            }
         }
 
         @keyframes pulseText {
-            0%, 100% { opacity: 0.7; }
-            50% { opacity: 1; }
+            0%,
+            100% {
+                opacity: 0.7;
+            }
+
+            50% {
+                opacity: 1;
+            }
         }
 
-        #fx-canvas {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 10;
+        /* =========================
+           CELULAR
+        ========================= */
+
+        @media (max-width: 700px) {
+
+            .garden-scene {
+                height: 100vh;
+            }
+
+            .bouquet-wrapper {
+                width: 320px;
+                height: 420px;
+
+                top: 46%;
+            }
+
+            /*
+              En celular ponemos los textos
+              arriba y abajo del ramo,
+              no encima de las flores.
+            */
+
+            .side-text {
+                width: 85%;
+
+                left: 50%;
+                right: auto;
+
+                transform:
+                    translateX(-50%)
+                    translateY(15px);
+
+                text-align: center;
+
+                font-size: 1.35rem;
+            }
+
+            .text-left {
+                top: 9%;
+            }
+
+            .text-right {
+                top: auto;
+                bottom: 15%;
+
+                transform:
+                    translateX(-50%)
+                    translateY(15px);
+            }
+
+            .side-text.show {
+                transform:
+                    translateX(-50%)
+                    translateY(0);
+            }
+
+            .next-step-btn {
+                bottom: 25px;
+
+                font-size: 1.1rem;
+
+                padding: 9px 22px;
+            }
+
+            .welcome-subtitle {
+                font-size: 1.5rem;
+            }
+
+            .letter-card {
+                padding: 20px;
+            }
+
+            .letter-card p {
+                font-size: 1.2rem;
+            }
+
+            /*
+              Hacemos el ramo ligeramente
+              más compacto en pantallas pequeñas.
+            */
+
+            .tulip-head {
+                transform-origin: bottom center;
+            }
+        }
+
+        @media (max-width: 400px) {
+
+            .bouquet-wrapper {
+                transform:
+                    translate(-50%, -46%)
+                    scale(0.85);
+            }
+
+            .text-left {
+                top: 8%;
+            }
+
+            .text-right {
+                bottom: 14%;
+            }
+
+            .side-text {
+                font-size: 1.25rem;
+            }
         }
     </style>
 </head>
+
 <body>
 
     <canvas id="starfield"></canvas>
     <canvas id="fx-canvas"></canvas>
 
-    <div id="screen-1" class="screen active" onclick="startExperience()">
-        <h1 class="welcome-title">¡Hola!</h1>
-        <p class="welcome-subtitle">ESTE DETALLE ES PARA TI :)</p>
-        <button class="click-btn">CLICK AQUÍ</button>
+    <!-- =========================
+         PANTALLA 1
+    ========================= -->
+
+    <div
+        id="screen-1"
+        class="screen active"
+        onclick="startExperience()"
+    >
+
+        <h1 class="welcome-title">
+            ¡Hola!
+        </h1>
+
+        <p class="welcome-subtitle">
+            ESTE DETALLE ES PARA TI :)
+        </p>
+
+        <button class="click-btn">
+            CLICK AQUÍ
+        </button>
+
     </div>
 
+
+    <!-- =========================
+         PANTALLA 2
+    ========================= -->
+
     <div id="screen-2" class="screen">
+
         <div class="garden-scene">
-            <div class="side-text text-left" id="textLeft">
-                Estos tulipanes lila son un reflejo de la magia que traes a mi vida. ✨
+
+            <!-- TEXTO IZQUIERDO -->
+
+            <div
+                class="side-text text-left"
+                id="textLeft"
+            >
+                Estos tulipanes lila son un reflejo
+                de la magia que traes a mi vida. ✨
             </div>
 
+
+            <!-- RAMO -->
+
             <div class="bouquet-wrapper">
+
                 <div class="starlight-glow"></div>
+
                 <div class="garden-container">
+
+                    <!-- TALLOS -->
+
                     <div class="stem stem-1"></div>
                     <div class="stem stem-2"></div>
                     <div class="stem stem-3"></div>
                     <div class="stem stem-4"></div>
                     <div class="stem stem-5"></div>
 
-                    <div class="tulip-head head-1 lavender-tone">
-                        <div class="tulip-petal p-left"></div>
-                        <div class="tulip-petal p-right"></div>
-                        <div class="tulip-petal p-center"></div>
-                    </div>
-                    <div class="tulip-head head-2 lila-tone">
-                        <div class="tulip-petal p-left"></div>
-                        <div class="tulip-petal p-right"></div>
-                        <div class="tulip-petal p-center"></div>
-                    </div>
-                    <div class="tulip-head head-3 lila-tone">
-                        <div class="tulip-petal p-left"></div>
-                        <div class="tulip-petal p-right"></div>
-                        <div class="tulip-petal p-center"></div>
-                    </div>
-                    <div class="tulip-head head-4 lavender-tone">
-                        <div class="tulip-petal p-left"></div>
-                        <div class="tulip-petal p-right"></div>
-                        <div class="tulip-petal p-center"></div>
-                    </div>
-                    <div class="tulip-head head-5 lila-tone">
+
+                    <!-- TULIPÁN 1 -->
+
+                    <div
+                        class="tulip-head head-1 lavender-tone"
+                    >
                         <div class="tulip-petal p-left"></div>
                         <div class="tulip-petal p-right"></div>
                         <div class="tulip-petal p-center"></div>
                     </div>
 
-                    <div class="sakura-stem sakura-1"></div>
-                    <div class="sakura-stem sakura-2"></div>
-                    <div class="sakura-cluster sakura-c1">
+
+                    <!-- TULIPÁN 2 -->
+
+                    <div
+                        class="tulip-head head-2 lila-tone"
+                    >
+                        <div class="tulip-petal p-left"></div>
+                        <div class="tulip-petal p-right"></div>
+                        <div class="tulip-petal p-center"></div>
+                    </div>
+
+
+                    <!-- TULIPÁN 3 -->
+
+                    <div
+                        class="tulip-head head-3 lila-tone"
+                    >
+                        <div class="tulip-petal p-left"></div>
+                        <div class="tulip-petal p-right"></div>
+                        <div class="tulip-petal p-center"></div>
+                    </div>
+
+
+                    <!-- TULIPÁN 4 -->
+
+                    <div
+                        class="tulip-head head-4 lavender-tone"
+                    >
+                        <div class="tulip-petal p-left"></div>
+                        <div class="tulip-petal p-right"></div>
+                        <div class="tulip-petal p-center"></div>
+                    </div>
+
+
+                    <!-- TULIPÁN CENTRAL -->
+
+                    <div
+                        class="tulip-head head-5 lila-tone"
+                    >
+                        <div class="tulip-petal p-left"></div>
+                        <div class="tulip-petal p-right"></div>
+                        <div class="tulip-petal p-center"></div>
+                    </div>
+
+
+                    <!-- TALLOS SAKURA -->
+
+                    <div
+                        class="sakura-stem sakura-1"
+                    ></div>
+
+                    <div
+                        class="sakura-stem sakura-2"
+                    ></div>
+
+
+                    <!-- SAKURA IZQUIERDA -->
+
+                    <div
+                        class="sakura-cluster sakura-c1"
+                    >
+
                         <div class="sakura-petal sp-1"></div>
                         <div class="sakura-petal sp-2"></div>
                         <div class="sakura-petal sp-3"></div>
                         <div class="sakura-petal sp-4"></div>
                         <div class="sakura-petal sp-5"></div>
+
                         <div class="sakura-center"></div>
+
                     </div>
-                    <div class="sakura-cluster sakura-c2">
+
+
+                    <!-- SAKURA DERECHA -->
+
+                    <div
+                        class="sakura-cluster sakura-c2"
+                    >
+
                         <div class="sakura-petal sp-1"></div>
                         <div class="sakura-petal sp-2"></div>
                         <div class="sakura-petal sp-3"></div>
                         <div class="sakura-petal sp-4"></div>
                         <div class="sakura-petal sp-5"></div>
+
                         <div class="sakura-center"></div>
+
                     </div>
+
                 </div>
             </div>
 
-            <div class="side-text text-right" id="textRight">
-                Gracias por iluminar mis días con tu presencia. 💜
+
+            <!-- TEXTO DERECHO -->
+
+            <div
+                class="side-text text-right"
+                id="textRight"
+            >
+                Gracias por iluminar mis días
+                con tu presencia. 💜
             </div>
 
-            <button id="toSkyBtn" class="next-step-btn" onclick="goToScreen(3)">Explorar el cielo ✨</button>
+
+            <!-- BOTÓN -->
+
+            <button
+                id="toSkyBtn"
+                class="next-step-btn"
+                onclick="goToScreen(3)"
+            >
+                Explorar el cielo ✨
+            </button>
+
         </div>
     </div>
+
+
+    <!-- =========================
+         PANTALLA 3
+    ========================= -->
 
     <div id="screen-3" class="screen">
+
         <div class="sky-exploration">
-            <div id="star-sirio" class="explore-star">⭐</div>
-            <div id="star-andromeda" class="explore-star">🌌</div>
-            <div id="star-luna" class="explore-star">🌙</div>
-            <div id="star-fugaz" class="explore-star">🌠</div>
-            <div id="star-desconocida" class="explore-star">💫</div>
+
+            <div
+                id="star-sirio"
+                class="explore-star"
+            >
+                ⭐
+            </div>
+
+            <div
+                id="star-andromeda"
+                class="explore-star"
+            >
+                🌌
+            </div>
+
+            <div
+                id="star-luna"
+                class="explore-star"
+            >
+                🌙
+            </div>
+
+            <div
+                id="star-fugaz"
+                class="explore-star"
+            >
+                🌠
+            </div>
+
+            <div
+                id="star-desconocida"
+                class="explore-star"
+            >
+                💫
+            </div>
+
         </div>
 
-        <div id="popup-sirio" class="popup-card">
-            <p>Hay estrellas que simplemente destacan. Sirio es una de ellas, y tú también destacas con tu propio brillo. ✨</p>
-            <button class="close-btn" onclick="closePopup('sirio')">Continuar</button>
+
+        <!-- POPUP SIRIO -->
+
+        <div
+            id="popup-sirio"
+            class="popup-card"
+        >
+
+            <p>
+                Hay estrellas que simplemente destacan.
+                Sirio es una de ellas, y tú también
+                destacas con tu propio brillo. ✨
+            </p>
+
+            <button
+                class="close-btn"
+                onclick="closePopup('sirio')"
+            >
+                Continuar
+            </button>
+
         </div>
-        <div id="popup-andromeda" class="popup-card">
-            <p>Andrómeda guarda historias imponentes, pero ninguna tan hermosa como la coincidencia de cruzarnos. 🌌</p>
-            <button class="close-btn" onclick="closePopup('andromeda')">Continuar</button>
+
+
+        <!-- POPUP ANDRÓMEDA -->
+
+        <div
+            id="popup-andromeda"
+            class="popup-card"
+        >
+
+            <p>
+                Andrómeda guarda historias imponentes,
+                pero ninguna tan hermosa como la
+                coincidencia de cruzarnos. 🌌
+            </p>
+
+            <button
+                class="close-btn"
+                onclick="closePopup('andromeda')"
+            >
+                Continuar
+            </button>
+
         </div>
-        <div id="popup-luna" class="popup-card">
-            <p>La luna ilumina las noches más oscuras, tal como tu sonrisa ilumina mis días. 🌙</p>
-            <button class="close-btn" onclick="closePopup('luna')">Continuar</button>
+
+
+        <!-- POPUP LUNA -->
+
+        <div
+            id="popup-luna"
+            class="popup-card"
+        >
+
+            <p>
+                La luna ilumina las noches más oscuras,
+                tal como tu sonrisa ilumina mis días. 🌙
+            </p>
+
+            <button
+                class="close-btn"
+                onclick="closePopup('luna')"
+            >
+                Continuar
+            </button>
+
         </div>
-        <div id="popup-fugaz" class="popup-card">
-            <p>Dicen que al ver una estrella fugaz se pide un deseo... mi único deseo ya se cumplió. 🌠</p>
-            <button class="close-btn" onclick="closePopup('fugaz')">Continuar</button>
+
+
+        <!-- POPUP ESTRELLA FUGAZ -->
+
+        <div
+            id="popup-fugaz"
+            class="popup-card"
+        >
+
+            <p>
+                Dicen que al ver una estrella fugaz
+                se pide un deseo...
+                mi único deseo ya se cumplió. 🌠
+            </p>
+
+            <button
+                class="close-btn"
+                onclick="closePopup('fugaz')"
+            >
+                Continuar
+            </button>
+
         </div>
-        <div id="popup-desconocida" class="popup-card">
-            <p>Una estrella oculta esperando revelar el gran secreto del universo... 💫</p>
-            <button class="close-btn" onclick="openLetter()">Leer Carta ✨</button>
+
+
+        <!-- POPUP ESTRELLA DESCONOCIDA -->
+
+        <div
+            id="popup-desconocida"
+            class="popup-card"
+        >
+
+            <p>
+                Una estrella oculta esperando revelar
+                el gran secreto del universo... 💫
+            </p>
+
+            <button
+                class="close-btn"
+                onclick="openLetter()"
+            >
+                Leer Carta ✨
+            </button>
+
         </div>
+
     </div>
+
+
+    <!-- =========================
+         PANTALLA 4
+    ========================= -->
 
     <div id="screen-4" class="screen">
+
         <div class="letter-card">
-            <p>Getsi:</p>
-            <p>Desde el momento en que llegaste, mi universo entero cambió de color. Cada rincón brilla con una intensidad distinta, y quise crear este pequeño pedazo de cielo solo para recordarte lo especial que eres para mí.</p>
-            <p>Gracias por ser esa luz constante que guía mis días y por llenar todo con tu magia.</p>
-            <p class="signature">Te amo con todo mi corazón 💖</p>
-            <button class="click-btn" style="margin: 20px auto 0; display: block;" onclick="startConstellationFinale()">Ver Constelación Final ✨</button>
+
+            <p>
+                Getsi:
+            </p>
+
+            <p>
+                Desde el momento en que llegaste,
+                mi universo entero cambió de color.
+                Cada rincón brilla con una intensidad
+                distinta, y quise crear este pequeño
+                pedazo de cielo solo para recordarte
+                lo especial que eres para mí.
+            </p>
+
+            <p>
+                Gracias por ser esa luz constante
+                que guía mis días y por llenar todo
+                con tu magia.
+            </p>
+
+            <p class="signature">
+                Te amo con todo mi corazón 💖
+            </p>
+
+            <button
+                class="click-btn"
+                style="
+                    margin:20px auto 0;
+                    display:block;
+                "
+                onclick="startConstellationFinale()"
+            >
+                Ver Constelación Final ✨
+            </button>
+
         </div>
+
     </div>
+
+
+    <!-- =========================
+         PANTALLA 5
+    ========================= -->
 
     <div id="screen-5" class="screen">
-        <div id="final-message" style="opacity: 0; transition: opacity 2s ease; position: absolute; bottom: 15vh; text-align: center; width: 100%; z-index: 20;">
-            <p style="font-size: 1.8rem; color: #d8b4fe; text-shadow: 0 0 15px rgba(216,180,254,0.6);">Eres mi constelación favorita, Getsi. ✨❤️</p>
+
+        <div id="final-message">
+
+            <p>
+                Eres mi constelación favorita,
+                Getsi. ✨❤️
+            </p>
+
         </div>
+
     </div>
 
+
     <script>
-        // Fondo de estrellas parpadeantes y fugaces
-        const starCanvas = document.getElementById('starfield');
-        const starCtx = starCanvas.getContext('2d');
+
+        /* =========================================
+           FONDO DE ESTRELLAS
+        ========================================= */
+
+        const starCanvas =
+            document.getElementById('starfield');
+
+        const starCtx =
+            starCanvas.getContext('2d');
+
         let stars = [];
         let shootingStars = [];
 
+
         function resizeCanvas() {
-            starCanvas.width = window.innerWidth;
-            starCanvas.height = window.innerHeight;
+
+            starCanvas.width =
+                window.innerWidth;
+
+            starCanvas.height =
+                window.innerHeight;
         }
-        window.addEventListener('resize', resizeCanvas);
+
+
+        window.addEventListener(
+            'resize',
+            resizeCanvas
+        );
+
         resizeCanvas();
 
+
         for (let i = 0; i < 120; i++) {
+
             stars.push({
-                x: Math.random() * starCanvas.width,
-                y: Math.random() * starCanvas.height,
-                radius: Math.random() * 1.5,
-                alpha: Math.random(),
-                speed: Math.random() * 0.02 + 0.005
+
+                x:
+                    Math.random() *
+                    starCanvas.width,
+
+                y:
+                    Math.random() *
+                    starCanvas.height,
+
+                radius:
+                    Math.random() * 1.5,
+
+                alpha:
+                    Math.random(),
+
+                speed:
+                    Math.random() * 0.02 +
+                    0.005
             });
         }
 
+
         function animateStars() {
-            starCtx.clearRect(0, 0, starCanvas.width, starCanvas.height);
-            starCtx.fillStyle = '#ffffff';
+
+            starCtx.clearRect(
+                0,
+                0,
+                starCanvas.width,
+                starCanvas.height
+            );
+
+
+            starCtx.fillStyle =
+                '#ffffff';
+
+
             stars.forEach(s => {
-                starCtx.globalAlpha = s.alpha;
+
+                starCtx.globalAlpha =
+                    s.alpha;
+
                 starCtx.beginPath();
-                starCtx.arc(s.x, s.y, s.radius, 0, Math.PI * 2);
+
+                starCtx.arc(
+                    s.x,
+                    s.y,
+                    s.radius,
+                    0,
+                    Math.PI * 2
+                );
+
                 starCtx.fill();
+
+
                 s.alpha += s.speed;
-                if (s.alpha > 1 || s.alpha < 0.2) s.speed = -s.speed;
+
+
+                if (
+                    s.alpha > 1 ||
+                    s.alpha < 0.2
+                ) {
+                    s.speed =
+                        -s.speed;
+                }
+
             });
 
+
+            /* Estrellas fugaces */
+
             if (Math.random() < 0.02) {
+
                 shootingStars.push({
-                    x: Math.random() * starCanvas.width,
+
+                    x:
+                        Math.random() *
+                        starCanvas.width,
+
                     y: 0,
-                    length: Math.random() * 70 + 30,
-                    speed: Math.random() * 8 + 5,
+
+                    length:
+                        Math.random() *
+                        70 + 30,
+
+                    speed:
+                        Math.random() *
+                        8 + 5,
+
                     opacity: 1
                 });
             }
 
-            starCtx.strokeStyle = 'rgba(255,255,255,0.8)';
-            starCtx.lineWidth = 1.5;
-            shootingStars.forEach((ss, index) => {
-                starCtx.globalAlpha = ss.opacity;
-                starCtx.beginPath();
-                starCtx.moveTo(ss.x, ss.y);
-                starCtx.lineTo(ss.x - ss.length, ss.y + ss.length);
-                starCtx.stroke();
-                ss.x -= ss.speed;
-                ss.y += ss.speed;
-                ss.opacity -= 0.03;
-                if (ss.opacity <= 0) shootingStars.splice(index, 1);
-            });
 
-            requestAnimationFrame(animateStars);
+            starCtx.strokeStyle =
+                'rgba(255,255,255,0.8)';
+
+            starCtx.lineWidth = 1.5;
+
+
+            shootingStars.forEach(
+                (ss, index) => {
+
+                    starCtx.globalAlpha =
+                        ss.opacity;
+
+                    starCtx.beginPath();
+
+                    starCtx.moveTo(
+                        ss.x,
+                        ss.y
+                    );
+
+                    starCtx.lineTo(
+                        ss.x - ss.length,
+                        ss.y + ss.length
+                    );
+
+                    starCtx.stroke();
+
+
+                    ss.x -= ss.speed;
+                    ss.y += ss.speed;
+
+                    ss.opacity -= 0.03;
+
+
+                    if (ss.opacity <= 0) {
+
+                        shootingStars.splice(
+                            index,
+                            1
+                        );
+                    }
+
+                }
+            );
+
+
+            requestAnimationFrame(
+                animateStars
+            );
         }
+
+
         animateStars();
 
+
+        /* =========================================
+           CAMBIO DE PANTALLAS
+        ========================================= */
+
         let currentScreen = 1;
+
+
         function goToScreen(screenNumber) {
-            document.getElementById(`screen-${currentScreen}`).classList.remove('active');
-            currentScreen = screenNumber;
-            document.getElementById(`screen-${screenNumber}`).classList.add('active');
+
+            document
+                .getElementById(
+                    `screen-${currentScreen}`
+                )
+                .classList
+                .remove('active');
+
+
+            currentScreen =
+                screenNumber;
+
+
+            document
+                .getElementById(
+                    `screen-${screenNumber}`
+                )
+                .classList
+                .add('active');
         }
+
+
+        /* =========================================
+           INICIO
+        ========================================= */
 
         function startExperience() {
+
             goToScreen(2);
 
-            // Textos laterales sincronizados
-            setTimeout(() => {
-                document.getElementById('textLeft').classList.add('show');
-            }, 600);
+
+            /*
+              Primero aparece el ramo,
+              después los mensajes.
+            */
 
             setTimeout(() => {
-                document.getElementById('textRight').classList.add('show');
-            }, 1400);
 
-            // Botón para ir al cielo aparece después de que brota todo
+                document
+                    .getElementById('textLeft')
+                    .classList
+                    .add('show');
+
+            }, 1300);
+
+
             setTimeout(() => {
-                const btn = document.getElementById('toSkyBtn');
+
+                document
+                    .getElementById('textRight')
+                    .classList
+                    .add('show');
+
+            }, 2100);
+
+
+            /*
+              El botón aparece cuando
+              el ramo ya terminó de florecer.
+            */
+
+            setTimeout(() => {
+
+                const btn =
+                    document.getElementById(
+                        'toSkyBtn'
+                    );
+
                 btn.style.opacity = '1';
-                btn.style.transform = 'translateY(0)';
-                btn.style.transition = 'opacity 1s ease, transform 1s ease';
-            }, 2500);
+
+                btn.style.transform =
+                    'translateX(-50%) translateY(0)';
+
+            }, 3200);
         }
 
-        const starsData = ['sirio', 'andromeda', 'luna', 'fugaz', 'desconocida'];
+
+        /* =========================================
+           ESTRELLAS INTERACTIVAS
+        ========================================= */
+
+        const starsData = [
+            'sirio',
+            'andromeda',
+            'luna',
+            'fugaz',
+            'desconocida'
+        ];
+
+
         starsData.forEach(starId => {
-            document.getElementById(`star-${starId}`).addEventListener('click', () => {
-                document.getElementById(`popup-${starId}`).classList.add('show');
-                document.getElementById(`star-${starId}`).style.borderColor = '#f472b6';
-            });
+
+            document
+                .getElementById(
+                    `star-${starId}`
+                )
+                .addEventListener(
+                    'click',
+                    () => {
+
+                        document
+                            .getElementById(
+                                `popup-${starId}`
+                            )
+                            .classList
+                            .add('show');
+
+
+                        document
+                            .getElementById(
+                                `star-${starId}`
+                            )
+                            .style
+                            .borderColor =
+                            '#f472b6';
+
+                    }
+                );
         });
 
+
         function closePopup(starId) {
-            document.getElementById(`popup-${starId}`).classList.remove('show');
+
+            document
+                .getElementById(
+                    `popup-${starId}`
+                )
+                .classList
+                .remove('show');
         }
 
+
+        /* =========================================
+           CARTA
+        ========================================= */
+
         function openLetter() {
-            document.getElementById('popup-desconocida').classList.remove('show');
+
+            document
+                .getElementById(
+                    'popup-desconocida'
+                )
+                .classList
+                .remove('show');
+
+
             goToScreen(4);
         }
 
-        function startConstellationFinale() {
-            goToScreen(5);
-            const fxCanvas = document.getElementById('fx-canvas');
-            const fxCtx = fxCanvas.getContext('2d');
-            fxCanvas.width = window.innerWidth;
-            fxCanvas.height = window.innerHeight;
 
-            const cx = window.innerWidth / 2 - 180;
-            const cy = window.innerHeight / 3 - 40;
+        /* =========================================
+           CONSTELACIÓN FINAL
+        ========================================= */
+
+        function startConstellationFinale() {
+
+            goToScreen(5);
+
+
+            const fxCanvas =
+                document.getElementById(
+                    'fx-canvas'
+                );
+
+            const fxCtx =
+                fxCanvas.getContext('2d');
+
+
+            fxCanvas.width =
+                window.innerWidth;
+
+            fxCanvas.height =
+                window.innerHeight;
+
+
+            const scale =
+                Math.min(
+                    window.innerWidth / 600,
+                    1
+                );
+
+
+            const cx =
+                window.innerWidth / 2 -
+                180 * scale;
+
+
+            const cy =
+                window.innerHeight / 3 -
+                40;
+
 
             const letters = {
+
                 G: [
-                    {x: cx + 45, y: cy}, {x: cx, y: cy}, {x: cx, y: cy + 55},
-                    {x: cx + 45, y: cy + 55}, {x: cx + 45, y: cy + 28}, {x: cx + 22, y: cy + 28}
+                    {x: cx + 45 * scale, y: cy},
+                    {x: cx, y: cy},
+                    {x: cx, y: cy + 55 * scale},
+                    {x: cx + 45 * scale, y: cy + 55 * scale},
+                    {x: cx + 45 * scale, y: cy + 28 * scale},
+                    {x: cx + 22 * scale, y: cy + 28 * scale}
                 ],
+
                 E: [
-                    {x: cx + 100, y: cy}, {x: cx + 65, y: cy}, {x: cx + 65, y: cy + 55}, {x: cx + 100, y: cy + 55},
-                    {x: cx + 65, y: cy + 28}, {x: cx + 90, y: cy + 28}
+                    {x: cx + 100 * scale, y: cy},
+                    {x: cx + 65 * scale, y: cy},
+                    {x: cx + 65 * scale, y: cy + 55 * scale},
+                    {x: cx + 100 * scale, y: cy + 55 * scale},
+                    {x: cx + 65 * scale, y: cy + 28 * scale},
+                    {x: cx + 90 * scale, y: cy + 28 * scale}
                 ],
+
                 T: [
-                    {x: cx + 118, y: cy}, {x: cx + 152, y: cy}, {x: cx + 135, y: cy}, {x: cx + 135, y: cy + 55}
+                    {x: cx + 118 * scale, y: cy},
+                    {x: cx + 152 * scale, y: cy},
+                    {x: cx + 135 * scale, y: cy},
+                    {x: cx + 135 * scale, y: cy + 55 * scale}
                 ],
+
                 S: [
-                    {x: cx + 205, y: cy}, {x: cx + 170, y: cy}, {x: cx + 170, y: cy + 28},
-                    {x: cx + 205, y: cy + 28}, {x: cx + 205, y: cy + 55}, {x: cx + 170, y: cy + 55}
+                    {x: cx + 205 * scale, y: cy},
+                    {x: cx + 170 * scale, y: cy},
+                    {x: cx + 170 * scale, y: cy + 28 * scale},
+                    {x: cx + 205 * scale, y: cy + 28 * scale},
+                    {x: cx + 205 * scale, y: cy + 55 * scale},
+                    {x: cx + 170 * scale, y: cy + 55 * scale}
                 ],
+
                 I: [
-                    {x: cx + 235, y: cy}, {x: cx + 235, y: cy + 55}
+                    {x: cx + 235 * scale, y: cy},
+                    {x: cx + 235 * scale, y: cy + 55 * scale}
                 ]
             };
 
+
             let allPoints = [];
+
+
             for (let l in letters) {
-                allPoints.push(...letters[l]);
+
+                allPoints.push(
+                    ...letters[l]
+                );
             }
+
 
             let currentPointIndex = 0;
 
+
             function drawConstellationStep() {
-                fxCtx.clearRect(0, 0, fxCanvas.width, fxCanvas.height);
 
-                fxCtx.strokeStyle = 'rgba(216, 180, 254, 0.85)';
+                fxCtx.clearRect(
+                    0,
+                    0,
+                    fxCanvas.width,
+                    fxCanvas.height
+                );
+
+
+                fxCtx.strokeStyle =
+                    'rgba(216,180,254,0.85)';
+
                 fxCtx.lineWidth = 2;
-                fxCtx.shadowBlur = 12;
-                fxCtx.shadowColor = '#d8b4fe';
 
-                let letterKeys = ['G', 'E', 'T', 'S', 'I'];
+                fxCtx.shadowBlur = 12;
+
+                fxCtx.shadowColor =
+                    '#d8b4fe';
+
+
+                let letterKeys = [
+                    'G',
+                    'E',
+                    'T',
+                    'S',
+                    'I'
+                ];
+
+
                 let drawnCount = 0;
 
-                letterKeys.forEach(lKey => {
-                    let pts = letters[lKey];
-                    fxCtx.beginPath();
-                    for (let i = 0; i < pts.length; i++) {
-                        if (drawnCount + i <= currentPointIndex) {
-                            if (i === 0) fxCtx.moveTo(pts[i].x, pts[i].y);
-                            else fxCtx.lineTo(pts[i].x, pts[i].y);
+
+                letterKeys.forEach(
+                    lKey => {
+
+                        let pts =
+                            letters[lKey];
+
+
+                        fxCtx.beginPath();
+
+
+                        for (
+                            let i = 0;
+                            i < pts.length;
+                            i++
+                        ) {
+
+                            if (
+                                drawnCount + i
+                                <= currentPointIndex
+                            ) {
+
+                                if (i === 0) {
+
+                                    fxCtx.moveTo(
+                                        pts[i].x,
+                                        pts[i].y
+                                    );
+
+                                } else {
+
+                                    fxCtx.lineTo(
+                                        pts[i].x,
+                                        pts[i].y
+                                    );
+                                }
+                            }
+                        }
+
+
+                        fxCtx.stroke();
+
+
+                        drawnCount +=
+                            pts.length;
+                    }
+                );
+
+
+                allPoints.forEach(
+                    (pt, idx) => {
+
+                        if (
+                            idx <=
+                            currentPointIndex
+                        ) {
+
+                            fxCtx.fillStyle =
+                                '#ffffff';
+
+                            fxCtx.beginPath();
+
+                            fxCtx.arc(
+                                pt.x,
+                                pt.y,
+                                4,
+                                0,
+                                Math.PI * 2
+                            );
+
+                            fxCtx.fill();
                         }
                     }
-                    fxCtx.stroke();
-                    drawnCount += pts.length;
-                });
+                );
 
-                allPoints.forEach((pt, idx) => {
-                    if (idx <= currentPointIndex) {
-                        fxCtx.fillStyle = '#ffffff';
-                        fxCtx.beginPath();
-                        fxCtx.arc(pt.x, pt.y, 4, 0, Math.PI * 2);
-                        fxCtx.fill();
-                    }
-                });
 
-                if (currentPointIndex < allPoints.length - 1) {
+                if (
+                    currentPointIndex <
+                    allPoints.length - 1
+                ) {
+
                     currentPointIndex++;
-                    setTimeout(drawConstellationStep, 250);
+
+                    setTimeout(
+                        drawConstellationStep,
+                        250
+                    );
+
                 } else {
-                    document.getElementById('final-message').style.opacity = '1';
+
+                    document
+                        .getElementById(
+                            'final-message'
+                        )
+                        .style
+                        .opacity = '1';
                 }
             }
 
-            setTimeout(drawConstellationStep, 500);
+
+            setTimeout(
+                drawConstellationStep,
+                500
+            );
         }
+
     </script>
+
 </body>
 </html>
