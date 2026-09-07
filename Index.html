@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Para Getsi 🌌💜</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background: radial-gradient(circle at center, #1e1130 0%, #0d0614 100%);
+            color: #fce4ec;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .screen {
+            display: none;
+            position: absolute;
+            text-align: center;
+            width: 100%;
+            height: 100%;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+        }
+
+        .screen.active {
+            display: flex;
+            opacity: 1;
+        }
+
+        /* Estrellas interactivas en Pantalla 2 */
+        .sky-container {
+            position: relative;
+            width: 100vw;
+            height: 100vh;
+        }
+
+        .star-node {
+            position: absolute;
+            background: #fff;
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: 0 0 15px #f48fb1;
+            transition: transform 0.3s;
+        }
+
+        .star-node:hover {
+            transform: scale(1.4);
+        }
+
+        /* Botones generales */
+        .btn-custom {
+            background: linear-gradient(135deg, #ba68c8, #f48fb1);
+            border: none;
+            color: white;
+            padding: 12px 28px;
+            font-size: 1.1rem;
+            border-radius: 30px;
+            cursor: pointer;
+            box-shadow: 0 0 20px rgba(186, 104, 200, 0.4);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            margin-top: 20px;
+        }
+
+        .btn-custom:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 30px rgba(244, 143, 177, 0.7);
+        }
+
+        /* Carta */
+        .letter-box {
+            max-width: 500px;
+            padding: 30px;
+            background: rgba(30, 17, 48, 0.85);
+            border: 1px solid rgba(244, 143, 177, 0.3);
+            border-radius: 15px;
+            box-shadow: 0 0 30px rgba(186, 104, 200, 0.2);
+            text-align: left;
+            line-height: 1.6;
+            font-size: 1.05rem;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Pantalla 1: Entrada -->
+    <div class="screen active" id="screen1">
+        <h1 style="font-weight: 300; letter-spacing: 2px;">Tengo algo para ti, Getsi ✨</h1>
+        <button class="btn-custom" onclick="nextScreen(2)">Entrar al universo 🌌</button>
+    </div>
+
+    <!-- Pantalla 2: Cielo Nocturno y Estrellas -->
+    <div class="screen" id="screen2">
+        <div class="sky-container">
+            <div class="star-node" style="width: 12px; height: 12px; top: 30%; left: 20%;" onclick="alert('Sirio: La estrella que ilumina todo. ⭐')"></div>
+            <div class="star-node" style="width: 8px; height: 8px; top: 20%; left: 75%;" onclick="alert('Andrómeda: Un guiño infinito en el cielo. 🌌')"></div>
+            <div class="star-node" style="width: 14px; height: 14px; top: 70%; left: 80%;" onclick="alert('La Luna: Silenciosa testigo de esto. 🌙')"></div>
+            <div class="star-node" style="width: 10px; height: 10px; top: 65%; left: 25%;" onclick="alert('Estrella Fugaz: Pide un deseo. 🌠')"></div>
+            <!-- Estrella Misteriosa que avanza a la Pantalla 3 -->
+            <div class="star-node" style="width: 16px; height: 16px; top: 45%; left: 50%; box-shadow: 0 0 25px #ba68c8;" onclick="nextScreen(3)"></div>
+            <div style="position: absolute; bottom: 40px; width: 100%; text-align: center; color: #d1c4e9; font-size: 0.9rem;">Toca las estrellas del firmamento... (la del centro guarda un secreto 💫)</div>
+        </div>
+    </div>
+
+    <!-- Pantalla 3: Transición / Estrella Desconocida -->
+    <div class="screen" id="screen3">
+        <h2 style="font-weight: 300; letter-spacing: 1px; color: #d1c4e9;">Hay cosas que todavía no te he contado…</h2>
+        <button class="btn-custom" onclick="nextScreen(4)">Descubrir el ramo 💐</button>
+    </div>
+
+    <!-- Pantalla 4: El Ramo (Prototipo) -->
+    <div class="screen" id="screen4">
+        <div style="font-size: 4rem; margin-bottom: 10px;">🌷🌸🌿💜🌹</div>
+        <h3 style="font-weight: 300; color: #f8bbd0;">Esto es para ti, Getsi. 💜✨</h3>
+        <button class="btn-custom" onclick="nextScreen(5)">Leer la carta 💌</button>
+    </div>
+
+    <!-- Pantalla 5: La Carta -->
+    <div class="screen" id="screen5">
+        <div class="letter-box">
+            <p>Estás flores y este gran detalle es con mucho amor y cariño para ti mi getsi se que as pasado por momentos difíciles y desespciones de personas que no valen la pena pero como las estrellas llegaste a mi vida para iluminarla y llenarla de color...</p>
+            <p><strong>Te amo con todo mi corazón. ❤️✨</strong></p>
+            <p style="text-align: right; margin-top: 15px;"><em>Tu rabanito 🥹❤️</em></p>
+        </div>
+        <button class="btn-custom" onclick="nextScreen(6)">Ver el cielo final ⭐</button>
+    </div>
+
+    <!-- Pantalla 6: Constelación GESIBEL y Cierre -->
+    <div class="screen" id="screen6">
+        <svg width="320" height="160" viewBox="0 0 320 160" style="overflow: visible; margin-bottom: 20px;">
+            <path d="M 30,80 L 60,30 L 90,80 L 60,130 Z M 120,30 L 120,130 M 150,30 L 180,30 L 150,80 L 180,130" 
+                  stroke="rgba(244, 143, 177, 0.5)" stroke-width="2" fill="none" stroke-dasharray="350" stroke-dashoffset="350">
+                <animate attributeName="stroke-dashoffset" from="350" to="0" dur="4s" fill="freeze" />
+            </path>
+            <circle cx="30" cy="80" r="4" fill="#fff" filter="drop-shadow(0 0 8px #ba68c8)" />
+            <circle cx="60" cy="30" r="4" fill="#fff" filter="drop-shadow(0 0 8px #ba68c8)" />
+            <circle cx="90" cy="80" r="4" fill="#fff" filter="drop-shadow(0 0 8px #ba68c8)" />
+            <circle cx="120" cy="30" r="4" fill="#fff" filter="drop-shadow(0 0 8px #ba68c8)" />
+            <circle cx="120" cy="130" r="4" fill="#fff" filter="drop-shadow(0 0 8px #ba68c8)" />
+            <circle cx="150" cy="30" r="4" fill="#fff" filter="drop-shadow(0 0 8px #ba68c8)" />
+            <circle cx="180" cy="30" r="4" fill="#fff" filter="drop-shadow(0 0 8px #ba68c8)" />
+            <circle cx="150" cy="80" r="4" fill="#fff" filter="drop-shadow(0 0 8px #ba68c8)" />
+            <circle cx="180" cy="130" r="4" fill="#fff" filter="drop-shadow(0 0 8px #ba68c8)" />
+            <!-- Sirio cerca -->
+            <circle cx="240" cy="80" r="6" fill="#fff" filter="drop-shadow(0 0 15px #f48fb1)">
+                <animate attributeName="opacity" values="1;0.3;1" dur="2s" repeatCount="indefinite" />
+            </circle>
+        </svg>
+        <div style="font-size: 1.2rem; color: #f8bbd0; font-weight: 300; line-height: 1.5;">
+            Gracias por ser ese Sirio que necesitaba mi vida. ✨<br>
+            <strong>Te amo, Getsi. ❤️</strong>
+        </div>
+    </div>
+
+    <script>
+        function nextScreen(screenNumber) {
+            const currentActive = document.querySelector('.screen.active');
+            if (currentActive) {
+                currentActive.classList.remove('active');
+            }
+            setTimeout(() => {
+                const nextTarget = document.getElementById('screen' + screenNumber);
+                if (nextTarget) {
+                    nextTarget.classList.add('active');
+                }
+            }, 500);
+        }
+    </script>
+
+</body>
+</html>
