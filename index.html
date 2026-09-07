@@ -6,6 +6,7 @@
     <title>Para Getsi ✨</title>
     <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Quicksand:wght@400;500;600&display=swap" rel="stylesheet">
     <style>
+        /* Reset y estilos base */
         * {
             margin: 0;
             padding: 0;
@@ -23,8 +24,8 @@
             align-items: center;
         }
 
-        /* Aplicar tipografía cursiva elegante y legible a todos los textos */
-        p, button, .mystic-text, .popup-card p, .letter-card p, .signature, #final-message p {
+        /* Aplicar tipografía cursiva a todos los textos */
+        h1, p, button, .mystic-text, .popup-card p, .letter-card p, .signature, #final-message p {
             font-family: 'Caveat', cursive !important;
             letter-spacing: 0.5px;
         }
@@ -90,32 +91,96 @@
             transform: scale(1.2);
         }
 
-        /* Pantalla 2 y 3: Ramo Cósmico basado en la imagen */
-        .bouquet-container {
+        /* Pantalla 2 y 3: Ramo Mágico (Animado) */
+        .bouquet-wrapper {
             position: relative;
             width: 320px;
             height: 420px;
-            opacity: 0;
-            transform: scale(0.8);
-            transition: all 2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             display: flex;
             justify-content: center;
             align-items: center;
+            opacity: 0;
+            transform: scale(0.9);
+            transition: opacity 1s ease, transform 1s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
 
-        .bouquet-container.visible {
+        .bouquet-wrapper.show {
             opacity: 1;
             transform: scale(1);
         }
 
-        .bouquet-img {
+        /* Resplandor trasero que se ilumina al terminar */
+        .bouquet-glow {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, rgba(216, 180, 254, 0.35) 0%, rgba(168, 85, 247, 0.1) 50%, transparent 70%);
+            border-radius: 50%;
+            filter: blur(20px);
+            opacity: 0;
+            transform: scale(0.5);
+            transition: all 1.5s ease-out;
+            z-index: 1;
+        }
+
+        .bouquet-wrapper.illuminated .bouquet-glow {
+            opacity: 1;
+            transform: scale(1.3);
+        }
+
+        /* Partículas de polvo estelar */
+        .stardust-particles {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            z-index: 3;
+        }
+
+        /* Imagen con efecto de revelado progresivo (florecimiento) */
+        .bouquet-img-animated {
             width: 100%;
             height: 100%;
             object-fit: contain;
-            filter: drop-shadow(0 10px 25px rgba(168, 85, 247, 0.3));
+            position: relative;
+            z-index: 2;
+            clip-path: inset(100% 0 0 0); /* Empieza oculta abajo */
+            transition: clip-path 2s cubic-bezier(0.25, 1, 0.5, 1), filter 1s ease;
+            filter: brightness(0.5) blur(4px);
         }
 
-        /* Pantalla 5: Exploración del Cielo */
+        .bouquet-wrapper.bloomed .bouquet-img-animated {
+            clip-path: inset(0 0 0 0); /* Se revela completamente */
+            filter: brightness(1) blur(0px);
+        }
+
+        .next-step-btn {
+            margin-top: 40px;
+            background: linear-gradient(135deg, #c084fc, #f472b6);
+            color: #fff;
+            border: none;
+            padding: 12px 28px;
+            border-radius: 30px;
+            font-size: 1.3rem;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(192, 132, 252, 0.4);
+            transition: transform 0.2s, box-shadow 0.2s;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        .bouquet-wrapper.illuminated + .next-step-btn {
+            opacity: 1;
+            transform: translateY(0);
+            transition: opacity 1s ease 0.5s, transform 1s ease 0.5s;
+        }
+
+        .next-step-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 20px rgba(244, 114, 182, 0.6);
+        }
+
+        /* Pantalla 4: Exploración del Cielo */
         .sky-exploration {
             position: relative;
             width: 100%;
@@ -247,26 +312,7 @@
             to { filter: drop-shadow(0 0 25px #ffffff); }
         }
 
-        .next-step-btn {
-            margin-top: 25px;
-            background: linear-gradient(135deg, #c084fc, #f472b6);
-            color: #fff;
-            border: none;
-            padding: 12px 28px;
-            border-radius: 30px;
-            font-size: 1.3rem;
-            font-weight: bold;
-            cursor: pointer;
-            box-shadow: 0 4px 15px rgba(192, 132, 252, 0.4);
-            transition: transform 0.2s, box-shadow 0.2s;
-        }
-
-        .next-step-btn:hover {
-            transform: scale(1.05);
-            box-shadow: 0 6px 20px rgba(244, 114, 182, 0.6);
-        }
-
-        /* Canvas para constelación y efectos */
+        /* Canvas para constelación y efectos fugaces */
         #fx-canvas {
             position: fixed;
             top: 0;
@@ -291,15 +337,17 @@
         </div>
     </div>
 
-    <!-- PANTALLA 2: Ramo Cósmico basado en la imagen -->
+    <!-- PANTALLA 2: Ramo Mágico (Animado) -->
     <div id="screen-2" class="screen">
-        <div id="bouquet" class="bouquet-container">
-            <img src="1000033912.png" alt="Ramo Cósmico" class="bouquet-img">
+        <div class="bouquet-wrapper" id="bouquetContainer">
+            <div class="bouquet-glow"></div>
+            <div class="stardust-particles" id="stardust"></div>
+            <img src="ramo.png" alt="Ramo Cósmico" class="bouquet-img-animated" id="animatedBouquet">
         </div>
-        <button id="explore-btn" class="next-step-btn" style="display: none;" onclick="goToScreen(3)">Explorar el cielo ✨</button>
+        <button id="after-bouquet-btn" class="next-step-btn" onclick="goToScreen(3)">Explorar el cielo ✨</button>
     </div>
 
-    <!-- PANTALLA 3: Exploración del Cielo (Paso 5) -->
+    <!-- PANTALLA 3: Exploración del Cielo -->
     <div id="screen-3" class="screen">
         <div class="sky-exploration">
             <div id="star-sirio" class="explore-star" onclick="openStar('sirio')">⭐</div>
@@ -315,289 +363,4 @@
             <button class="close-btn" onclick="closePopup('sirio')">Continuar</button>
         </div>
         <div id="popup-andromeda" class="popup-card">
-            <p>Andrómeda guarda historias que llevan siglos viajando entre las estrellas… algunas hablan de amor. 🌌</p>
-            <button class="close-btn" onclick="closePopup('andromeda')">Continuar</button>
-        </div>
-        <div id="popup-luna" class="popup-card">
-            <p>A veces alguien llega y, sin hacer demasiado, consigue cambiar por completo el paisaje. 🌙✨</p>
-            <button class="close-btn" onclick="closePopup('luna')">Continuar</button>
-        </div>
-        <div id="popup-fugaz" class="popup-card">
-            <p id="fugaz-text">Dicen que cuando ves una estrella fugaz debes pedir un deseo…</p>
-            <button id="fugaz-btn" class="close-btn" onclick="nextFugazStep()">Siguiente</button>
-        </div>
-        <div id="popup-desconocida" class="popup-card">
-            <p>Hay cosas que todavía no te he contado…</p>
-            <button class="close-btn" onclick="triggerSecretDoor()">Descubrir</button>
-        </div>
-    </div>
-
-    <!-- PANTALLA 4: La Carta -->
-    <div id="screen-4" class="screen">
-        <div class="letter-card">
-            <p>Estás flores y este gran detalle es con mucho amor y cariño para ti mi getsi se que as pasado por momentos difíciles y desespciones de personas que no valen la pena pero como las estrellas llegaste a mi vida para iluminarla y llenarla de color y afortunadamente yo también llegué a tuya con el mismo propósito, en verdad que te quiero muchísimo y si nadie es capas para ver la persona que eres tus cualidades tus virtudes yo lo haré y estaré dispuesto a hacer esto y más por qué es lo que te mereces y por qué vales totalmente la pena para poder darlo todo te amo con todo mi corazón</p>
-            <p class="signature">Tu rabanito ❤️✨</p>
-        </div>
-        <button class="next-step-btn" onclick="goToScreen(5)">Continuar al cielo estelar ✨</button>
-    </div>
-
-    <!-- PANTALLA 5: Constelación GESIBEL Corregida y Cierre Final -->
-    <div id="screen-5" class="screen">
-        <div id="final-message" style="opacity: 0; transition: opacity 2s ease; margin-top: 30px;">
-            <p style="font-size: 1.6rem; line-height: 1.6; color: #f3e8ff; text-shadow: 0 0 10px rgba(216,180,254,0.6);">
-                Gracias por ser ese Sirio que necesitaba mi vida. ✨<br>
-                Te amo, Getsi. ❤️
-            </p>
-        </div>
-    </div>
-
-    <script>
-        // Fondo de estrellas densamente estrellado con fugaces ocasionales
-        const starfieldCanvas = document.getElementById('starfield');
-        const sCtx = starfieldCanvas.getContext('2d');
-        let width = starfieldCanvas.width = window.innerWidth;
-        let height = starfieldCanvas.height = window.innerHeight;
-
-        const stars = [];
-        for (let i = 0; i < 300; i++) { // Más estrellas para mayor densidad
-            stars.push({
-                x: Math.random() * width,
-                y: Math.random() * height,
-                radius: Math.random() * 1.8,
-                alpha: Math.random(),
-                speed: Math.random() * 0.03 + 0.005
-            });
-        }
-
-        // Estrellas fugaces ambientales automáticas de fondo
-        let ambientShootingStars = [];
-        function createAmbientShootingStar() {
-            if (Math.random() < 0.02) { // Ocasionales
-                ambientShootingStars.push({
-                    x: Math.random() * width * 1.2,
-                    y: Math.random() * (height * 0.4),
-                    length: Math.random() * 80 + 60,
-                    speed: Math.random() * 12 + 8,
-                    opacity: 1
-                });
-            }
-        }
-
-        function drawStarfield() {
-            sCtx.clearRect(0, 0, width, height);
-            
-            // Dibujar estrellas fijas
-            sCtx.fillStyle = '#ffffff';
-            stars.forEach(star => {
-                sCtx.globalAlpha = star.alpha;
-                sCtx.beginPath();
-                sCtx.arc(star.x, star.y, star.radius, 0, Math.PI * 2);
-                sCtx.fill();
-                star.alpha += star.speed;
-                if (star.alpha > 1 || star.alpha < 0.2) star.speed = -star.speed;
-            });
-
-            // Dibujar fugaces ambientales
-            createAmbientShootingStar();
-            ambientShootingStars.forEach((ast, index) => {
-                sCtx.strokeStyle = 'rgba(244, 114, 182, ' + ast.opacity + ')';
-                sCtx.lineWidth = 2;
-                sCtx.shadowBlur = 10;
-                sCtx.shadowColor = '#d8b4fe';
-                sCtx.beginPath();
-                sCtx.moveTo(ast.x, ast.y);
-                sCtx.lineTo(ast.x - ast.length, ast.y + ast.length * 0.6);
-                sCtx.stroke();
-
-                ast.x -= ast.speed;
-                ast.y += ast.speed * 0.6;
-                ast.opacity -= 0.02;
-
-                if (ast.opacity <= 0) {
-                    ambientShootingStars.splice(index, 1);
-                }
-            });
-
-            requestAnimationFrame(drawStarfield);
-        }
-        drawStarfield();
-
-        window.addEventListener('resize', () => {
-            width = starfieldCanvas.width = window.innerWidth;
-            height = starfieldCanvas.height = window.innerHeight;
-        });
-
-        // Control de pantallas
-        function goToScreen(screenNumber) {
-            document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-            const target = document.getElementById(`screen-${screenNumber}`);
-            target.classList.add('active');
-
-            if (screenNumber === 2) {
-                setTimeout(() => {
-                    document.getElementById('bouquet').classList.add('visible');
-                    setTimeout(() => {
-                        document.getElementById('explore-btn').style.display = 'block';
-                    }, 1500);
-                }, 500);
-            }
-
-            if (screenNumber === 5) {
-                startConstellationSequence();
-            }
-        }
-
-        // Interacción Estrellas del Cielo (Paso 5)
-        function openStar(id) {
-            document.querySelectorAll('.popup-card').forEach(p => p.classList.remove('show'));
-            document.getElementById(`star-${id}`).classList.add('clicked');
-            document.getElementById(`popup-${id}`).classList.add('show');
-        }
-
-        function closePopup(id) {
-            document.getElementById(`popup-${id}`).classList.remove('show');
-        }
-
-        // Secuencia Estrella Fugaz interactiva
-        let fugazStep = 1;
-        function nextFugazStep() {
-            const textEl = document.getElementById('fugaz-text');
-            if (fugazStep === 1) {
-                textEl.textContent = "Yo ya pedí el mío: quedarme eternamente contigo. 💜";
-                fugazStep = 2;
-            } else if (fugazStep === 2) {
-                textEl.textContent = "Ahora es tu turno de pedir un deseo. 🌠";
-                fugazStep = 3;
-            } else {
-                closePopup('fugaz');
-                triggerShootingStarEffect();
-            }
-        }
-
-        function triggerShootingStarEffect() {
-            const fxCanvas = document.getElementById('fx-canvas');
-            const fCtx = fxCanvas.getContext('2d');
-            fxCanvas.width = window.innerWidth;
-            fxCanvas.height = window.innerHeight;
-
-            let x = window.innerWidth * 0.7;
-            let y = window.innerHeight * 0.2;
-            let progress = 0;
-
-            function animateFugaz() {
-                fCtx.clearRect(0, 0, fxCanvas.width, fxCanvas.height);
-                fCtx.strokeStyle = '#f472b6';
-                fCtx.lineWidth = 3;
-                fCtx.shadowBlur = 15;
-                fCtx.shadowColor = '#d8b4fe';
-
-                fCtx.beginPath();
-                fCtx.moveTo(x, y);
-                fCtx.lineTo(x - progress * 2, y + progress * 1.5);
-                fCtx.stroke();
-
-                progress += 15;
-                if (progress < 400) {
-                    requestAnimationFrame(animateFugaz);
-                } else {
-                    fCtx.clearRect(0, 0, fxCanvas.width, fxCanvas.height);
-                }
-            }
-            animateFugaz();
-        }
-
-        // Puerta Secreta Estrellada (Estrella desconocida)
-        function triggerSecretDoor() {
-            closePopup('desconocida');
-            const fxCanvas = document.getElementById('fx-canvas');
-            const fCtx = fxCanvas.getContext('2d');
-            fxCanvas.width = window.innerWidth;
-            fxCanvas.height = window.innerHeight;
-
-            let alpha = 0;
-            function fadeToBlack() {
-                fCtx.fillStyle = `rgba(3, 0, 8, ${alpha})`;
-                fCtx.fillRect(0, 0, fxCanvas.width, fxCanvas.height);
-                alpha += 0.05;
-                if (alpha < 1) {
-                    requestAnimationFrame(fadeToBlack);
-                } else {
-                    setTimeout(() => {
-                        fCtx.clearRect(0, 0, fxCanvas.width, fxCanvas.height);
-                        goToScreen(4);
-                    }, 1000);
-                }
-            }
-            fadeToBlack();
-        }
-
-        // Constelación GESIBEL Corregida (Trazos limpios y separados por letra)
-        function startConstellationSequence() {
-            const fxCanvas = document.getElementById('fx-canvas');
-            const fCtx = fxCanvas.getContext('2d');
-            fxCanvas.width = window.innerWidth;
-            fxCanvas.height = window.innerHeight;
-
-            const startX = window.innerWidth / 2 - 240;
-            const cy = window.innerHeight / 2 - 110;
-            
-            // Coordenadas estructuradas limpiamente letra por letra para GESIBEL sin cruces extraños
-            const letters = [
-                // G
-                [{x: startX + 45, y: cy}, {x: startX + 25, y: cy + 15}, {x: startX + 25, y: cy + 50}, {x: startX + 45, y: cy + 65}, {x: startX + 65, y: cy + 50}, {x: startX + 65, y: cy + 35}, {x: startX + 45, y: cy + 35}],
-                // E
-                [{x: startX + 90, y: cy}, {x: startX + 90, y: cy + 65}, {x: startX + 115, y: cy}, {x: startX + 105, y: cy + 32}, {x: startX + 115, y: cy + 65}],
-                // S
-                [{x: startX + 155, y: cy}, {x: startX + 130, y: cy + 10}, {x: startX + 130, y: cy + 32}, {x: startX + 155, y: cy + 32}, {x: startX + 155, y: cy + 65}, {x: startX + 130, y: cy + 65}],
-                // I
-                [{x: startX + 185, y: cy}, {x: startX + 185, y: cy + 65}],
-                // B
-                [{x: startX + 215, y: cy}, {x: startX + 215, y: cy + 65}, {x: startX + 238, y: cy}, {x: startX + 235, y: cy + 32}, {x: startX + 215, y: cy + 32}, {x: startX + 240, y: cy + 65}],
-                // E
-                [{x: startX + 270, y: cy}, {x: startX + 270, y: cy + 65}, {x: startX + 295, y: cy}, {x: startX + 285, y: cy + 32}, {x: startX + 295, y: cy + 65}],
-                // L
-                [{x: startX + 325, y: cy}, {x: startX + 325, y: cy + 65}, {x: startX + 350, y: cy + 65}]
-            ];
-
-            let flatPoints = [];
-            let letterBreaks = [];
-
-            letters.forEach(letter => {
-                letter.forEach(p => flatPoints.push(p));
-                letterBreaks.push(flatPoints.length);
-            });
-
-            let currentPoint = 0;
-
-            function drawStep() {
-                if (currentPoint < flatPoints.length) {
-                    let p = flatPoints[currentPoint];
-                    fCtx.fillStyle = '#fef08a';
-                    fCtx.shadowBlur = 12;
-                    fCtx.shadowColor = '#f472b6';
-                    fCtx.beginPath();
-                    fCtx.arc(p.x, p.y, 3.5, 0, Math.PI * 2);
-                    fCtx.fill();
-
-                    if (currentPoint > 0 && !letterBreaks.includes(currentPoint)) {
-                        let prev = flatPoints[currentPoint - 1];
-                        fCtx.strokeStyle = 'rgba(216, 180, 254, 0.7)';
-                        fCtx.lineWidth = 1.8;
-                        fCtx.beginPath();
-                        fCtx.moveTo(prev.x, prev.y);
-                        fCtx.lineTo(p.x, p.y);
-                        fCtx.stroke();
-                    }
-                    currentPoint++;
-                    setTimeout(drawStep, 130);
-                } else {
-                    setTimeout(() => {
-                        document.getElementById('final-message').style.opacity = '1';
-                    }, 800);
-                }
-            }
-            setTimeout(drawStep, 1000);
-        }
-    </script>
-</body>
-</html>
+            <p>Andrómeda guarda historias que llevan siglos viajando
