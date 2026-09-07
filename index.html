@@ -41,7 +41,6 @@
             pointer-events: none;
             padding: 20px;
             text-align: center;
-            z-index: 10;
         }
 
         .screen.active {
@@ -59,7 +58,12 @@
             background: radial-gradient(circle at center, #15062b 0%, #030008 100%);
         }
 
-        /* Pantalla 1 */
+        /* Pantalla 1 táctil completa */
+        #screen-1 {
+            cursor: pointer;
+            z-index: 50;
+        }
+
         #screen-1 .mystic-text {
             font-size: 2.4rem;
             color: #d8b4fe;
@@ -68,24 +72,10 @@
             text-shadow: 0 0 15px rgba(216, 180, 254, 0.5);
         }
 
-        .star-container {
-            cursor: pointer;
-            padding: 20px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 20;
-        }
-
         .main-star {
             font-size: 3.5rem;
             animation: floatStar 3s infinite ease-in-out, glowSirius 2s infinite alternate;
             filter: drop-shadow(0 0 20px #e9d5ff);
-            transition: transform 0.3s ease;
-        }
-
-        .main-star:hover {
-            transform: scale(1.25);
         }
 
         /* Pantalla 2: Ramo Animado */
@@ -99,6 +89,7 @@
             opacity: 0;
             transform: scale(0.9);
             transition: opacity 1s ease, transform 1s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            z-index: 20;
         }
 
         .bouquet-wrapper.show {
@@ -162,7 +153,7 @@
             transition: transform 0.2s, box-shadow 0.2s;
             opacity: 0;
             transform: translateY(20px);
-            z-index: 20;
+            z-index: 25;
         }
 
         .bouquet-wrapper.illuminated + .next-step-btn {
@@ -182,6 +173,7 @@
             width: 100%;
             max-width: 450px;
             height: 55vh;
+            z-index: 20;
         }
 
         .explore-star {
@@ -196,13 +188,7 @@
             font-size: 1.4rem;
             transition: all 0.4s ease;
             box-shadow: 0 0 15px rgba(216, 180, 254, 0.3);
-            z-index: 20;
-        }
-
-        .explore-star:hover {
-            background: rgba(216, 180, 254, 0.4);
-            transform: scale(1.15);
-            box-shadow: 0 0 25px rgba(233, 213, 255, 0.8);
+            z-index: 25;
         }
 
         #star-sirio { top: 15%; left: 20%; width: 50px; height: 50px; }
@@ -251,10 +237,6 @@
             font-weight: bold;
             font-size: 1.1rem;
             cursor: pointer;
-        }
-
-        .close-btn:hover {
-            background: #e9d5ff;
         }
 
         /* Pantalla de Carta */
@@ -309,7 +291,7 @@
             width: 100%;
             height: 100%;
             pointer-events: none;
-            z-index: 5;
+            z-index: 10;
         }
     </style>
 </head>
@@ -321,9 +303,7 @@
     <!-- PANTALLA 1 -->
     <div id="screen-1" class="screen active">
         <p class="mystic-text">Tengo algo para ti, Getsi ✨</p>
-        <div class="star-container" id="startBtn">
-            <div class="main-star">⭐</div>
-        </div>
+        <div class="main-star">⭐</div>
     </div>
 
     <!-- PANTALLA 2 -->
@@ -387,7 +367,6 @@
     </div>
 
     <script>
-        // Fondo de estrellas
         const starCanvas = document.getElementById('starfield');
         const starCtx = starCanvas.getContext('2d');
         let stars = [];
@@ -450,7 +429,6 @@
         }
         animateStars();
 
-        // Control de pantallas por listeners directos (evita bloqueos táctiles)
         let currentScreen = 1;
         function goToScreen(screenNumber) {
             document.getElementById(`screen-${currentScreen}`).classList.remove('active');
@@ -462,11 +440,11 @@
             }
         }
 
-        document.getElementById('startBtn').addEventListener('click', () => goToScreen(2));
+        // Tocar cualquier parte de la pantalla 1 avanza de inmediato
+        document.getElementById('screen-1').addEventListener('click', () => goToScreen(2));
         document.getElementById('toSkyBtn').addEventListener('click', () => goToScreen(3));
         document.getElementById('toFinaleBtn').addEventListener('click', () => startConstellationFinale());
 
-        // Animación del Ramo
         function triggerBouquetAnimation() {
             const wrapper = document.getElementById('bouquetContainer');
             wrapper.classList.add('show');
@@ -515,7 +493,6 @@
             }
         }
 
-        // Popups de estrellas
         const starsData = ['sirio', 'andromeda', 'luna', 'fugaz', 'desconocida'];
         starsData.forEach(starId => {
             document.getElementById(`star-${starId}`).addEventListener('click', () => {
@@ -533,7 +510,6 @@
             goToScreen(4);
         }
 
-        // Cierre final: Constelación GETSI limpia
         function startConstellationFinale() {
             goToScreen(5);
             const fxCanvas = document.getElementById('fx-canvas');
@@ -572,4 +548,49 @@
 
             let currentPointIndex = 0;
 
- 
+            function drawConstellationStep() {
+                fxCtx.clearRect(0, 0, fxCanvas.width, fxCanvas.height);
+
+                fxCtx.strokeStyle = 'rgba(216, 180, 254, 0.85)';
+                fxCtx.lineWidth = 2;
+                fxCtx.shadowBlur = 12;
+                fxCtx.shadowColor = '#d8b4fe';
+
+                let letterKeys = ['G', 'E', 'T', 'S', 'I'];
+                let drawnCount = 0;
+
+                letterKeys.forEach(lKey => {
+                    let pts = letters[lKey];
+                    fxCtx.beginPath();
+                    for (let i = 0; i < pts.length; i++) {
+                        if (drawnCount + i <= currentPointIndex) {
+                            if (i === 0) fxCtx.moveTo(pts[i].x, pts[i].y);
+                            else fxCtx.lineTo(pts[i].x, pts[i].y);
+                        }
+                    }
+                    fxCtx.stroke();
+                    drawnCount += pts.length;
+                });
+
+                allPoints.forEach((pt, idx) => {
+                    if (idx <= currentPointIndex) {
+                        fxCtx.fillStyle = '#ffffff';
+                        fxCtx.beginPath();
+                        fxCtx.arc(pt.x, pt.y, 4, 0, Math.PI * 2);
+                        fxCtx.fill();
+                    }
+                });
+
+                if (currentPointIndex < allPoints.length - 1) {
+                    currentPointIndex++;
+                    setTimeout(drawConstellationStep, 250);
+                } else {
+                    document.getElementById('final-message').style.opacity = '1';
+                }
+            }
+
+            setTimeout(drawConstellationStep, 500);
+        }
+    </script>
+</body>
+</html>
