@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Para Getsi ✨</title>
+<style>
+*{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;overflow:hidden}
+body{font-family:Georgia,serif;background:#03020b;color:white}
+section{position:absolute;inset:0;display:none;align-items:center;justify-content:center;text-align:center;background:radial-gradient(circle,#21153b,#070415 55%,#020107)}
+section.active{display:flex}.stars{position:absolute;inset:0}
+.star{position:absolute;width:3px;height:3px;background:white;border-radius:50%;box-shadow:0 0 9px white;animation:pulse 2s infinite alternate}
+@keyframes pulse{to{opacity:.2;transform:scale(.5)}}
+.content{position:relative;z-index:2;max-width:720px;padding:25px}
+h1{font-size:clamp(35px,8vw,70px);font-weight:400;text-shadow:0 0 30px #bba4ff}
+button{color:white;background:#ffffff12;border:1px solid #c7b6ff88;border-radius:30px;padding:13px 23px;margin:10px;font:inherit;cursor:pointer}
+.sirius{position:absolute;left:68%;top:30%;width:16px;height:16px;border-radius:50%;background:white;box-shadow:0 0 30px 12px #d8d0ff;cursor:pointer;z-index:3}
+.andromeda{position:absolute;left:18%;top:25%;opacity:.7;color:#c7b8ff;letter-spacing:14px;line-height:2}
+.objects{display:flex;flex-wrap:wrap;justify-content:center;gap:12px;max-width:500px}
+.obj{width:90px;height:90px;font-size:30px;border-radius:50%}
+.popup{display:none;position:absolute;z-index:5;max-width:360px;padding:22px;border-radius:20px;background:#0a0618ee;border:1px solid #c7b6ff88;line-height:1.6}
+.popup.show{display:block}
+.bouquet{position:relative;width:320px;height:370px;margin:auto}
+.flower{position:absolute;font-size:70px;animation:bloom .9s both}
+@keyframes bloom{from{opacity:0;transform:scale(.1)}to{opacity:1;transform:scale(1)}}
+.flower:nth-child(1){left:30px;top:55px}.flower:nth-child(2){left:100px;top:10px}.flower:nth-child(3){left:185px;top:55px}.flower:nth-child(4){left:65px;top:130px}.flower:nth-child(5){left:160px;top:140px}.flower:nth-child(6){left:115px;top:85px}
+.stems{position:absolute;left:148px;top:130px;width:18px;height:235px;background:#efb5d0;border-radius:50%}
+.letter{position:relative;z-index:2;background:#f8eff9;color:#34263c;width:90%;max-width:700px;max-height:82vh;overflow:auto;padding:28px;border-radius:10px;text-align:left;line-height:1.75;box-shadow:0 20px 70px #000}
+.letter h2{text-align:center;font-weight:400}.signature{text-align:right;font-style:italic}
+.finalname{font-size:clamp(38px,11vw,85px);letter-spacing:5px;text-shadow:0 0 22px #c8b6ff}
+.finalmsg{font-size:clamp(21px,4vw,32px);line-height:1.5}
+</style>
+</head>
+<body>
+<section id="intro" class="active"><div class="stars"></div><div class="content">
+<h1>Tengo algo para ti, Getsi ✨</h1><p>Hay un pequeño universo que preparé especialmente para ti.</p>
+<button onclick="go('sky')">Entrar al universo 🌌</button></div></section>
+
+<section id="sky"><div class="stars"></div><div class="sirius" onclick="go('explore')"></div>
+<div class="andromeda">✦ · ✧ · ✦<br>· ✦ · ✧ ·</div>
+<div class="content"><h2>Hay algo especial en este cielo...</h2><p>Toca a Sirio ⭐</p></div></section>
+
+<section id="explore"><div class="stars"></div><div class="content"><h2>Explora este cielo ✨</h2>
+<p>Cada objeto guarda algo.</p><div class="objects">
+<button class="obj" onclick="msg('Sirio ⭐','Hay estrellas que simplemente destacan. Sirio es una de ellas, y tú también destacas con tu propio brillo. ✨')">⭐</button>
+<button class="obj" onclick="msg('Andrómeda 🌌','Andrómeda guarda historias que llevan siglos viajando entre las estrellas… algunas hablan de amor. ✨')">🌌</button>
+<button class="obj" onclick="msg('La Luna 🌙','A veces alguien llega y, sin hacer demasiado, consigue cambiar por completo el paisaje. 🌙✨')">🌙</button>
+<button class="obj" onclick="shoot()">🌠</button>
+<button class="obj" onclick="secret()">💫</button>
+</div></div><div id="popup" class="popup"></div></section>
+
+<section id="bouquet"><div class="stars"></div><div class="content">
+<div class="bouquet"><div class="stems"></div><div class="flower">🌷</div><div class="flower">🌸</div><div class="flower">🌹</div><div class="flower">💜</div><div class="flower">🌸</div><div class="flower">🌷</div></div>
+<h2>Esto es para ti, Getsi. 💜✨</h2><button onclick="go('letter')">Abrir mi carta 💌</button></div></section>
+
+<section id="letter"><div class="stars"></div><div class="letter">
+<h2>Para ti, Getsi ❤️✨</h2>
+<p>Estas flores y este gran detalle son con mucho amor y cariño para ti, mi Getsi. ❤️✨</p>
+<p>Sé que has pasado por momentos difíciles y decepciones de personas que no valen la pena, pero, como las estrellas, llegaste a mi vida para iluminarla y llenarla de color. Y afortunadamente, yo también llegué a la tuya con el mismo propósito.</p>
+<p>En verdad te quiero muchísimo. Y si nadie es capaz de ver la persona que eres, tus cualidades y tus virtudes, yo lo haré. Y estaré dispuesto a hacer esto y más, porque es lo que te mereces y porque vales totalmente la pena para poder darlo todo.</p>
+<p>Te amo con todo mi corazón. ❤️✨</p><p class="signature">Tu Rabanito 🥹❤️</p>
+<div style="text-align:center"><button onclick="go('final')">Seguir ✨</button></div></div></section>
+
+<section id="final"><div class="stars"></div><div class="content">
+<div class="finalname">✦ GESIBEL ✦</div>
+<div class="finalmsg">Gracias por ser ese Sirio que necesitaba mi vida. ✨<br><b>Te amo, Getsi. ❤️</b></div>
+</div></section>
+
+<script>
+function makeStars(){
+document.querySelectorAll('.stars').forEach(box=>{
+for(let i=0;i<110;i++){let s=document.createElement('i');s.className='star';s.style.left=Math.random()*100+'%';s.style.top=Math.random()*100+'%';s.style.animationDelay=Math.random()*3+'s';s.style.opacity=.25+Math.random()*.75;box.appendChild(s)}
+})}
+function go(id){document.querySelectorAll('section').forEach(x=>x.classList.remove('active'));document.getElementById(id).classList.add('active')}
+function msg(t,m){popup.innerHTML='<b>'+t+'</b><br>'+m+'<br><button onclick="popup.classList.remove(\'show\')">Cerrar</button>';popup.classList.add('show')}
+function shoot(){popup.innerHTML='<b>Una estrella fugaz 🌠</b><br>Dicen que cuando ves una estrella fugaz debes pedir un deseo…<br><button onclick="shoot2()">Seguir ✨</button>';popup.classList.add('show')}
+function shoot2(){popup.innerHTML='<b>Mi deseo 💜</b><br>Yo ya pedí el mío: quedarme eternamente contigo. 💜<br><button onclick="shoot3()">Seguir 🌠</button>'}
+function shoot3(){popup.innerHTML='<b>Ahora es tu turno ✨</b><br>Ahora es tu turno de pedir un deseo. 🌠<br><button onclick="popup.classList.remove(\'show\')">Continuar</button>'}
+function secret(){popup.innerHTML='<b>💫</b><br>Hay cosas que todavía no te he contado…<br><button onclick="go(\'bouquet\');popup.classList.remove(\'show\')">Descubrir 💌</button>';popup.classList.add('show')}
+makeStars();
+</script>
+</body>
+</html>
