@@ -43,7 +43,8 @@
         .screen-2-start .bouquet-base{ animation:baseAppear 1s ease 3.4s forwards; }
         @keyframes baseAppear{ to{ opacity:1; transform:translateX(-50%) scaleY(1); } }
 
-        .stem{ position:absolute; bottom:25px; width:5px; height:0; background: linear-gradient( to top, #be7aa8, #f9a8d4, #fbcfe8 ); border-radius:10px; transform-origin:bottom center; box-shadow: 0 0 7px rgba(244,114,182,.35); z-index:5; }
+        /* TALLOS CAMBIADOS A ROSA PASTEL */
+        .stem{ position:absolute; bottom:25px; width:5px; height:0; background: linear-gradient( to top, #f472b6, #fbcfe8, #fed7aa ); border-radius:10px; transform-origin:bottom center; box-shadow: 0 0 7px rgba(244,114,182,.45); z-index:5; }
         .stem-1{left:44%;} .stem-2{left:52%;} .stem-3{left:35%;} .stem-4{left:61%;} .stem-5{left:48%;}
         .screen-2-start .stem-1{ animation:stem1 1.8s cubic-bezier(.2,.9,.2,1) .35s forwards; }
         .screen-2-start .stem-2{ animation:stem2 1.8s cubic-bezier(.2,.9,.2,1) .55s forwards; }
@@ -112,7 +113,6 @@
         .letter-card p{ font-size:1.3rem; line-height:1.5; color:#e9d5ff; margin-bottom:12px; }
         .letter-card .signature{ text-align:right; font-weight:bold; font-size:1.3rem; color:#f472b6; margin-top:15px; }
 
-        /* Botón con la corrección solicitada */
         .extra-btn {
             background: linear-gradient(135deg, #c084fc, #f472b6);
             color: #fff;
@@ -163,7 +163,6 @@
             <p>Mi pequeña Getsi,</p>
             <p>Quería hacer algo especial para recordarte lo mucho que significas para mí y la hermosa luz que le regalas a mis días.</p>
             <p class="signature">Tu rabanito</p>
-            <!-- Corrección aplicada aquí -->
             <button class="extra-btn" onclick="goToFinal()">Hay algo más para ti mi getsi ❤️</button>
         </div>
     </div>
