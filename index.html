@@ -3,18 +3,25 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>Para Getsi ✨</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;600;700&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
 
 <style>
+
+/* =====================================================
+   GENERAL
+===================================================== */
+
 *{
     margin:0;
     padding:0;
     box-sizing:border-box;
 }
 
-html,body{
+html,
+body{
     width:100%;
     height:100%;
     overflow:hidden;
@@ -25,10 +32,6 @@ body{
     background:#08051a;
     color:white;
 }
-
-/* =========================
-   PANTALLAS
-========================= */
 
 .screen{
     position:absolute;
@@ -43,29 +46,44 @@ body{
     display:flex;
 }
 
-/* =========================
-   PANTALLA INICIAL
-========================= */
+
+/* =====================================================
+   PANTALLA DE BIENVENIDA
+===================================================== */
 
 #welcome{
     align-items:center;
     justify-content:center;
-    flex-direction:column;
     text-align:center;
+    flex-direction:column;
+
     background:
-        radial-gradient(circle at center,#27134a 0%,#100821 45%,#05030d 100%);
+        radial-gradient(
+            circle at center,
+            #29134b 0%,
+            #100821 48%,
+            #05030d 100%
+        );
 }
 
 .welcome-content{
-    animation:welcomeFloat 3s ease-in-out infinite;
     padding:25px;
+
+    animation:
+        welcomeFloat
+        3s
+        ease-in-out
+        infinite;
 }
 
 .welcome-content h1{
     font-family:'Caveat',cursive;
     font-size:clamp(3rem,9vw,6rem);
     color:#f9b4d8;
-    text-shadow:0 0 20px #d66aa7;
+
+    text-shadow:
+        0 0 20px #d66aa7;
+
     margin-bottom:15px;
 }
 
@@ -80,62 +98,115 @@ body{
     border:none;
     outline:none;
     cursor:pointer;
+
     padding:15px 30px;
     border-radius:50px;
-    background:linear-gradient(135deg,#f5a6ce,#c77dff);
+
+    background:
+        linear-gradient(
+            135deg,
+            #f5a6ce,
+            #c77dff
+        );
+
     color:white;
     font-family:'Quicksand',sans-serif;
     font-size:1rem;
     font-weight:700;
-    box-shadow:0 0 25px rgba(238,130,238,.45);
+
+    box-shadow:
+        0 0 25px rgba(238,130,238,.45);
+
     transition:.3s;
 }
 
 .start-btn:hover,
 .next-btn:hover{
     transform:scale(1.07);
-    box-shadow:0 0 35px rgba(238,130,238,.7);
+
+    box-shadow:
+        0 0 35px rgba(238,130,238,.7);
 }
 
 @keyframes welcomeFloat{
-    0%,100%{transform:translateY(0)}
-    50%{transform:translateY(-10px)}
+
+    0%,100%{
+        transform:translateY(0);
+    }
+
+    50%{
+        transform:translateY(-10px);
+    }
+
 }
 
-/* =========================
+
+/* =====================================================
    FONDO ESTRELLADO
-========================= */
+===================================================== */
 
 .stars-bg{
     position:absolute;
     inset:0;
+
     background:
-        radial-gradient(circle at 20% 20%,rgba(173,125,255,.15),transparent 25%),
-        radial-gradient(circle at 80% 70%,rgba(255,125,205,.12),transparent 30%),
-        linear-gradient(#09051b,#130a29);
+        radial-gradient(
+            circle at 20% 20%,
+            rgba(173,125,255,.15),
+            transparent 25%
+        ),
+
+        radial-gradient(
+            circle at 80% 70%,
+            rgba(255,125,205,.12),
+            transparent 30%
+        ),
+
+        linear-gradient(
+            #09051b,
+            #130a29
+        );
 }
 
 .star{
     position:absolute;
+
     width:2px;
     height:2px;
+
     border-radius:50%;
     background:white;
-    animation:twinkle 2s infinite ease-in-out;
+
+    animation:
+        twinkle
+        2s
+        infinite
+        ease-in-out;
 }
 
 @keyframes twinkle{
-    0%,100%{opacity:.2;transform:scale(.7)}
-    50%{opacity:1;transform:scale(1.5)}
+
+    0%,100%{
+        opacity:.2;
+        transform:scale(.7);
+    }
+
+    50%{
+        opacity:1;
+        transform:scale(1.5);
+    }
+
 }
 
-/* =========================
+
+/* =====================================================
    JARDÍN
-========================= */
+===================================================== */
 
 #garden{
     align-items:center;
     justify-content:center;
+
     background:
         linear-gradient(
             to bottom,
@@ -148,61 +219,88 @@ body{
 
 .garden-wrapper{
     position:relative;
+
     width:min(1000px,100%);
     height:100%;
+
     display:flex;
+
     align-items:center;
     justify-content:center;
 }
 
-/* Luna decorativa */
-
 .moon{
     position:absolute;
+
     top:7%;
     right:8%;
+
     width:90px;
     height:90px;
+
     border-radius:50%;
+
     background:#fff6d8;
+
     box-shadow:
         0 0 20px #fff4c1,
         0 0 50px rgba(255,244,193,.35);
+
     z-index:1;
 }
 
 .moon:after{
     content:"";
+
     position:absolute;
+
     width:90px;
     height:90px;
+
     border-radius:50%;
+
     background:#120922;
+
     left:28px;
     top:-8px;
 }
 
-/* =========================
-   MENSAJES
-========================= */
+
+/* =====================================================
+   MENSAJES DEL JARDÍN
+===================================================== */
 
 .garden-message{
     position:absolute;
+
     width:190px;
     padding:18px;
+
     border-radius:20px;
-    background:rgba(38,16,54,.72);
-    border:1px solid rgba(255,183,220,.35);
+
+    background:
+        rgba(38,16,54,.72);
+
+    border:
+        1px solid rgba(255,183,220,.35);
+
     backdrop-filter:blur(7px);
+
     text-align:center;
+
     z-index:10;
-    box-shadow:0 0 20px rgba(255,120,190,.12);
+
+    box-shadow:
+        0 0 20px rgba(255,120,190,.12);
 }
 
 .garden-message p{
     font-family:'Caveat',cursive;
+
     font-size:1.4rem;
+
     color:#ffd9ed;
+
     line-height:1.15;
 }
 
@@ -216,41 +314,59 @@ body{
     top:45%;
 }
 
-/* =========================
-   RAMO / JARDÍN CENTRAL
-========================= */
+
+/* =====================================================
+   RAMO
+===================================================== */
 
 .bouquet{
     position:absolute;
+
     left:50%;
     bottom:105px;
+
     transform:translateX(-50%);
+
     width:min(560px,62vw);
     height:470px;
+
     z-index:4;
 }
 
-/* =========================
+
+/* =====================================================
    TULIPANES
-========================= */
+===================================================== */
 
 .tulip-unit{
     position:absolute;
+
     left:var(--x);
     bottom:35px;
+
     width:65px;
     height:var(--height);
+
     transform:
         translateX(-50%)
         rotate(var(--rotation))
         scale(0);
+
     transform-origin:bottom center;
-    animation:tulipAppear 1.15s cubic-bezier(.2,.8,.25,1) forwards;
+
+    animation:
+        tulipAppear
+        1.15s
+        cubic-bezier(.2,.8,.25,1)
+        forwards;
+
     animation-delay:var(--delay);
+
     z-index:4;
 }
 
 @keyframes tulipAppear{
+
     0%{
         transform:
             translateX(-50%)
@@ -271,79 +387,108 @@ body{
             rotate(var(--rotation))
             scale(1);
     }
+
 }
 
-/* Tallo */
+
+/* TALLO ROSA PASTEL */
 
 .tulip-stem{
     position:absolute;
+
     top:52px;
     bottom:0;
+
     left:50%;
+
     width:6px;
+
     transform:translateX(-50%);
+
     border-radius:999px;
-    background:linear-gradient(
-        to right,
-        #f9a8d4,
-        #fbcfe8,
-        #f9a8d4
-    );
+
+    background:
+        linear-gradient(
+            to right,
+            #f9a8d4,
+            #fbcfe8,
+            #f9a8d4
+        );
+
     box-shadow:
         0 0 5px rgba(249,168,212,.5);
 }
 
-/* Hojas */
-
 .tulip-leaf{
     position:absolute;
+
     width:28px;
     height:65px;
-    background:linear-gradient(
-        135deg,
-        #fbcfe8,
-        #f9a8d4
-    );
-    border-radius:100% 0 100% 0;
+
+    background:
+        linear-gradient(
+            135deg,
+            #fbcfe8,
+            #f9a8d4
+        );
+
+    border-radius:
+        100% 0 100% 0;
+
     opacity:.9;
 }
 
 .leaf-left{
     left:16px;
     bottom:55px;
+
     transform:rotate(55deg);
 }
 
 .leaf-right{
     right:15px;
     bottom:90px;
-    transform:rotate(-55deg) scaleX(-1);
+
+    transform:
+        rotate(-55deg)
+        scaleX(-1);
 }
 
-/* Cabeza del tulipán */
+
+/* =====================================================
+   CABEZAS DE TULIPÁN
+===================================================== */
 
 .tulip-head{
     position:absolute;
+
     top:0;
     left:50%;
+
     transform:translateX(-50%);
+
     width:58px;
     height:72px;
 }
 
-/* Pétalos */
-
 .tulip-petal{
     position:absolute;
+
     bottom:0;
+
     width:31px;
     height:61px;
-    background:linear-gradient(
-        180deg,
-        #d8b4ff,
-        #a978e8
-    );
-    border-radius:60% 60% 45% 45%;
+
+    background:
+        linear-gradient(
+            180deg,
+            #d8b4ff,
+            #a978e8
+        );
+
+    border-radius:
+        60% 60% 45% 45%;
+
     box-shadow:
         inset 0 -7px 10px rgba(91,44,145,.2),
         0 0 8px rgba(194,145,255,.25);
@@ -368,56 +513,78 @@ body{
 .tulip-petal:nth-child(4){
     left:7px;
     bottom:3px;
+
     height:58px;
-    background:linear-gradient(
-        180deg,
-        #c99aff,
-        #9563d4
-    );
+
+    background:
+        linear-gradient(
+            180deg,
+            #c99aff,
+            #9563d4
+        );
+
     z-index:3;
 }
 
-/* =========================
+
+/* =====================================================
    FLORES DE CEREZO
-========================= */
+===================================================== */
 
 .sakura{
     position:absolute;
+
     width:90px;
     height:100px;
+
     z-index:3;
 }
 
 .sakura-stem{
     position:absolute;
+
     width:4px;
     height:72px;
-    background:linear-gradient(
-        to right,
-        #f9a8d4,
-        #fbcfe8
-    );
+
+    background:
+        linear-gradient(
+            to right,
+            #f9a8d4,
+            #fbcfe8
+        );
+
     left:42px;
     top:28px;
+
     border-radius:10px;
 }
 
 .sakura-flower{
     position:absolute;
+
     width:28px;
     height:28px;
+
     border-radius:50%;
+
     background:#ffb6d9;
-    box-shadow:0 0 8px rgba(255,154,205,.6);
+
+    box-shadow:
+        0 0 8px rgba(255,154,205,.6);
 }
 
 .sakura-flower:after{
     content:"";
+
     position:absolute;
+
     width:8px;
     height:8px;
+
     border-radius:50%;
+
     background:#ffd36e;
+
     left:10px;
     top:10px;
 }
@@ -450,70 +617,103 @@ body{
 .sakura1{
     left:15%;
     top:8%;
+
     transform:rotate(-12deg);
 }
 
 .sakura2{
     left:4%;
     top:25%;
-    transform:rotate(8deg) scale(.85);
+
+    transform:
+        rotate(8deg)
+        scale(.85);
 }
 
 .sakura3{
     right:9%;
     top:10%;
-    transform:rotate(15deg) scale(.9);
+
+    transform:
+        rotate(15deg)
+        scale(.9);
 }
 
 .sakura4{
     right:2%;
     top:28%;
-    transform:rotate(-10deg) scale(.8);
+
+    transform:
+        rotate(-10deg)
+        scale(.8);
 }
 
 .sakura5{
     left:20%;
     top:40%;
-    transform:rotate(-5deg) scale(.7);
+
+    transform:
+        rotate(-5deg)
+        scale(.7);
 }
 
 .sakura6{
     right:17%;
     top:43%;
-    transform:rotate(10deg) scale(.72);
+
+    transform:
+        rotate(10deg)
+        scale(.72);
 }
 
-/* =========================
+
+/* =====================================================
    ROSAS AZULES COMO CÉSPED
-========================= */
+===================================================== */
 
 .blue-rose-grass{
     position:absolute;
+
     left:50%;
     bottom:55px;
+
     transform:translateX(-50%);
+
     width:min(650px,88vw);
     height:125px;
+
     z-index:3;
+
     pointer-events:none;
 }
 
 .blue-rose{
     position:absolute;
+
     left:var(--x);
     bottom:0;
+
     width:48px;
     height:var(--height);
+
     transform:
         translateY(40px)
         rotate(var(--rotation))
         scale(0);
+
     transform-origin:bottom center;
-    animation:roseGrassAppear .9s cubic-bezier(.2,.8,.25,1) forwards;
+
+    animation:
+        roseGrassAppear
+        .9s
+        cubic-bezier(.2,.8,.25,1)
+        forwards;
+
     animation-delay:var(--delay);
 }
 
 @keyframes roseGrassAppear{
+
     0%{
         transform:
             translateY(40px)
@@ -534,39 +734,48 @@ body{
             rotate(var(--rotation))
             scale(1);
     }
-}
 
-/* tallos rosas de las rosas */
+}
 
 .blue-rose-stem{
     position:absolute;
+
     bottom:0;
     left:50%;
+
     height:70px;
     width:5px;
-    transform:translateX(-50%);
-    border-radius:999px;
-    background:linear-gradient(
-        to right,
-        #f9a8d4,
-        #fbcfe8,
-        #f9a8d4
-    );
-}
 
-/* hojas */
+    transform:translateX(-50%);
+
+    border-radius:999px;
+
+    background:
+        linear-gradient(
+            to right,
+            #f9a8d4,
+            #fbcfe8,
+            #f9a8d4
+        );
+}
 
 .blue-rose-leaf{
     position:absolute;
+
     bottom:30px;
+
     width:23px;
     height:38px;
-    background:linear-gradient(
-        135deg,
-        #fbcfe8,
-        #f9a8d4
-    );
-    border-radius:100% 0 100% 0;
+
+    background:
+        linear-gradient(
+            135deg,
+            #fbcfe8,
+            #f9a8d4
+        );
+
+    border-radius:
+        100% 0 100% 0;
 }
 
 .blue-rose-leaf.left{
@@ -576,17 +785,21 @@ body{
 
 .blue-rose-leaf.right{
     right:4px;
-    transform:rotate(-55deg) scaleX(-1);
-}
 
-/* Rosa azul */
+    transform:
+        rotate(-55deg)
+        scaleX(-1);
+}
 
 .blue-rose-bloom{
     position:absolute;
+
     top:0;
     left:50%;
+
     width:42px;
     height:42px;
+
     transform:translateX(-50%);
 }
 
@@ -598,88 +811,127 @@ body{
 .rose-layer.one{
     width:42px;
     height:42px;
+
     left:0;
     top:0;
+
     background:#60a5fa;
-    box-shadow:0 0 10px rgba(96,165,250,.5);
+
+    box-shadow:
+        0 0 10px rgba(96,165,250,.5);
 }
 
 .rose-layer.two{
     width:32px;
     height:32px;
+
     left:5px;
     top:5px;
+
     background:#3b82f6;
 }
 
 .rose-layer.three{
     width:23px;
     height:23px;
+
     left:9px;
     top:9px;
+
     background:#2563eb;
 }
 
 .rose-layer.four{
     width:13px;
     height:13px;
+
     left:14px;
     top:14px;
+
     background:#93c5fd;
 }
 
-/* =========================
+
+/* =====================================================
    BOTÓN DEL JARDÍN
-========================= */
+===================================================== */
 
 .garden-button{
     position:absolute;
+
     bottom:18px;
     left:50%;
+
     transform:translateX(-50%);
+
     z-index:20;
 }
 
-/* =========================
+
+/* =====================================================
    CIELO
-========================= */
+===================================================== */
 
 #sky{
     align-items:center;
     justify-content:center;
+
     background:
-        radial-gradient(circle at center,#1a1042,#070313 75%);
+        radial-gradient(
+            circle at center,
+            #1a1042,
+            #070313 75%
+        );
 }
 
 .sky-content{
     position:relative;
+
     width:100%;
     height:100%;
 }
 
 .sky-title{
     position:absolute;
+
     top:7%;
     left:50%;
+
     transform:translateX(-50%);
+
     text-align:center;
+
     font-family:'Caveat',cursive;
-    font-size:clamp(2.5rem,7vw,4.5rem);
+
+    font-size:
+        clamp(2.5rem,7vw,4.5rem);
+
     color:#ffd5ee;
-    text-shadow:0 0 20px #e78bc4;
+
+    text-shadow:
+        0 0 20px #e78bc4;
 }
 
 .sky-star{
     position:absolute;
+
     width:15px;
     height:15px;
-    background:#fff;
+
+    background:white;
+
     border-radius:50%;
+
     box-shadow:
         0 0 10px #fff,
         0 0 25px #dcb7ff;
+
     cursor:pointer;
-    animation:starPulse 2s infinite;
+
+    animation:
+        starPulse
+        2s
+        infinite;
 }
 
 .sky-star:hover{
@@ -687,44 +939,92 @@ body{
 }
 
 @keyframes starPulse{
-    0%,100%{opacity:.65}
-    50%{opacity:1}
+
+    0%,100%{
+        opacity:.65;
+    }
+
+    50%{
+        opacity:1;
+    }
+
 }
 
-.star1{left:25%;top:35%}
-.star2{left:65%;top:28%}
-.star3{left:48%;top:52%}
-.star4{left:75%;top:62%}
-.star5{left:30%;top:70%}
+.star1{
+    left:25%;
+    top:35%;
+}
 
-/* =========================
+.star2{
+    left:65%;
+    top:28%;
+}
+
+.star3{
+    left:48%;
+    top:52%;
+}
+
+.star4{
+    left:75%;
+    top:62%;
+}
+
+.star5{
+    left:30%;
+    top:70%;
+}
+
+
+/* =====================================================
    POPUP
-========================= */
+===================================================== */
 
 .star-popup{
     position:absolute;
+
     left:50%;
     top:50%;
-    transform:translate(-50%,-50%) scale(0);
+
+    transform:
+        translate(-50%,-50%)
+        scale(0);
+
     width:min(340px,85%);
+
     padding:25px;
+
     border-radius:25px;
-    background:rgba(25,12,45,.95);
-    border:1px solid rgba(255,190,230,.4);
-    box-shadow:0 0 40px rgba(222,130,220,.3);
+
+    background:
+        rgba(25,12,45,.95);
+
+    border:
+        1px solid rgba(255,190,230,.4);
+
+    box-shadow:
+        0 0 40px rgba(222,130,220,.3);
+
     text-align:center;
+
     z-index:50;
+
     transition:.35s;
 }
 
 .star-popup.show{
-    transform:translate(-50%,-50%) scale(1);
+    transform:
+        translate(-50%,-50%)
+        scale(1);
 }
 
 .star-popup h2{
     font-family:'Caveat',cursive;
+
     color:#ffb6dc;
+
     font-size:2.2rem;
+
     margin-bottom:10px;
 }
 
@@ -735,134 +1035,308 @@ body{
 
 .close-popup{
     margin-top:18px;
+
     padding:9px 20px;
+
     border:0;
+
     border-radius:20px;
+
     background:#c77dff;
+
     color:white;
+
     cursor:pointer;
 }
 
-/* =========================
+
+/* =====================================================
    CARTA
-========================= */
+===================================================== */
 
 #letter{
     align-items:center;
     justify-content:center;
+
     background:
-        radial-gradient(circle at center,#341735,#100719);
+        radial-gradient(
+            circle at center,
+            #341735,
+            #100719
+        );
 }
 
 .letter{
     width:min(700px,90%);
+
     max-height:85%;
+
     overflow:auto;
+
     padding:40px;
+
     border-radius:30px;
-    background:rgba(255,241,249,.95);
+
+    background:
+        rgba(255,241,249,.95);
+
     color:#512b49;
+
     box-shadow:
         0 0 50px rgba(255,160,210,.25);
+
     text-align:center;
 }
 
 .letter h1{
     font-family:'Caveat',cursive;
+
     color:#b55391;
-    font-size:clamp(2.7rem,7vw,4.5rem);
+
+    font-size:
+        clamp(2.7rem,7vw,4.5rem);
+
     margin-bottom:20px;
 }
 
 .letter p{
     font-family:'Caveat',cursive;
-    font-size:clamp(1.4rem,3vw,1.8rem);
+
+    font-size:
+        clamp(1.4rem,3vw,1.8rem);
+
     line-height:1.5;
+
     margin-bottom:18px;
 }
 
 .heart-text{
     font-size:2rem;
+
     color:#e85d9e;
+
     margin:25px 0;
 }
 
-/* =========================
-   CONSTELACIÓN FINAL
-========================= */
+
+/* =====================================================
+   PANTALLA FINAL
+===================================================== */
 
 #final{
     align-items:center;
     justify-content:center;
+
     background:#03020b;
 }
 
 .final-content{
     position:relative;
+
     width:100%;
     height:100%;
 }
 
+
+/* =====================================================
+   TÍTULO FINAL
+===================================================== */
+
 .final-title{
     position:absolute;
-    top:8%;
+
+    top:6%;
+
     left:50%;
+
     transform:translateX(-50%);
-    font-family:'Caveat',cursive;
-    font-size:clamp(2rem,6vw,4rem);
-    color:#ffd5ec;
+
+    width:92%;
+
     text-align:center;
+
+    font-family:'Caveat',cursive;
+
+    font-size:
+        clamp(2.5rem,8vw,4.5rem);
+
+    line-height:1.05;
+
+    color:#ffd5ec;
+
+    text-shadow:
+        0 0 10px rgba(255,170,220,.7),
+        0 0 25px rgba(255,130,205,.35);
+
     opacity:0;
-    animation:fadeFinal 2s 4s forwards;
+
+    animation:
+        fadeFinal
+        2s
+        2s
+        forwards;
 }
+
+
+/* =====================================================
+   CONSTELACIÓN GETSI
+===================================================== */
 
 .constellation{
     position:absolute;
+
     left:50%;
     top:50%;
-    width:min(600px,90vw);
-    height:280px;
-    transform:translate(-50%,-50%);
+
+    transform:
+        translate(-50%,-50%);
+
+    width:min(620px,92vw);
+
+    height:230px;
+
+    overflow:visible;
 }
+
+
+/* ESTRELLAS QUE FORMAN LAS LETRAS */
 
 .constellation-star{
     position:absolute;
+
     width:9px;
     height:9px;
+
     border-radius:50%;
-    background:white;
+
+    background:#ffffff;
+
     box-shadow:
-        0 0 8px white,
-        0 0 20px #cdb1ff;
+        0 0 8px #ffffff,
+        0 0 18px rgba(210,190,255,.95),
+        0 0 32px rgba(170,130,255,.55);
+
     opacity:0;
-    animation:starFinal 1s forwards;
+
+    transform:scale(.1);
+
+    animation:
+        starFinal
+        .65s
+        cubic-bezier(.2,.8,.2,1)
+        forwards;
 }
 
-.final-message{
+
+/* =====================================================
+   LÍNEAS SUTILES ENTRE ESTRELLAS
+===================================================== */
+
+.constellation-line{
     position:absolute;
-    bottom:10%;
-    left:50%;
-    transform:translateX(-50%);
-    width:90%;
-    text-align:center;
-    font-family:'Caveat',cursive;
-    font-size:clamp(1.8rem,5vw,3rem);
-    color:#ffc8e5;
+
+    height:1px;
+
+    background:
+        rgba(220,205,255,.35);
+
+    transform-origin:left center;
+
     opacity:0;
-    animation:fadeFinal 2s 5s forwards;
+
+    animation:
+        lineAppear
+        1s
+        forwards;
 }
 
 @keyframes starFinal{
-    to{opacity:1}
+
+    0%{
+        opacity:0;
+        transform:scale(.1);
+    }
+
+    70%{
+        opacity:1;
+        transform:scale(1.45);
+    }
+
+    100%{
+        opacity:1;
+        transform:scale(1);
+    }
+}
+
+@keyframes lineAppear{
+
+    from{
+        opacity:0;
+    }
+
+    to{
+        opacity:.55;
+    }
+}
+
+
+/* =====================================================
+   MENSAJE FINAL
+===================================================== */
+
+.final-message{
+    position:absolute;
+
+    bottom:7%;
+
+    left:50%;
+
+    transform:translateX(-50%);
+
+    width:min(900px,92%);
+
+    text-align:center;
+
+    font-family:'Caveat',cursive;
+
+    font-size:
+        clamp(1.7rem,5.2vw,2.8rem);
+
+    line-height:1.2;
+
+    color:#ffc8e5;
+
+    text-shadow:
+        0 0 10px rgba(255,170,220,.45);
+
+    opacity:0;
+
+    animation:
+        fadeFinal
+        2s
+        5s
+        forwards;
+}
+
+.final-message span{
+    display:block;
+}
+
+.final-message span + span{
+    margin-top:12px;
 }
 
 @keyframes fadeFinal{
-    to{opacity:1}
+
+    to{
+        opacity:1;
+    }
 }
 
-/* =========================
+
+/* =====================================================
    RESPONSIVE
-========================= */
+===================================================== */
 
 @media(max-width:700px){
 
@@ -888,25 +1362,35 @@ body{
     .bouquet{
         width:500px;
         height:430px;
-        transform:translateX(-50%) scale(.78);
+
+        transform:
+            translateX(-50%)
+            scale(.78);
+
         transform-origin:center bottom;
     }
 
     .blue-rose-grass{
         width:520px;
-        transform:translateX(-50%) scale(.8);
+
+        transform:
+            translateX(-50%)
+            scale(.8);
+
         transform-origin:center bottom;
     }
 
     .moon{
         width:60px;
         height:60px;
+
         right:5%;
     }
 
     .moon:after{
         width:60px;
         height:60px;
+
         left:20px;
         top:-5px;
     }
@@ -914,7 +1398,30 @@ body{
     .letter{
         padding:25px 20px;
     }
+
+    .final-title{
+        top:5%;
+    }
+
+    .final-message{
+        bottom:6%;
+    }
+
+    /* ==============================================
+       CONSTELACIÓN MÁS PEQUEÑA EN CELULAR
+    ============================================== */
+
+    .constellation{
+
+        transform:
+            translate(-50%,-50%)
+            scale(.78);
+
+        transform-origin:center center;
+    }
+
 }
+
 
 @media(max-width:480px){
 
@@ -935,39 +1442,89 @@ body{
     }
 
     .bouquet{
-        transform:translateX(-50%) scale(.63);
+        transform:
+            translateX(-50%)
+            scale(.63);
+
         bottom:105px;
     }
 
     .blue-rose-grass{
-        transform:translateX(-50%) scale(.68);
+        transform:
+            translateX(-50%)
+            scale(.68);
     }
 
     .garden-button{
         bottom:12px;
     }
+
+    .final-title{
+        width:95%;
+
+        font-size:
+            clamp(2.2rem,9vw,3.5rem);
+    }
+
+    .final-message{
+        font-size:
+            clamp(1.5rem,6vw,2.1rem);
+
+        bottom:5%;
+    }
+
+    /* ==============================================
+       GETSI CABE COMPLETO EN PANTALLAS PEQUEÑAS
+    ============================================== */
+
+    .constellation{
+
+        transform:
+            translate(-50%,-50%)
+            scale(.72);
+
+        transform-origin:center center;
+    }
+
 }
+
+
+/* =====================================================
+   EVITAR SELECCIÓN
+===================================================== */
+
+button{
+    -webkit-tap-highlight-color:transparent;
+}
+
 </style>
 </head>
 
 <body>
 
-<!-- ==================================================
+
+<!-- =====================================================
      PANTALLA 1
-================================================== -->
+===================================================== -->
 
 <section id="welcome" class="screen active">
 
     <div class="welcome-content">
 
-        <h1>¡Hola! 💖</h1>
+        <h1>
+            ¡Hola! 💖
+        </h1>
 
         <p>
             ESTE DETALLE ES PARA TI :)
         </p>
 
-        <button class="start-btn" onclick="goTo('garden')">
+        <button
+            class="start-btn"
+            onclick="goTo('garden')">
+
             CLICK AQUÍ ✨
+
         </button>
 
     </div>
@@ -975,9 +1532,10 @@ body{
 </section>
 
 
-<!-- ==================================================
+
+<!-- =====================================================
      PANTALLA 2 — JARDÍN
-================================================== -->
+===================================================== -->
 
 <section id="garden" class="screen">
 
@@ -987,96 +1545,124 @@ body{
 
         <div class="moon"></div>
 
-        <!-- MENSAJES FUERA DEL RAMO -->
 
         <div class="garden-message message-left">
+
             <p>
                 Cada flor representa
                 un pedacito de mi
                 cariño por ti. 🌷
             </p>
+
         </div>
 
+
         <div class="garden-message message-right">
+
             <p>
                 Y cada pétalo
                 guarda un
                 pensamiento para ti. 🌸
             </p>
+
         </div>
 
 
         <!-- FLORES DE CEREZO -->
 
         <div class="sakura sakura1">
+
             <div class="sakura-stem"></div>
+
             <div class="sakura-flower"></div>
             <div class="sakura-flower"></div>
             <div class="sakura-flower"></div>
             <div class="sakura-flower"></div>
             <div class="sakura-flower"></div>
+
         </div>
+
 
         <div class="sakura sakura2">
+
             <div class="sakura-stem"></div>
+
             <div class="sakura-flower"></div>
             <div class="sakura-flower"></div>
             <div class="sakura-flower"></div>
             <div class="sakura-flower"></div>
             <div class="sakura-flower"></div>
+
         </div>
+
 
         <div class="sakura sakura3">
+
             <div class="sakura-stem"></div>
+
             <div class="sakura-flower"></div>
             <div class="sakura-flower"></div>
             <div class="sakura-flower"></div>
             <div class="sakura-flower"></div>
             <div class="sakura-flower"></div>
+
         </div>
+
 
         <div class="sakura sakura4">
+
             <div class="sakura-stem"></div>
+
             <div class="sakura-flower"></div>
             <div class="sakura-flower"></div>
             <div class="sakura-flower"></div>
             <div class="sakura-flower"></div>
             <div class="sakura-flower"></div>
+
         </div>
+
 
         <div class="sakura sakura5">
+
             <div class="sakura-stem"></div>
+
             <div class="sakura-flower"></div>
             <div class="sakura-flower"></div>
             <div class="sakura-flower"></div>
             <div class="sakura-flower"></div>
             <div class="sakura-flower"></div>
+
         </div>
+
 
         <div class="sakura sakura6">
+
             <div class="sakura-stem"></div>
+
             <div class="sakura-flower"></div>
             <div class="sakura-flower"></div>
             <div class="sakura-flower"></div>
             <div class="sakura-flower"></div>
             <div class="sakura-flower"></div>
+
         </div>
 
 
-        <!-- =========================================
-             RAMO CENTRAL
-        ========================================== -->
+
+        <!-- TULIPANES -->
 
         <div class="bouquet">
 
-            <!-- TULIPÁN 1 -->
-            <div class="tulip-unit"
-                 style="
-                 --x:50%;
-                 --height:350px;
-                 --rotation:0deg;
-                 --delay:.2s;
-                 ">
+            <div
+                class="tulip-unit"
+                style="
+                    --x:50%;
+                    --height:350px;
+                    --rotation:0deg;
+                    --delay:.2s;
+                "
+            >
+
                 <div class="tulip-head">
                     <div class="tulip-petal"></div>
                     <div class="tulip-petal"></div>
@@ -1088,17 +1674,20 @@ body{
 
                 <div class="tulip-leaf leaf-left"></div>
                 <div class="tulip-leaf leaf-right"></div>
+
             </div>
 
 
-            <!-- TULIPÁN 2 -->
-            <div class="tulip-unit"
-                 style="
-                 --x:38%;
-                 --height:315px;
-                 --rotation:-7deg;
-                 --delay:.35s;
-                 ">
+            <div
+                class="tulip-unit"
+                style="
+                    --x:38%;
+                    --height:315px;
+                    --rotation:-7deg;
+                    --delay:.35s;
+                "
+            >
+
                 <div class="tulip-head">
                     <div class="tulip-petal"></div>
                     <div class="tulip-petal"></div>
@@ -1110,17 +1699,20 @@ body{
 
                 <div class="tulip-leaf leaf-left"></div>
                 <div class="tulip-leaf leaf-right"></div>
+
             </div>
 
 
-            <!-- TULIPÁN 3 -->
-            <div class="tulip-unit"
-                 style="
-                 --x:62%;
-                 --height:320px;
-                 --rotation:7deg;
-                 --delay:.5s;
-                 ">
+            <div
+                class="tulip-unit"
+                style="
+                    --x:62%;
+                    --height:320px;
+                    --rotation:7deg;
+                    --delay:.5s;
+                "
+            >
+
                 <div class="tulip-head">
                     <div class="tulip-petal"></div>
                     <div class="tulip-petal"></div>
@@ -1132,17 +1724,20 @@ body{
 
                 <div class="tulip-leaf leaf-left"></div>
                 <div class="tulip-leaf leaf-right"></div>
+
             </div>
 
 
-            <!-- TULIPÁN 4 -->
-            <div class="tulip-unit"
-                 style="
-                 --x:26%;
-                 --height:270px;
-                 --rotation:-13deg;
-                 --delay:.65s;
-                 ">
+            <div
+                class="tulip-unit"
+                style="
+                    --x:26%;
+                    --height:270px;
+                    --rotation:-13deg;
+                    --delay:.65s;
+                "
+            >
+
                 <div class="tulip-head">
                     <div class="tulip-petal"></div>
                     <div class="tulip-petal"></div>
@@ -1154,17 +1749,20 @@ body{
 
                 <div class="tulip-leaf leaf-left"></div>
                 <div class="tulip-leaf leaf-right"></div>
+
             </div>
 
 
-            <!-- TULIPÁN 5 -->
-            <div class="tulip-unit"
-                 style="
-                 --x:74%;
-                 --height:275px;
-                 --rotation:13deg;
-                 --delay:.8s;
-                 ">
+            <div
+                class="tulip-unit"
+                style="
+                    --x:74%;
+                    --height:275px;
+                    --rotation:13deg;
+                    --delay:.8s;
+                "
+            >
+
                 <div class="tulip-head">
                     <div class="tulip-petal"></div>
                     <div class="tulip-petal"></div>
@@ -1176,17 +1774,20 @@ body{
 
                 <div class="tulip-leaf leaf-left"></div>
                 <div class="tulip-leaf leaf-right"></div>
+
             </div>
 
 
-            <!-- TULIPÁN 6 -->
-            <div class="tulip-unit"
-                 style="
-                 --x:16%;
-                 --height:235px;
-                 --rotation:-18deg;
-                 --delay:.95s;
-                 ">
+            <div
+                class="tulip-unit"
+                style="
+                    --x:16%;
+                    --height:235px;
+                    --rotation:-18deg;
+                    --delay:.95s;
+                "
+            >
+
                 <div class="tulip-head">
                     <div class="tulip-petal"></div>
                     <div class="tulip-petal"></div>
@@ -1198,17 +1799,20 @@ body{
 
                 <div class="tulip-leaf leaf-left"></div>
                 <div class="tulip-leaf leaf-right"></div>
+
             </div>
 
 
-            <!-- TULIPÁN 7 -->
-            <div class="tulip-unit"
-                 style="
-                 --x:84%;
-                 --height:240px;
-                 --rotation:18deg;
-                 --delay:1.1s;
-                 ">
+            <div
+                class="tulip-unit"
+                style="
+                    --x:84%;
+                    --height:240px;
+                    --rotation:18deg;
+                    --delay:1.1s;
+                "
+            >
+
                 <div class="tulip-head">
                     <div class="tulip-petal"></div>
                     <div class="tulip-petal"></div>
@@ -1220,156 +1824,284 @@ body{
 
                 <div class="tulip-leaf leaf-left"></div>
                 <div class="tulip-leaf leaf-right"></div>
+
             </div>
 
         </div>
 
 
-        <!-- =========================================
-             ROSAS AZULES — CÉSPED
-        ========================================== -->
+
+        <!-- ROSAS AZULES -->
 
         <div class="blue-rose-grass">
 
-            <div class="blue-rose"
-                 style="--x:1%;--height:90px;--rotation:-12deg;--delay:1.1s;">
+            <div
+                class="blue-rose"
+                style="
+                    --x:1%;
+                    --height:90px;
+                    --rotation:-12deg;
+                    --delay:1.1s;
+                "
+            >
+
                 <div class="blue-rose-bloom">
                     <div class="rose-layer one"></div>
                     <div class="rose-layer two"></div>
                     <div class="rose-layer three"></div>
                     <div class="rose-layer four"></div>
                 </div>
+
                 <div class="blue-rose-stem"></div>
                 <div class="blue-rose-leaf left"></div>
+
             </div>
 
-            <div class="blue-rose"
-                 style="--x:9%;--height:75px;--rotation:-6deg;--delay:1.2s;">
+
+            <div
+                class="blue-rose"
+                style="
+                    --x:9%;
+                    --height:75px;
+                    --rotation:-6deg;
+                    --delay:1.2s;
+                "
+            >
+
                 <div class="blue-rose-bloom">
                     <div class="rose-layer one"></div>
                     <div class="rose-layer two"></div>
                     <div class="rose-layer three"></div>
                     <div class="rose-layer four"></div>
                 </div>
+
                 <div class="blue-rose-stem"></div>
                 <div class="blue-rose-leaf right"></div>
+
             </div>
 
-            <div class="blue-rose"
-                 style="--x:17%;--height:100px;--rotation:8deg;--delay:1.3s;">
+
+            <div
+                class="blue-rose"
+                style="
+                    --x:17%;
+                    --height:100px;
+                    --rotation:8deg;
+                    --delay:1.3s;
+                "
+            >
+
                 <div class="blue-rose-bloom">
                     <div class="rose-layer one"></div>
                     <div class="rose-layer two"></div>
                     <div class="rose-layer three"></div>
                     <div class="rose-layer four"></div>
                 </div>
+
                 <div class="blue-rose-stem"></div>
                 <div class="blue-rose-leaf left"></div>
+
             </div>
 
-            <div class="blue-rose"
-                 style="--x:27%;--height:72px;--rotation:-9deg;--delay:1.4s;">
+
+            <div
+                class="blue-rose"
+                style="
+                    --x:27%;
+                    --height:72px;
+                    --rotation:-9deg;
+                    --delay:1.4s;
+                "
+            >
+
                 <div class="blue-rose-bloom">
                     <div class="rose-layer one"></div>
                     <div class="rose-layer two"></div>
                     <div class="rose-layer three"></div>
                     <div class="rose-layer four"></div>
                 </div>
+
                 <div class="blue-rose-stem"></div>
                 <div class="blue-rose-leaf right"></div>
+
             </div>
 
-            <div class="blue-rose"
-                 style="--x:36%;--height:92px;--rotation:5deg;--delay:1.5s;">
+
+            <div
+                class="blue-rose"
+                style="
+                    --x:36%;
+                    --height:92px;
+                    --rotation:5deg;
+                    --delay:1.5s;
+                "
+            >
+
                 <div class="blue-rose-bloom">
                     <div class="rose-layer one"></div>
                     <div class="rose-layer two"></div>
                     <div class="rose-layer three"></div>
                     <div class="rose-layer four"></div>
                 </div>
+
                 <div class="blue-rose-stem"></div>
                 <div class="blue-rose-leaf left"></div>
+
             </div>
 
-            <div class="blue-rose"
-                 style="--x:45%;--height:78px;--rotation:-4deg;--delay:1.6s;">
+
+            <div
+                class="blue-rose"
+                style="
+                    --x:45%;
+                    --height:78px;
+                    --rotation:-4deg;
+                    --delay:1.6s;
+                "
+            >
+
                 <div class="blue-rose-bloom">
                     <div class="rose-layer one"></div>
                     <div class="rose-layer two"></div>
                     <div class="rose-layer three"></div>
                     <div class="rose-layer four"></div>
                 </div>
+
                 <div class="blue-rose-stem"></div>
                 <div class="blue-rose-leaf right"></div>
+
             </div>
 
-            <div class="blue-rose"
-                 style="--x:54%;--height:98px;--rotation:7deg;--delay:1.7s;">
+
+            <div
+                class="blue-rose"
+                style="
+                    --x:54%;
+                    --height:98px;
+                    --rotation:7deg;
+                    --delay:1.7s;
+                "
+            >
+
                 <div class="blue-rose-bloom">
                     <div class="rose-layer one"></div>
                     <div class="rose-layer two"></div>
                     <div class="rose-layer three"></div>
                     <div class="rose-layer four"></div>
                 </div>
+
                 <div class="blue-rose-stem"></div>
                 <div class="blue-rose-leaf left"></div>
+
             </div>
 
-            <div class="blue-rose"
-                 style="--x:64%;--height:73px;--rotation:-7deg;--delay:1.8s;">
+
+            <div
+                class="blue-rose"
+                style="
+                    --x:64%;
+                    --height:73px;
+                    --rotation:-7deg;
+                    --delay:1.8s;
+                "
+            >
+
                 <div class="blue-rose-bloom">
                     <div class="rose-layer one"></div>
                     <div class="rose-layer two"></div>
                     <div class="rose-layer three"></div>
                     <div class="rose-layer four"></div>
                 </div>
+
                 <div class="blue-rose-stem"></div>
                 <div class="blue-rose-leaf right"></div>
+
             </div>
 
-            <div class="blue-rose"
-                 style="--x:73%;--height:94px;--rotation:10deg;--delay:1.9s;">
+
+            <div
+                class="blue-rose"
+                style="
+                    --x:73%;
+                    --height:94px;
+                    --rotation:10deg;
+                    --delay:1.9s;
+                "
+            >
+
                 <div class="blue-rose-bloom">
                     <div class="rose-layer one"></div>
                     <div class="rose-layer two"></div>
                     <div class="rose-layer three"></div>
                     <div class="rose-layer four"></div>
                 </div>
+
                 <div class="blue-rose-stem"></div>
                 <div class="blue-rose-leaf left"></div>
+
             </div>
 
-            <div class="blue-rose"
-                 style="--x:82%;--height:76px;--rotation:-5deg;--delay:2s;">
+
+            <div
+                class="blue-rose"
+                style="
+                    --x:82%;
+                    --height:76px;
+                    --rotation:-5deg;
+                    --delay:2s;
+                "
+            >
+
                 <div class="blue-rose-bloom">
                     <div class="rose-layer one"></div>
                     <div class="rose-layer two"></div>
                     <div class="rose-layer three"></div>
                     <div class="rose-layer four"></div>
                 </div>
+
                 <div class="blue-rose-stem"></div>
                 <div class="blue-rose-leaf right"></div>
+
             </div>
 
-            <div class="blue-rose"
-                 style="--x:91%;--height:88px;--rotation:8deg;--delay:2.1s;">
+
+            <div
+                class="blue-rose"
+                style="
+                    --x:91%;
+                    --height:88px;
+                    --rotation:8deg;
+                    --delay:2.1s;
+                "
+            >
+
                 <div class="blue-rose-bloom">
                     <div class="rose-layer one"></div>
                     <div class="rose-layer two"></div>
                     <div class="rose-layer three"></div>
                     <div class="rose-layer four"></div>
                 </div>
+
                 <div class="blue-rose-stem"></div>
                 <div class="blue-rose-leaf left"></div>
+
             </div>
 
         </div>
 
 
+        <!-- BOTÓN -->
+
         <div class="garden-button">
-            <button class="next-btn" onclick="goTo('sky')">
+
+            <button
+                class="next-btn"
+                onclick="goTo('sky')">
+
                 Explorar el cielo ✨
+
             </button>
+
         </div>
 
     </div>
@@ -1377,9 +2109,10 @@ body{
 </section>
 
 
-<!-- ==================================================
+
+<!-- =====================================================
      PANTALLA 3 — CIELO
-================================================== -->
+===================================================== -->
 
 <section id="sky" class="screen">
 
@@ -1391,47 +2124,97 @@ body{
             Mira las estrellas... ✨
         </h1>
 
-        <div class="sky-star star1"
-             onclick="showPopup('Sirio','Una de las estrellas más brillantes del cielo. Para mí, tú siempre brillas todavía más. ✨')">
-        </div>
 
-        <div class="sky-star star2"
-             onclick="showPopup('Andrómeda','Una galaxia enorme y hermosa... pero incluso ella se queda pequeña comparada con todo lo que siento por ti. 💜')">
-        </div>
+        <div
+            class="sky-star star1"
+            onclick="
+                showPopup(
+                    'Sirio',
+                    'Una de las estrellas más brillantes del cielo. Para mí, tú siempre brillas todavía más. ✨'
+                )
+            "
+        ></div>
 
-        <div class="sky-star star3"
-             onclick="showPopup('La Luna','Aunque esté lejos, siempre parece acompañarnos. 🌙')">
-        </div>
 
-        <div class="sky-star star4"
-             onclick="showPopup('Estrella fugaz','Pide un deseo... aunque yo ya tengo el mío: seguir compartiendo momentos contigo. 💫')">
-        </div>
+        <div
+            class="sky-star star2"
+            onclick="
+                showPopup(
+                    'Andrómeda',
+                    'Una galaxia enorme y hermosa... pero incluso ella se queda pequeña comparada con todo lo que siento por ti. 💜'
+                )
+            "
+        ></div>
 
-        <div class="sky-star star5"
-             onclick="showPopup('Estrella desconocida','Quizá nadie conozca su nombre, pero yo sé exactamente por qué me recuerda a ti. ❤️')">
-        </div>
 
-        <div id="starPopup" class="star-popup">
+        <div
+            class="sky-star star3"
+            onclick="
+                showPopup(
+                    'La Luna',
+                    'Aunque esté lejos, siempre parece acompañarnos. 🌙'
+                )
+            "
+        ></div>
+
+
+        <div
+            class="sky-star star4"
+            onclick="
+                showPopup(
+                    'Estrella fugaz',
+                    'Pide un deseo... aunque yo ya tengo el mío: seguir compartiendo momentos contigo. 💫'
+                )
+            "
+        ></div>
+
+
+        <div
+            class="sky-star star5"
+            onclick="
+                showPopup(
+                    'Estrella desconocida',
+                    'Quizá nadie conozca su nombre, pero yo sé exactamente por qué me recuerda a ti. ❤️'
+                )
+            "
+        ></div>
+
+
+        <div
+            id="starPopup"
+            class="star-popup"
+        >
 
             <h2 id="popupTitle"></h2>
 
             <p id="popupText"></p>
 
-            <button class="close-popup" onclick="closePopup()">
+            <button
+                class="close-popup"
+                onclick="closePopup()"
+            >
                 Cerrar ✨
             </button>
 
         </div>
 
-        <div style="
-            position:absolute;
-            bottom:25px;
-            left:50%;
-            transform:translateX(-50%);
-        ">
-            <button class="next-btn" onclick="goTo('letter')">
+
+        <div
+            style="
+                position:absolute;
+                bottom:25px;
+                left:50%;
+                transform:translateX(-50%);
+            "
+        >
+
+            <button
+                class="next-btn"
+                onclick="goTo('letter')"
+            >
                 Seguir leyendo 💌
             </button>
+
         </div>
 
     </div>
@@ -1439,15 +2222,18 @@ body{
 </section>
 
 
-<!-- ==================================================
+
+<!-- =====================================================
      PANTALLA 4 — CARTA
-================================================== -->
+===================================================== -->
 
 <section id="letter" class="screen">
 
     <div class="letter">
 
-        <h1>Para Getsi 💖</h1>
+        <h1>
+            Para Getsi 💖
+        </h1>
 
         <p>
             No sé si existen palabras suficientes para explicar
@@ -1473,7 +2259,10 @@ body{
             Te amo con todo mi corazón 💖
         </div>
 
-        <button class="next-btn" onclick="goTo('final')">
+        <button
+            class="next-btn"
+            onclick="goTo('final')"
+        >
             Ver Constelación Final ✨
         </button>
 
@@ -1482,9 +2271,10 @@ body{
 </section>
 
 
-<!-- ==================================================
+
+<!-- =====================================================
      PANTALLA 5 — FINAL
-================================================== -->
+===================================================== -->
 
 <section id="final" class="screen">
 
@@ -1493,13 +2283,29 @@ body{
     <div class="final-content">
 
         <h1 class="final-title">
-            Nuestra constelación ✨
+
+            Esta es mi<br>
+            constelación favorita ✨
+
         </h1>
 
-        <div class="constellation" id="constellation"></div>
+
+        <div
+            class="constellation"
+            id="constellation"
+        ></div>
+
 
         <div class="final-message">
-            Eres mi constelación favorita, Getsi. ✨❤️
+
+            <span>
+                Gracias por ser esa constelación y ese Sirio que necesitaba mi vida. ✨
+            </span>
+
+            <span>
+                Te amo, mi Getsi. ❤️
+            </span>
+
         </div>
 
     </div>
@@ -1507,154 +2313,304 @@ body{
 </section>
 
 
+
 <script>
 
-/* =========================
-   CAMBIAR PANTALLAS
-========================= */
+/* =====================================================
+   CAMBIAR DE PANTALLA
+===================================================== */
 
 function goTo(id){
 
-    document.querySelectorAll('.screen').forEach(screen=>{
-        screen.classList.remove('active');
-    });
+    document
+        .querySelectorAll('.screen')
+        .forEach(screen => {
 
-    const next=document.getElementById(id);
+            screen.classList.remove('active');
+
+        });
+
+    const next =
+        document.getElementById(id);
 
     if(next){
+
         next.classList.add('active');
+
     }
 
-    if(id==='final'){
+    if(id === 'final'){
+
         createConstellation();
+
     }
+
 }
 
 
-/* =========================
-   ESTRELLAS DEL FONDO
-========================= */
+/* =====================================================
+   ESTRELLAS DE FONDO
+===================================================== */
 
 function createBackgroundStars(){
 
-    document.querySelectorAll('.stars-bg').forEach(bg=>{
+    document
+        .querySelectorAll('.stars-bg')
+        .forEach(bg => {
 
-        for(let i=0;i<80;i++){
+            for(let i = 0; i < 90; i++){
 
-            const star=document.createElement('div');
+                const star =
+                    document.createElement('div');
 
-            star.className='star';
+                star.className =
+                    'star';
 
-            star.style.left=Math.random()*100+'%';
-            star.style.top=Math.random()*100+'%';
+                star.style.left =
+                    Math.random() * 100 + '%';
 
-            const size=Math.random()*3+1;
+                star.style.top =
+                    Math.random() * 100 + '%';
 
-            star.style.width=size+'px';
-            star.style.height=size+'px';
+                const size =
+                    Math.random() * 3 + 1;
 
-            star.style.animationDelay=
-                (Math.random()*3)+'s';
+                star.style.width =
+                    size + 'px';
 
-            bg.appendChild(star);
-        }
+                star.style.height =
+                    size + 'px';
 
-    });
+                star.style.animationDelay =
+                    Math.random() * 3 + 's';
+
+                bg.appendChild(star);
+
+            }
+
+        });
 
 }
 
 createBackgroundStars();
 
 
-/* =========================
-   POPUPS
-========================= */
+
+/* =====================================================
+   POPUPS DEL CIELO
+===================================================== */
 
 function showPopup(title,text){
 
-    document.getElementById('popupTitle').textContent=title;
+    document
+        .getElementById('popupTitle')
+        .textContent = title;
 
-    document.getElementById('popupText').textContent=text;
+    document
+        .getElementById('popupText')
+        .textContent = text;
 
-    document.getElementById('starPopup')
+    document
+        .getElementById('starPopup')
         .classList.add('show');
 
 }
 
+
 function closePopup(){
 
-    document.getElementById('starPopup')
+    document
+        .getElementById('starPopup')
         .classList.remove('show');
 
 }
 
 
-/* =========================
+
+/* =====================================================
    CONSTELACIÓN GETSI
-========================= */
+===================================================== */
 
 function createConstellation(){
 
-    const container=
+    const container =
         document.getElementById('constellation');
 
-    container.innerHTML='';
+    container.innerHTML = '';
 
-    const letters={
 
-        G:[
-            [20,40],[10,40],[5,50],[5,65],
-            [10,75],[20,75],[25,65],
-            [17,60],[25,60]
+    /*
+       CADA LETRA SE DIBUJA CON ESTRELLAS.
+
+       # = estrella
+       . = espacio
+    */
+
+    const letters = [
+
+        [
+            "####.",
+            "#....",
+            "#....",
+            "#.###",
+            "#...#",
+            "#...#",
+            "####."
         ],
 
-        E:[
-            [35,40],[35,75],
-            [35,40],[50,40],
-            [35,57],[47,57],
-            [35,75],[50,75]
+        [
+            "#####",
+            "#....",
+            "#....",
+            "####.",
+            "#....",
+            "#....",
+            "#####"
         ],
 
-        T:[
-            [58,40],[75,40],
-            [66,40],[66,75]
+        [
+            "#####",
+            "..#..",
+            "..#..",
+            "..#..",
+            "..#..",
+            "..#..",
+            "..#.."
         ],
 
-        S:[
-            [95,40],[80,40],[80,57],
-            [95,57],[95,75],[80,75]
+        [
+            ".####",
+            "#....",
+            "#....",
+            ".###.",
+            "....#",
+            "....#",
+            "####."
         ],
 
-        I:[
-            [108,40],[108,75],
-            [102,40],[114,40],
-            [102,75],[114,75]
+        [
+            "#####",
+            "..#..",
+            "..#..",
+            "..#..",
+            "..#..",
+            "..#..",
+            "#####"
         ]
 
-    };
+    ];
 
-    let delay=0;
 
-    Object.values(letters).forEach(points=>{
+    /*
+       MEDIDAS
+    */
 
-        points.forEach(point=>{
+    const starSize = 8;
 
-            const star=
-                document.createElement('div');
+    const horizontalGap = 10;
 
-            star.className='constellation-star';
+    const verticalGap = 16;
 
-            star.style.left=point[0]+'%';
-            star.style.top=point[1]+'%';
+    const letterGap = 26;
 
-            star.style.animationDelay=
-                delay+'s';
 
-            container.appendChild(star);
+    const letterWidth =
+        (5 * starSize) +
+        (4 * horizontalGap);
 
-            delay+=.13;
 
-        });
+    const totalWidth =
+        (letterWidth * letters.length) +
+        (letterGap * (letters.length - 1));
+
+
+    /*
+       CENTRAR GETSI
+    */
+
+    const startX =
+        (container.clientWidth - totalWidth) / 2;
+
+
+    const startY =
+        35;
+
+
+    let currentX =
+        startX;
+
+
+    let delay =
+        0;
+
+
+    /*
+       CREAR ESTRELLAS
+    */
+
+    letters.forEach(pattern => {
+
+        pattern.forEach(
+            (row,rowIndex) => {
+
+                [...row].forEach(
+                    (cell,columnIndex) => {
+
+                        if(cell !== '#'){
+                            return;
+                        }
+
+                        const star =
+                            document.createElement('div');
+
+                        star.className =
+                            'constellation-star';
+
+
+                        const x =
+                            currentX +
+                            columnIndex *
+                            (
+                                starSize +
+                                horizontalGap
+                            );
+
+
+                        const y =
+                            startY +
+                            rowIndex *
+                            (
+                                starSize +
+                                verticalGap
+                            );
+
+
+                        star.style.left =
+                            x + 'px';
+
+                        star.style.top =
+                            y + 'px';
+
+
+                        star.style.animationDelay =
+                            delay + 's';
+
+
+                        container.appendChild(star);
+
+
+                        delay += .035;
+
+                    }
+                );
+
+            }
+        );
+
+
+        currentX +=
+            letterWidth +
+            letterGap;
 
     });
 
