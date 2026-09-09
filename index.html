@@ -57,16 +57,61 @@ body{
     text-align:center;
     flex-direction:column;
 
+    /* MISMO ESTILO ESTRELLADO */
+
     background:
         radial-gradient(
-            circle at center,
-            #29134b 0%,
-            #100821 48%,
-            #05030d 100%
+            circle at 20% 20%,
+            rgba(173,125,255,.15),
+            transparent 25%
+        ),
+
+        radial-gradient(
+            circle at 80% 70%,
+            rgba(255,125,205,.12),
+            transparent 30%
+        ),
+
+        linear-gradient(
+            #09051b,
+            #130a29
         );
 }
 
+
+/* CONTENEDOR DE ESTRELLAS DE LA PRIMERA PANTALLA */
+
+#welcome .stars-bg{
+    position:absolute;
+    inset:0;
+    z-index:0;
+
+    background:
+        radial-gradient(
+            circle at 20% 20%,
+            rgba(173,125,255,.15),
+            transparent 25%
+        ),
+
+        radial-gradient(
+            circle at 80% 70%,
+            rgba(255,125,205,.12),
+            transparent 30%
+        ),
+
+        linear-gradient(
+            #09051b,
+            #130a29
+        );
+}
+
+
+/* CONTENIDO ENCIMA DE LAS ESTRELLAS */
+
 .welcome-content{
+    position:relative;
+    z-index:10;
+
     padding:25px;
 
     animation:
@@ -78,7 +123,10 @@ body{
 
 .welcome-content h1{
     font-family:'Caveat',cursive;
-    font-size:clamp(3rem,9vw,6rem);
+
+    font-size:
+        clamp(3rem,9vw,6rem);
+
     color:#f9b4d8;
 
     text-shadow:
@@ -88,8 +136,11 @@ body{
 }
 
 .welcome-content p{
-    font-size:clamp(1rem,3vw,1.4rem);
+    font-size:
+        clamp(1rem,3vw,1.4rem);
+
     color:#f7d9ec;
+
     margin-bottom:35px;
 }
 
@@ -100,6 +151,7 @@ body{
     cursor:pointer;
 
     padding:15px 30px;
+
     border-radius:50px;
 
     background:
@@ -110,8 +162,11 @@ body{
         );
 
     color:white;
+
     font-family:'Quicksand',sans-serif;
+
     font-size:1rem;
+
     font-weight:700;
 
     box-shadow:
@@ -175,6 +230,7 @@ body{
     height:2px;
 
     border-radius:50%;
+
     background:white;
 
     animation:
@@ -194,6 +250,94 @@ body{
     50%{
         opacity:1;
         transform:scale(1.5);
+    }
+
+}
+
+
+/* =====================================================
+   ESTRELLAS FUGACES
+===================================================== */
+
+.shooting-star{
+    position:absolute;
+
+    width:120px;
+    height:2px;
+
+    border-radius:999px;
+
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            rgba(255,255,255,.35),
+            white
+        );
+
+    box-shadow:
+        0 0 8px white,
+        0 0 18px rgba(210,190,255,.8);
+
+    transform:
+        rotate(-35deg);
+
+    opacity:0;
+
+    z-index:2;
+
+    pointer-events:none;
+}
+
+.shooting-star::after{
+    content:"";
+
+    position:absolute;
+
+    right:0;
+    top:50%;
+
+    width:6px;
+    height:6px;
+
+    border-radius:50%;
+
+    background:white;
+
+    transform:translateY(-50%);
+
+    box-shadow:
+        0 0 8px white,
+        0 0 15px white;
+}
+
+
+/* Movimiento de estrella fugaz */
+
+@keyframes shootingStar{
+
+    0%{
+        opacity:0;
+
+        transform:
+            translate(0,0)
+            rotate(-35deg);
+    }
+
+    8%{
+        opacity:1;
+    }
+
+    70%{
+        opacity:1;
+    }
+
+    100%{
+        opacity:0;
+
+        transform:
+            translate(-420px,420px)
+            rotate(-35deg);
     }
 
 }
@@ -1198,9 +1342,6 @@ body{
     overflow:visible;
 }
 
-
-/* ESTRELLAS QUE FORMAN LAS LETRAS */
-
 .constellation-star{
     position:absolute;
 
@@ -1226,11 +1367,6 @@ body{
         cubic-bezier(.2,.8,.2,1)
         forwards;
 }
-
-
-/* =====================================================
-   LÍNEAS SUTILES ENTRE ESTRELLAS
-===================================================== */
 
 .constellation-line{
     position:absolute;
@@ -1407,10 +1543,6 @@ body{
         bottom:6%;
     }
 
-    /* ==============================================
-       CONSTELACIÓN MÁS PEQUEÑA EN CELULAR
-    ============================================== */
-
     .constellation{
 
         transform:
@@ -1473,10 +1605,6 @@ body{
         bottom:5%;
     }
 
-    /* ==============================================
-       GETSI CABE COMPLETO EN PANTALLAS PEQUEÑAS
-    ============================================== */
-
     .constellation{
 
         transform:
@@ -1509,10 +1637,57 @@ button{
 
 <section id="welcome" class="screen active">
 
+    <!-- FONDO ESTRELLADO -->
+
+    <div class="stars-bg"></div>
+
+
+    <!-- ESTRELLAS FUGACES -->
+
+    <div
+        class="shooting-star"
+        style="
+            left:105%;
+            top:5%;
+            animation:
+                shootingStar
+                7s
+                3s
+                infinite;
+        "
+    ></div>
+
+    <div
+        class="shooting-star"
+        style="
+            left:110%;
+            top:32%;
+            animation:
+                shootingStar
+                8s
+                8s
+                infinite;
+        "
+    ></div>
+
+    <div
+        class="shooting-star"
+        style="
+            left:115%;
+            top:60%;
+            animation:
+                shootingStar
+                9s
+                13s
+                infinite;
+        "
+    ></div>
+
+
     <div class="welcome-content">
 
         <h1>
-            ¡Hola! 💖
+            ¡Hola Getsi!
         </h1>
 
         <p>
@@ -1523,7 +1698,7 @@ button{
             class="start-btn"
             onclick="goTo('garden')">
 
-            CLICK AQUÍ ✨
+            Abre tu regalo ✨
 
         </button>
 
@@ -1544,7 +1719,6 @@ button{
     <div class="garden-wrapper">
 
         <div class="moon"></div>
-
 
         <div class="garden-message message-left">
 
@@ -1567,8 +1741,6 @@ button{
 
         </div>
 
-
-        <!-- FLORES DE CEREZO -->
 
         <div class="sakura sakura1">
 
@@ -1640,6 +1812,7 @@ button{
             <div class="sakura-stem"></div>
 
             <div class="sakura-flower"></div>
+
             <div class="sakura-flower"></div>
             <div class="sakura-flower"></div>
             <div class="sakura-flower"></div>
@@ -1647,22 +1820,10 @@ button{
 
         </div>
 
-
-
-        <!-- TULIPANES -->
 
         <div class="bouquet">
 
-            <div
-                class="tulip-unit"
-                style="
-                    --x:50%;
-                    --height:350px;
-                    --rotation:0deg;
-                    --delay:.2s;
-                "
-            >
-
+            <div class="tulip-unit" style="--x:50%;--height:350px;--rotation:0deg;--delay:.2s;">
                 <div class="tulip-head">
                     <div class="tulip-petal"></div>
                     <div class="tulip-petal"></div>
@@ -1671,23 +1832,12 @@ button{
                 </div>
 
                 <div class="tulip-stem"></div>
-
                 <div class="tulip-leaf leaf-left"></div>
                 <div class="tulip-leaf leaf-right"></div>
-
             </div>
 
 
-            <div
-                class="tulip-unit"
-                style="
-                    --x:38%;
-                    --height:315px;
-                    --rotation:-7deg;
-                    --delay:.35s;
-                "
-            >
-
+            <div class="tulip-unit" style="--x:38%;--height:315px;--rotation:-7deg;--delay:.35s;">
                 <div class="tulip-head">
                     <div class="tulip-petal"></div>
                     <div class="tulip-petal"></div>
@@ -1696,23 +1846,12 @@ button{
                 </div>
 
                 <div class="tulip-stem"></div>
-
                 <div class="tulip-leaf leaf-left"></div>
                 <div class="tulip-leaf leaf-right"></div>
-
             </div>
 
 
-            <div
-                class="tulip-unit"
-                style="
-                    --x:62%;
-                    --height:320px;
-                    --rotation:7deg;
-                    --delay:.5s;
-                "
-            >
-
+            <div class="tulip-unit" style="--x:62%;--height:320px;--rotation:7deg;--delay:.5s;">
                 <div class="tulip-head">
                     <div class="tulip-petal"></div>
                     <div class="tulip-petal"></div>
@@ -1721,23 +1860,12 @@ button{
                 </div>
 
                 <div class="tulip-stem"></div>
-
                 <div class="tulip-leaf leaf-left"></div>
                 <div class="tulip-leaf leaf-right"></div>
-
             </div>
 
 
-            <div
-                class="tulip-unit"
-                style="
-                    --x:26%;
-                    --height:270px;
-                    --rotation:-13deg;
-                    --delay:.65s;
-                "
-            >
-
+            <div class="tulip-unit" style="--x:26%;--height:270px;--rotation:-13deg;--delay:.65s;">
                 <div class="tulip-head">
                     <div class="tulip-petal"></div>
                     <div class="tulip-petal"></div>
@@ -1746,23 +1874,12 @@ button{
                 </div>
 
                 <div class="tulip-stem"></div>
-
                 <div class="tulip-leaf leaf-left"></div>
                 <div class="tulip-leaf leaf-right"></div>
-
             </div>
 
 
-            <div
-                class="tulip-unit"
-                style="
-                    --x:74%;
-                    --height:275px;
-                    --rotation:13deg;
-                    --delay:.8s;
-                "
-            >
-
+            <div class="tulip-unit" style="--x:74%;--height:275px;--rotation:13deg;--delay:.8s;">
                 <div class="tulip-head">
                     <div class="tulip-petal"></div>
                     <div class="tulip-petal"></div>
@@ -1771,23 +1888,12 @@ button{
                 </div>
 
                 <div class="tulip-stem"></div>
-
                 <div class="tulip-leaf leaf-left"></div>
                 <div class="tulip-leaf leaf-right"></div>
-
             </div>
 
 
-            <div
-                class="tulip-unit"
-                style="
-                    --x:16%;
-                    --height:235px;
-                    --rotation:-18deg;
-                    --delay:.95s;
-                "
-            >
-
+            <div class="tulip-unit" style="--x:16%;--height:235px;--rotation:-18deg;--delay:.95s;">
                 <div class="tulip-head">
                     <div class="tulip-petal"></div>
                     <div class="tulip-petal"></div>
@@ -1796,23 +1902,12 @@ button{
                 </div>
 
                 <div class="tulip-stem"></div>
-
                 <div class="tulip-leaf leaf-left"></div>
                 <div class="tulip-leaf leaf-right"></div>
-
             </div>
 
 
-            <div
-                class="tulip-unit"
-                style="
-                    --x:84%;
-                    --height:240px;
-                    --rotation:18deg;
-                    --delay:1.1s;
-                "
-            >
-
+            <div class="tulip-unit" style="--x:84%;--height:240px;--rotation:18deg;--delay:1.1s;">
                 <div class="tulip-head">
                     <div class="tulip-petal"></div>
                     <div class="tulip-petal"></div>
@@ -1821,30 +1916,16 @@ button{
                 </div>
 
                 <div class="tulip-stem"></div>
-
                 <div class="tulip-leaf leaf-left"></div>
                 <div class="tulip-leaf leaf-right"></div>
-
             </div>
 
         </div>
 
-
-
-        <!-- ROSAS AZULES -->
 
         <div class="blue-rose-grass">
 
-            <div
-                class="blue-rose"
-                style="
-                    --x:1%;
-                    --height:90px;
-                    --rotation:-12deg;
-                    --delay:1.1s;
-                "
-            >
-
+            <div class="blue-rose" style="--x:1%;--height:90px;--rotation:-12deg;--delay:1.1s;">
                 <div class="blue-rose-bloom">
                     <div class="rose-layer one"></div>
                     <div class="rose-layer two"></div>
@@ -1854,20 +1935,10 @@ button{
 
                 <div class="blue-rose-stem"></div>
                 <div class="blue-rose-leaf left"></div>
-
             </div>
 
 
-            <div
-                class="blue-rose"
-                style="
-                    --x:9%;
-                    --height:75px;
-                    --rotation:-6deg;
-                    --delay:1.2s;
-                "
-            >
-
+            <div class="blue-rose" style="--x:9%;--height:75px;--rotation:-6deg;--delay:1.2s;">
                 <div class="blue-rose-bloom">
                     <div class="rose-layer one"></div>
                     <div class="rose-layer two"></div>
@@ -1877,20 +1948,10 @@ button{
 
                 <div class="blue-rose-stem"></div>
                 <div class="blue-rose-leaf right"></div>
-
             </div>
 
 
-            <div
-                class="blue-rose"
-                style="
-                    --x:17%;
-                    --height:100px;
-                    --rotation:8deg;
-                    --delay:1.3s;
-                "
-            >
-
+            <div class="blue-rose" style="--x:17%;--height:100px;--rotation:8deg;--delay:1.3s;">
                 <div class="blue-rose-bloom">
                     <div class="rose-layer one"></div>
                     <div class="rose-layer two"></div>
@@ -1900,20 +1961,10 @@ button{
 
                 <div class="blue-rose-stem"></div>
                 <div class="blue-rose-leaf left"></div>
-
             </div>
 
 
-            <div
-                class="blue-rose"
-                style="
-                    --x:27%;
-                    --height:72px;
-                    --rotation:-9deg;
-                    --delay:1.4s;
-                "
-            >
-
+            <div class="blue-rose" style="--x:27%;--height:72px;--rotation:-9deg;--delay:1.4s;">
                 <div class="blue-rose-bloom">
                     <div class="rose-layer one"></div>
                     <div class="rose-layer two"></div>
@@ -1923,20 +1974,10 @@ button{
 
                 <div class="blue-rose-stem"></div>
                 <div class="blue-rose-leaf right"></div>
-
             </div>
 
 
-            <div
-                class="blue-rose"
-                style="
-                    --x:36%;
-                    --height:92px;
-                    --rotation:5deg;
-                    --delay:1.5s;
-                "
-            >
-
+            <div class="blue-rose" style="--x:36%;--height:92px;--rotation:5deg;--delay:1.5s;">
                 <div class="blue-rose-bloom">
                     <div class="rose-layer one"></div>
                     <div class="rose-layer two"></div>
@@ -1946,20 +1987,10 @@ button{
 
                 <div class="blue-rose-stem"></div>
                 <div class="blue-rose-leaf left"></div>
-
             </div>
 
 
-            <div
-                class="blue-rose"
-                style="
-                    --x:45%;
-                    --height:78px;
-                    --rotation:-4deg;
-                    --delay:1.6s;
-                "
-            >
-
+            <div class="blue-rose" style="--x:45%;--height:78px;--rotation:-4deg;--delay:1.6s;">
                 <div class="blue-rose-bloom">
                     <div class="rose-layer one"></div>
                     <div class="rose-layer two"></div>
@@ -1969,20 +2000,10 @@ button{
 
                 <div class="blue-rose-stem"></div>
                 <div class="blue-rose-leaf right"></div>
-
             </div>
 
 
-            <div
-                class="blue-rose"
-                style="
-                    --x:54%;
-                    --height:98px;
-                    --rotation:7deg;
-                    --delay:1.7s;
-                "
-            >
-
+            <div class="blue-rose" style="--x:54%;--height:98px;--rotation:7deg;--delay:1.7s;">
                 <div class="blue-rose-bloom">
                     <div class="rose-layer one"></div>
                     <div class="rose-layer two"></div>
@@ -1992,20 +2013,10 @@ button{
 
                 <div class="blue-rose-stem"></div>
                 <div class="blue-rose-leaf left"></div>
-
             </div>
 
 
-            <div
-                class="blue-rose"
-                style="
-                    --x:64%;
-                    --height:73px;
-                    --rotation:-7deg;
-                    --delay:1.8s;
-                "
-            >
-
+            <div class="blue-rose" style="--x:64%;--height:73px;--rotation:-7deg;--delay:1.8s;">
                 <div class="blue-rose-bloom">
                     <div class="rose-layer one"></div>
                     <div class="rose-layer two"></div>
@@ -2015,20 +2026,10 @@ button{
 
                 <div class="blue-rose-stem"></div>
                 <div class="blue-rose-leaf right"></div>
-
             </div>
 
 
-            <div
-                class="blue-rose"
-                style="
-                    --x:73%;
-                    --height:94px;
-                    --rotation:10deg;
-                    --delay:1.9s;
-                "
-            >
-
+            <div class="blue-rose" style="--x:73%;--height:94px;--rotation:10deg;--delay:1.9s;">
                 <div class="blue-rose-bloom">
                     <div class="rose-layer one"></div>
                     <div class="rose-layer two"></div>
@@ -2038,20 +2039,10 @@ button{
 
                 <div class="blue-rose-stem"></div>
                 <div class="blue-rose-leaf left"></div>
-
             </div>
 
 
-            <div
-                class="blue-rose"
-                style="
-                    --x:82%;
-                    --height:76px;
-                    --rotation:-5deg;
-                    --delay:2s;
-                "
-            >
-
+            <div class="blue-rose" style="--x:82%;--height:76px;--rotation:-5deg;--delay:2s;">
                 <div class="blue-rose-bloom">
                     <div class="rose-layer one"></div>
                     <div class="rose-layer two"></div>
@@ -2061,20 +2052,10 @@ button{
 
                 <div class="blue-rose-stem"></div>
                 <div class="blue-rose-leaf right"></div>
-
             </div>
 
 
-            <div
-                class="blue-rose"
-                style="
-                    --x:91%;
-                    --height:88px;
-                    --rotation:8deg;
-                    --delay:2.1s;
-                "
-            >
-
+            <div class="blue-rose" style="--x:91%;--height:88px;--rotation:8deg;--delay:2.1s;">
                 <div class="blue-rose-bloom">
                     <div class="rose-layer one"></div>
                     <div class="rose-layer two"></div>
@@ -2084,13 +2065,10 @@ button{
 
                 <div class="blue-rose-stem"></div>
                 <div class="blue-rose-leaf left"></div>
-
             </div>
 
         </div>
 
-
-        <!-- BOTÓN -->
 
         <div class="garden-button">
 
@@ -2439,13 +2417,6 @@ function createConstellation(){
     container.innerHTML = '';
 
 
-    /*
-       CADA LETRA SE DIBUJA CON ESTRELLAS.
-
-       # = estrella
-       . = espacio
-    */
-
     const letters = [
 
         [
@@ -2501,10 +2472,6 @@ function createConstellation(){
     ];
 
 
-    /*
-       MEDIDAS
-    */
-
     const starSize = 8;
 
     const horizontalGap = 10;
@@ -2524,10 +2491,6 @@ function createConstellation(){
         (letterGap * (letters.length - 1));
 
 
-    /*
-       CENTRAR GETSI
-    */
-
     const startX =
         (container.clientWidth - totalWidth) / 2;
 
@@ -2543,10 +2506,6 @@ function createConstellation(){
     let delay =
         0;
 
-
-    /*
-       CREAR ESTRELLAS
-    */
 
     letters.forEach(pattern => {
 
