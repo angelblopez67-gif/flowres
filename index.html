@@ -1207,10 +1207,17 @@ body{
   bottom:6%;
  }
 
+ /*
+  * LA CONSTELACIÓN YA NO USA SCALE.
+  * Su tamaño se calcula directamente
+  * según el ancho disponible.
+  */
+
  .constellation{
-  width:min(680px,96vw);
+  width:96vw;
+  max-width:720px;
   height:220px;
-  transform:translate(-50%,-50%) scale(.82);
+  transform:translate(-50%,-50%);
   transform-origin:center center;
  }
 
@@ -1273,10 +1280,17 @@ body{
   bottom:5%;
  }
 
+ /*
+  * EN CELULARES PEQUEÑOS:
+  * se mantiene centrada sin reducirla
+  * mediante transformaciones.
+  */
+
  .constellation{
-  width:min(650px,98vw);
+  width:96vw;
+  max-width:650px;
   height:210px;
-  transform:translate(-50%,-50%) scale(.62);
+  transform:translate(-50%,-50%);
   transform-origin:center center;
  }
 
@@ -1295,7 +1309,7 @@ body{
   font-size:clamp(1.8rem,7vw,2.5rem);
  }
 
-}
+ }
 
 
 button{
@@ -2573,39 +2587,117 @@ function createConstellation(){
 
 
  /*
-  * Ajustamos automáticamente
-  * el tamaño para que GESIBEL
-  * quepa dentro de la pantalla.
+  * =====================================================
+  * AJUSTE AUTOMÁTICO PARA CELULAR
+  * =====================================================
+  *
+  * El tamaño ahora depende del ancho real
+  * disponible dentro de la pantalla.
+  *
+  * Ya no usamos un tamaño fijo de 7px
+  * que después tenga que reducirse con scale().
   */
 
- const starSize=7;
+ const availableWidth=
+  container.clientWidth;
 
- const horizontalGap=8;
+ const availableHeight=
+  container.clientHeight;
 
- const verticalGap=12;
 
- const letterGap=14;
+ /*
+  * Calculamos el tamaño de las estrellas
+  * y los espacios según el teléfono.
+  */
 
+ const starSize=
+  Math.max(
+   4.5,
+   Math.min(
+    7,
+    availableWidth/78
+   )
+  );
+
+
+ const horizontalGap=
+  Math.max(
+   4,
+   Math.min(
+    7,
+    availableWidth/78
+   )
+  );
+
+
+ const verticalGap=
+  Math.max(
+   7,
+   Math.min(
+    11,
+    availableWidth/60
+   )
+  );
+
+
+ const letterGap=
+  Math.max(
+   6,
+   Math.min(
+    12,
+    availableWidth/55
+   )
+  );
+
+
+ /*
+  * Ancho real de cada letra.
+  */
 
  const letterWidth=
   (5*starSize)+
   (4*horizontalGap);
 
 
+ /*
+  * Ancho total de GESIBEL.
+  */
+
  const totalWidth=
   (letterWidth*letters.length)+
   (letterGap*(letters.length-1));
 
 
- const startX=
-  Math.max(
-   0,
-   (container.clientWidth-totalWidth)/2
-  );
+ /*
+  * CENTRADO REAL.
+  *
+  * Ya no usamos Math.max(0,...).
+  * El conjunto completo se centra
+  * exactamente dentro del contenedor.
+  */
 
+ const startX=
+  (availableWidth-totalWidth)/2;
+
+
+ /*
+  * Alto total de las letras.
+  */
+
+ const totalHeight=
+  (7*starSize)+
+  (6*verticalGap);
+
+
+ /*
+  * CENTRADO VERTICAL.
+  */
 
  const startY=
-  35;
+  Math.max(
+   0,
+   (availableHeight-totalHeight)/2
+  );
 
 
  let currentX=
@@ -2617,6 +2709,10 @@ function createConstellation(){
 
  const createdStars=[];
 
+
+ /*
+  * CREAMOS LAS ESTRELLAS.
+  */
 
  letters.forEach(
   (pattern,letterIndex)=>{
@@ -2660,6 +2756,14 @@ function createConstellation(){
         y+'px';
 
 
+       star.style.width=
+        starSize+'px';
+
+
+       star.style.height=
+        starSize+'px';
+
+
        star.style.animationDelay=
         (1.3+delay)+'s';
 
@@ -2673,7 +2777,13 @@ function createConstellation(){
 
         x:x+starSize/2,
 
-        y:y+starSize/2
+        y:y+starSize/2,
+
+        letter:letterIndex,
+
+        row:rowIndex,
+
+        column:columnIndex
 
        });
 
@@ -2699,87 +2809,193 @@ function createConstellation(){
 
  /*
   * LINEAS SUTILES
+  *
+  * Se mantienen únicamente entre
+  * estrellas que pertenecen a la misma
+  * letra y están juntas.
   */
 
- const connectDistance=24;
+ const findStar=
+  (letter,row,column)=>{
+
+   return createdStars.find(
+    star=>
+     star.letter===letter &&
+     star.row===row &&
+     star.column===column
+   );
+
+  };
 
 
- for(let i=0;i<createdStars.length;i++){
+ letters.forEach(
+  (pattern,letterIndex)=>{
 
-  const a=
-   createdStars[i];
+   pattern.forEach(
+    (row,rowIndex)=>{
 
+     [...row].forEach(
+      (cell,columnIndex)=>{
 
-  for(
-   let j=i+1;
-   j<createdStars.length;
-   j++
-  ){
-
-   const b=
-    createdStars[j];
+       if(cell!=='#'){
+        return;
+       }
 
 
-   const dx=
-    b.x-a.x;
+       const a=
+        findStar(
+         letterIndex,
+         rowIndex,
+         columnIndex
+        );
 
 
-   const dy=
-    b.y-a.y;
+       if(!a){
+        return;
+       }
 
 
-   const distance=
-    Math.sqrt(
-     dx*dx+
-     dy*dy
-    );
+       /*
+        * Conexión horizontal.
+        */
+
+       const right=
+        findStar(
+         letterIndex,
+         rowIndex,
+         columnIndex+1
+        );
 
 
-   if(
-    distance<=connectDistance &&
-    Math.abs(dy)<=18
-   ){
+       if(right){
 
-    const line=
-     document.createElement('div');
+        createConstellationLine(
+         a,
+         right,
+         delay
+        );
 
-
-    line.className=
-     'constellation-line';
+       }
 
 
-    line.style.left=
-     a.x+'px';
+       /*
+        * Conexión vertical.
+        */
+
+       const down=
+        findStar(
+         letterIndex,
+         rowIndex+1,
+         columnIndex
+        );
 
 
-    line.style.top=
-     a.y+'px';
+       if(down){
+
+        createConstellationLine(
+         a,
+         down,
+         delay
+        );
+
+       }
 
 
-    line.style.width=
-     distance+'px';
+       /*
+        * Conexión diagonal suave.
+        */
+
+       const diagonal=
+        findStar(
+         letterIndex,
+         rowIndex+1,
+         columnIndex+1
+        );
 
 
-    const angle=
-     Math.atan2(dy,dx)*
-     180/Math.PI;
+       if(diagonal){
 
+        createConstellationLine(
+         a,
+         diagonal,
+         delay
+        );
 
-    line.style.transform=
-     `rotate(${angle}deg)`;
+       }
 
+      }
 
-    line.style.animationDelay=
-     (1.8+delay*.02)+'s';
+     );
 
+    }
 
-    container.appendChild(
-     line
-    );
-
-   }
+   );
 
   }
+ );
+
+
+ /*
+  * FUNCIÓN PARA CREAR CADA LÍNEA.
+  */
+
+ function createConstellationLine(
+  a,
+  b,
+  lineDelay
+ ){
+
+  const dx=
+   b.x-a.x;
+
+
+  const dy=
+   b.y-a.y;
+
+
+  const distance=
+   Math.sqrt(
+    dx*dx+
+    dy*dy
+   );
+
+
+  const line=
+   document.createElement('div');
+
+
+  line.className=
+   'constellation-line';
+
+
+  line.style.left=
+   a.x+'px';
+
+
+  line.style.top=
+   a.y+'px';
+
+
+  line.style.width=
+   distance+'px';
+
+
+  const angle=
+   Math.atan2(dy,dx)*
+   180/Math.PI;
+
+
+  line.style.transform=
+   `rotate(${angle}deg)`;
+
+
+  line.style.animationDelay=
+   (1.8+lineDelay*.02)+'s';
+
+
+  container.appendChild(
+   line
+  );
 
  }
 
