@@ -940,7 +940,8 @@ body{
  left:50%;
  top:50%;
  transform:translate(-50%,-50%);
- width:min(720px,96vw);
+ width:100%;
+ max-width:100%;
  height:230px;
  overflow:visible;
 }
@@ -1208,14 +1209,17 @@ body{
  }
 
  /*
-  * LA CONSTELACIÓN YA NO USA SCALE.
-  * Su tamaño se calcula directamente
-  * según el ancho disponible.
+  * LA CONSTELACIÓN AHORA OCUPA
+  * TODO EL ANCHO DISPONIBLE.
+  *
+  * JavaScript calcula automáticamente
+  * el tamaño necesario para que GESIBEL
+  * siempre quede completamente centrada.
   */
 
  .constellation{
-  width:96vw;
-  max-width:720px;
+  width:100vw;
+  max-width:100vw;
   height:220px;
   transform:translate(-50%,-50%);
   transform-origin:center center;
@@ -1282,13 +1286,14 @@ body{
 
  /*
   * EN CELULARES PEQUEÑOS:
-  * se mantiene centrada sin reducirla
-  * mediante transformaciones.
+  * GESIBEL SE AJUSTA AUTOMÁTICAMENTE
+  * PARA CABER COMPLETA Y QUEDAR
+  * EXACTAMENTE EN EL CENTRO.
   */
 
  .constellation{
-  width:96vw;
-  max-width:650px;
+  width:100vw;
+  max-width:100vw;
   height:210px;
   transform:translate(-50%,-50%);
   transform-origin:center center;
@@ -1309,7 +1314,7 @@ body{
   font-size:clamp(1.8rem,7vw,2.5rem);
  }
 
- }
+}
 
 
 button{
@@ -1727,7 +1732,7 @@ button{
      <div class="rose-layer one"></div>
      <div class="rose-layer two"></div>
      <div class="rose-layer three"></div>
-     <div class="blue-rose-leaf left"></div>
+     <div class="rose-layer four"></div>
     </div>
 
     <div class="blue-rose-stem"></div>
@@ -1997,8 +2002,6 @@ button{
   </h1>
 
 
-  <!-- POLVO ESTELAR CONTINUO -->
-
   <div class="final-dust"
        id="finalDust">
   </div>
@@ -2197,7 +2200,9 @@ function createCountdownStars(){
    size+'px';
 
 
-  container.appendChild(star);
+  container.appendChild(
+   star
+  );
 
  }
 
@@ -2283,15 +2288,8 @@ function startCountdown(){
   );
 
 
- /* CREAR POLVO */
-
  createCountdownStars();
 
-
- /*
-  * EL MENSAJE APARECE
-  * LENTAMENTE.
-  */
 
  setTimeout(()=>{
 
@@ -2299,13 +2297,6 @@ function startCountdown(){
 
  },300);
 
-
- /*
-  * EL MENSAJE PERMANECE
-  * DURANTE 7 SEGUNDOS.
-  *
-  * Después empieza a desaparecer.
-  */
 
  setTimeout(()=>{
 
@@ -2319,16 +2310,6 @@ function startCountdown(){
 
  },7000);
 
-
- /*
-  * MUY IMPORTANTE:
-  *
-  * Esperamos 1.2 segundos completos
-  * para que el mensaje termine de
-  * desaparecer.
-  *
-  * SOLO DESPUÉS aparece el 10.
-  */
 
  setTimeout(()=>{
 
@@ -2348,11 +2329,6 @@ function startCountdown(){
 
    setTimeout(()=>{
 
-    /*
-     * El mensaje queda completamente
-     * oculto durante toda la cuenta.
-     */
-
     message.style.display='none';
 
 
@@ -2369,25 +2345,12 @@ function startCountdown(){
     number.classList.add('show');
 
 
-    /*
-     * AL LLEGAR AL 5:
-     *
-     * comienza el polvo estelar.
-     */
-
     if(value===5){
 
      activateCountdownStars();
 
     }
 
-
-    /*
-     * DEL 5 AL 1:
-     *
-     * el polvo comienza a viajar
-     * lentamente hacia el centro.
-     */
 
     if(value<=5){
 
@@ -2428,13 +2391,6 @@ function startCountdown(){
   });
 
 
-  /*
-   * DESPUÉS DEL 1:
-   *
-   * todo el polvo termina
-   * de reunirse.
-   */
-
   setTimeout(()=>{
 
    gatherCountdownStars();
@@ -2442,22 +2398,12 @@ function startCountdown(){
   },numbers.length*1000);
 
 
-  /*
-   * DESTELLO SUAVE DESDE EL CENTRO.
-   */
-
   setTimeout(()=>{
 
    flash.classList.add('flash');
 
   },numbers.length*1000+1700);
 
-
-  /*
-   * PASAMOS A LA CONSTELACIÓN
-   * cuando el destello empieza
-   * a desaparecer.
-   */
 
   setTimeout(()=>{
 
@@ -2484,12 +2430,6 @@ function createConstellation(){
 
  container.innerHTML='';
 
-
- /*
-  * G E S I B E L
-  *
-  * Cada # representa una estrella.
-  */
 
  const letters=[
 
@@ -2586,17 +2526,9 @@ function createConstellation(){
  ];
 
 
- /*
-  * =====================================================
-  * AJUSTE AUTOMÁTICO PARA CELULAR
-  * =====================================================
-  *
-  * El tamaño ahora depende del ancho real
-  * disponible dentro de la pantalla.
-  *
-  * Ya no usamos un tamaño fijo de 7px
-  * que después tenga que reducirse con scale().
-  */
+ /* =====================================================
+    CENTRADO AUTOMÁTICO REAL
+    ===================================================== */
 
  const availableWidth=
   container.clientWidth;
@@ -2606,11 +2538,10 @@ function createConstellation(){
 
 
  /*
-  * Calculamos el tamaño de las estrellas
-  * y los espacios según el teléfono.
+  * Tamaño inicial de las estrellas.
   */
 
- const starSize=
+ let starSize=
   Math.max(
    4.5,
    Math.min(
@@ -2620,7 +2551,7 @@ function createConstellation(){
   );
 
 
- const horizontalGap=
+ let horizontalGap=
   Math.max(
    4,
    Math.min(
@@ -2630,7 +2561,7 @@ function createConstellation(){
   );
 
 
- const verticalGap=
+ let verticalGap=
   Math.max(
    7,
    Math.min(
@@ -2640,7 +2571,7 @@ function createConstellation(){
   );
 
 
- const letterGap=
+ let letterGap=
   Math.max(
    6,
    Math.min(
@@ -2651,29 +2582,63 @@ function createConstellation(){
 
 
  /*
-  * Ancho real de cada letra.
+  * Calculamos el ancho antes de crear
+  * las estrellas.
   */
 
- const letterWidth=
+ let letterWidth=
   (5*starSize)+
   (4*horizontalGap);
 
 
- /*
-  * Ancho total de GESIBEL.
-  */
-
- const totalWidth=
+ let totalWidth=
   (letterWidth*letters.length)+
   (letterGap*(letters.length-1));
 
 
  /*
-  * CENTRADO REAL.
+  * IMPORTANTE:
   *
-  * Ya no usamos Math.max(0,...).
-  * El conjunto completo se centra
-  * exactamente dentro del contenedor.
+  * Dejamos un margen de seguridad del 92%.
+  * Si GESIBEL no cabe en la pantalla,
+  * reducimos proporcionalmente todos
+  * los espacios y estrellas.
+  */
+
+ const maxAllowedWidth=
+  availableWidth*.92;
+
+
+ if(totalWidth>maxAllowedWidth){
+
+  const scale=
+   maxAllowedWidth/totalWidth;
+
+
+  starSize*=scale;
+  horizontalGap*=scale;
+  verticalGap*=scale;
+  letterGap*=scale;
+
+
+  letterWidth=
+   (5*starSize)+
+   (4*horizontalGap);
+
+
+  totalWidth=
+   (letterWidth*letters.length)+
+   (letterGap*(letters.length-1));
+
+ }
+
+
+ /*
+  * CENTRADO HORIZONTAL.
+  *
+  * El primer punto comienza exactamente
+  * donde debe para que todo GESIBEL
+  * quede centrado.
   */
 
  const startX=
@@ -2688,10 +2653,6 @@ function createConstellation(){
   (7*starSize)+
   (6*verticalGap);
 
-
- /*
-  * CENTRADO VERTICAL.
-  */
 
  const startY=
   Math.max(
@@ -2711,7 +2672,7 @@ function createConstellation(){
 
 
  /*
-  * CREAMOS LAS ESTRELLAS.
+  * CREAR ESTRELLAS
   */
 
  letters.forEach(
@@ -2808,11 +2769,7 @@ function createConstellation(){
 
 
  /*
-  * LINEAS SUTILES
-  *
-  * Se mantienen únicamente entre
-  * estrellas que pertenecen a la misma
-  * letra y están juntas.
+  * BUSCAR ESTRELLA
   */
 
  const findStar=
@@ -2827,6 +2784,10 @@ function createConstellation(){
 
   };
 
+
+ /*
+  * CREAR LAS LÍNEAS
+  */
 
  letters.forEach(
   (pattern,letterIndex)=>{
@@ -2855,10 +2816,6 @@ function createConstellation(){
        }
 
 
-       /*
-        * Conexión horizontal.
-        */
-
        const right=
         findStar(
          letterIndex,
@@ -2878,10 +2835,6 @@ function createConstellation(){
        }
 
 
-       /*
-        * Conexión vertical.
-        */
-
        const down=
         findStar(
          letterIndex,
@@ -2900,10 +2853,6 @@ function createConstellation(){
 
        }
 
-
-       /*
-        * Conexión diagonal suave.
-        */
 
        const diagonal=
         findStar(
@@ -2936,7 +2885,7 @@ function createConstellation(){
 
 
  /*
-  * FUNCIÓN PARA CREAR CADA LÍNEA.
+  * CREAR CADA LÍNEA
   */
 
  function createConstellationLine(
@@ -3022,12 +2971,6 @@ function createFinalDust(){
  container.innerHTML='';
 
 
- /*
-  * Creamos partículas suficientes
-  * para que siempre haya algunas
-  * moviéndose.
-  */
-
  for(let i=0;i<65;i++){
 
   const particle=
@@ -3037,11 +2980,6 @@ function createFinalDust(){
   particle.className=
    'final-dust-particle';
 
-
-  /*
-   * Las partículas nacen alrededor
-   * de la zona de la constelación.
-   */
 
   const x=
    8+
@@ -3060,10 +2998,6 @@ function createFinalDust(){
   particle.style.top=
    y+'%';
 
-
-  /*
-   * Movimiento aleatorio suave.
-   */
 
   const moveX=
    (Math.random()-.5)*70;
@@ -3096,11 +3030,6 @@ function createFinalDust(){
    (Math.random()*4)+'s'
   );
 
-
-  /*
-   * Algunas partículas son más
-   * pequeñas y otras más grandes.
-   */
 
   const size=
    1.5+
