@@ -139,44 +139,172 @@ body{
 }
 
 
-/* SHOOTING STARS */
+/* =========================================================
+   ESTRELLAS FUGACES — FONDO
+   ========================================================= */
+
+/*
+ * La estrella ahora tiene una cabeza pequeña
+ * y una cola fina, suave y difuminada.
+ */
+
 .shooting-star{
  position:absolute;
- width:120px;
- height:2px;
- border-radius:999px;
- background:linear-gradient(90deg,transparent,rgba(255,255,255,.35),white);
- box-shadow:0 0 8px white,0 0 18px rgba(210,190,255,.8);
- transform:rotate(-35deg);
+ width:6px;
+ height:6px;
+ border-radius:50%;
+
+ background:
+  radial-gradient(
+   circle,
+   #ffffff 0%,
+   #ffffff 35%,
+   #ead8ff 65%,
+   rgba(255,255,255,0) 100%
+  );
+
+ box-shadow:
+  0 0 4px #ffffff,
+  0 0 9px #ffffff,
+  0 0 17px rgba(216,181,255,.85);
+
  opacity:0;
  z-index:2;
  pointer-events:none;
+
+ transform:rotate(-38deg);
 }
+
+
+/*
+ * Cola principal.
+ * Es mucho más fina y se desvanece hacia atrás.
+ */
+
+.shooting-star::before{
+ content:"";
+ position:absolute;
+
+ right:2px;
+ top:50%;
+
+ width:82px;
+ height:2px;
+
+ transform:translateY(-50%);
+
+ border-radius:999px;
+
+ background:
+  linear-gradient(
+   90deg,
+   transparent 0%,
+   rgba(199,125,255,.04) 18%,
+   rgba(199,125,255,.12) 40%,
+   rgba(245,166,206,.28) 65%,
+   rgba(255,255,255,.8) 100%
+  );
+
+ filter:blur(.5px);
+
+ box-shadow:
+  0 0 5px rgba(199,125,255,.35),
+  0 0 9px rgba(245,166,206,.2);
+
+ transform-origin:right center;
+}
+
+
+/*
+ * Bruma alrededor de la cola.
+ * Muy suave para que no parezca una raya.
+ */
 
 .shooting-star::after{
  content:"";
  position:absolute;
- right:0;
+
+ right:5px;
  top:50%;
- width:6px;
+
+ width:55px;
  height:6px;
- border-radius:50%;
- background:white;
+
  transform:translateY(-50%);
- box-shadow:0 0 8px white,0 0 15px white;
+
+ border-radius:999px;
+
+ background:
+  linear-gradient(
+   90deg,
+   transparent,
+   rgba(199,125,255,.04),
+   rgba(245,166,206,.12),
+   rgba(255,255,255,.22)
+  );
+
+ filter:blur(4px);
 }
 
+
+/*
+ * Movimiento natural.
+ *
+ * La estrella entra desde arriba/derecha,
+ * atraviesa una parte del cielo
+ * y desaparece antes de hacer un recorrido exagerado.
+ */
+
 @keyframes shootingStar{
+
  0%{
   opacity:0;
-  transform:translate(0,0) rotate(-35deg);
+  transform:
+   translate3d(0,0,0)
+   rotate(-38deg)
+   scale(.45);
  }
- 8%{opacity:1;}
- 70%{opacity:1;}
+
+ 5%{
+  opacity:.35;
+ }
+
+ 10%{
+  opacity:1;
+  transform:
+   translate3d(-18px,18px,0)
+   rotate(-38deg)
+   scale(.8);
+ }
+
+ 30%{
+  opacity:.95;
+  transform:
+   translate3d(-105px,105px,0)
+   rotate(-38deg)
+   scale(1);
+ }
+
+ 62%{
+  opacity:.8;
+  transform:
+   translate3d(-285px,285px,0)
+   rotate(-38deg)
+   scale(.95);
+ }
+
+ 82%{
+  opacity:.35;
+ }
+
  100%{
   opacity:0;
-  transform:translate(-420px,420px) rotate(-35deg);
+  transform:
+   translate3d(-400px,400px,0)
+   rotate(-38deg)
+   scale(.7);
  }
+
 }
 
 
@@ -569,9 +697,12 @@ body{
  box-shadow:0 0 10px #fff,0 0 25px #dcb7ff;
  cursor:pointer;
  animation:starPulse 2s infinite;
+ z-index:5;
 }
 
-.sky-star:hover{transform:scale(1.5);}
+.sky-star:hover{
+ transform:scale(1.5);
+}
 
 @keyframes starPulse{
  0%,100%{opacity:.65;}
@@ -626,6 +757,191 @@ body{
  background:#c77dff;
  color:white;
  cursor:pointer;
+}
+
+
+/* =========================================================
+   ESTRELLA FUGAZ — MENSAJE ESPECIAL
+   ========================================================= */
+
+.shooting-message{
+ position:absolute;
+ left:50%;
+ top:50%;
+ transform:translate(-50%,-50%);
+ width:min(500px,85%);
+ text-align:center;
+ font-family:'Caveat',cursive;
+ font-size:clamp(1.7rem,5vw,2.5rem);
+ line-height:1.25;
+ color:#ffe0f1;
+ text-shadow:
+  0 0 10px rgba(255,190,225,.75),
+  0 0 25px rgba(202,155,255,.5);
+ opacity:0;
+ z-index:52;
+ pointer-events:none;
+}
+
+.shooting-message.show{
+ animation:shootingMessageIn .9s ease forwards;
+}
+
+.shooting-message.hide{
+ animation:shootingMessageOut .8s ease forwards;
+}
+
+@keyframes shootingMessageIn{
+ 0%{
+  opacity:0;
+  transform:translate(-50%,-50%) scale(.88);
+ }
+ 100%{
+  opacity:1;
+  transform:translate(-50%,-50%) scale(1);
+ }
+}
+
+@keyframes shootingMessageOut{
+ 0%{
+  opacity:1;
+  transform:translate(-50%,-50%) scale(1);
+ }
+ 100%{
+  opacity:0;
+  transform:translate(-50%,-50%) scale(.94);
+ }
+}
+
+
+/* =========================================================
+   ESTELA DE LA ESTRELLA FUGAZ INTERACTIVA - MEJORADA
+   ========================================================= */
+
+.shooting-trail{
+ position:absolute;
+ width:140px;
+ height:3px;
+ border-radius:999px;
+ background:
+  linear-gradient(
+   90deg,
+   transparent 0%,
+   rgba(199,125,255,.05) 10%,
+   rgba(199,125,255,.18) 30%,
+   rgba(245,166,206,.45) 60%,
+   rgba(255,255,255,.95) 100%
+  );
+ box-shadow:
+  0 0 6px rgba(199,125,255,.5),
+  0 0 14px rgba(245,166,206,.35),
+  0 0 22px rgba(255,255,255,.25);
+ transform:rotate(28deg);
+ opacity:0;
+ z-index:51;
+ pointer-events:none;
+ filter:blur(0.3px);
+}
+
+.shooting-trail::before{
+ content:"";
+ position:absolute;
+ left:8px;
+ top:50%;
+ width:95px;
+ height:8px;
+ transform:translateY(-50%);
+ border-radius:999px;
+ background:
+  linear-gradient(
+   90deg,
+   transparent,
+   rgba(199,125,255,.06),
+   rgba(245,166,206,.18),
+   rgba(255,255,255,.35)
+  );
+ filter:blur(5px);
+}
+
+.shooting-trail::after{
+ content:"";
+ position:absolute;
+ right:-4px;
+ top:50%;
+ width:10px;
+ height:10px;
+ border-radius:50%;
+ background:
+  radial-gradient(
+   circle,
+   #ffffff 0%,
+   #ffffff 30%,
+   #f5d0ff 55%,
+   #c77dff 80%,
+   transparent 100%
+  );
+ transform:translateY(-50%);
+ box-shadow:
+  0 0 8px #ffffff,
+  0 0 16px #f5a6ce,
+  0 0 28px #c77dff,
+  0 0 40px rgba(199,125,255,.6);
+}
+
+.shooting-trail.animate{
+ animation:
+  shootingTrailMove
+  2.6s
+  cubic-bezier(.22,.7,.25,1)
+  forwards;
+}
+
+@keyframes shootingTrailMove{
+
+ 0%{
+  opacity:0;
+  left:-12%;
+  top:22%;
+  transform:
+   rotate(28deg)
+   scale(.4);
+ }
+
+ 6%{
+  opacity:.4;
+ }
+
+ 12%{
+  opacity:1;
+  transform:
+   rotate(28deg)
+   scale(.75);
+ }
+
+ 40%{
+  opacity:.98;
+  transform:
+   rotate(28deg)
+   scale(1);
+ }
+
+ 70%{
+  opacity:.75;
+ }
+
+ 88%{
+  opacity:.25;
+ }
+
+ 100%{
+  opacity:0;
+  left:108%;
+  top:68%;
+  transform:
+   rotate(28deg)
+   scale(.85);
+ }
+
 }
 
 
@@ -1208,15 +1524,6 @@ body{
   bottom:6%;
  }
 
- /*
-  * LA CONSTELACIÓN AHORA OCUPA
-  * TODO EL ANCHO DISPONIBLE.
-  *
-  * JavaScript calcula automáticamente
-  * el tamaño necesario para que GESIBEL
-  * siempre quede completamente centrada.
-  */
-
  .constellation{
   width:100vw;
   max-width:100vw;
@@ -1238,6 +1545,19 @@ body{
  .countdown-message{
   width:88%;
   font-size:clamp(1.9rem,7vw,3rem);
+ }
+
+ .shooting-message{
+  width:82%;
+  font-size:clamp(1.65rem,6vw,2.35rem);
+ }
+
+ .shooting-trail{
+  width:110px;
+ }
+
+ .shooting-trail::before{
+  width:75px;
  }
 
 }
@@ -1284,13 +1604,6 @@ body{
   bottom:5%;
  }
 
- /*
-  * EN CELULARES PEQUEÑOS:
-  * GESIBEL SE AJUSTA AUTOMÁTICAMENTE
-  * PARA CABER COMPLETA Y QUEDAR
-  * EXACTAMENTE EN EL CENTRO.
-  */
-
  .constellation{
   width:100vw;
   max-width:100vw;
@@ -1314,6 +1627,19 @@ body{
   font-size:clamp(1.8rem,7vw,2.5rem);
  }
 
+ .shooting-message{
+  width:86%;
+  font-size:clamp(1.55rem,6.2vw,2.15rem);
+ }
+
+ .shooting-trail{
+  width:90px;
+ }
+
+ .shooting-trail::before{
+  width:60px;
+ }
+
 }
 
 
@@ -1333,16 +1659,18 @@ button{
 
  <div class="stars-bg"></div>
 
+ <!-- ESTRELLAS FUGACES -->
+
  <div class="shooting-star"
-      style="left:105%;top:5%;animation:shootingStar 7s 3s infinite;">
+      style="left:105%;top:8%;animation:shootingStar 6.8s 2s infinite;">
  </div>
 
  <div class="shooting-star"
-      style="left:110%;top:32%;animation:shootingStar 8s 8s infinite;">
+      style="left:112%;top:35%;animation:shootingStar 7.8s 8s infinite;">
  </div>
 
  <div class="shooting-star"
-      style="left:115%;top:60%;animation:shootingStar 9s 13s infinite;">
+      style="left:108%;top:62%;animation:shootingStar 8.5s 15s infinite;">
  </div>
 
  <div class="welcome-content">
@@ -1802,45 +2130,54 @@ button{
   </h1>
 
 
+  <!-- SIRIO -->
+
   <div class="sky-star star1"
        onclick="showPopup(
         'Sirio',
-        'Una de las estrellas más brillantes del cielo. Para mí, tú siempre brillas todavía más. ✨'
+        'Hay estrellas que simplemente destacan. Sirio es una de ellas, y tú también destacas con tu propio brillo. ✨'
        )">
   </div>
 
+
+  <!-- ANDRÓMEDA -->
 
   <div class="sky-star star2"
        onclick="showPopup(
         'Andrómeda',
-        'Una galaxia enorme y hermosa... pero incluso ella se queda pequeña comparada con todo lo que siento por ti. 💜'
+        'Andrómeda guarda historias que llevan siglos viajando entre las estrellas… algunas hablan de amor. ✨'
        )">
   </div>
 
+
+  <!-- LUNA -->
 
   <div class="sky-star star3"
        onclick="showPopup(
         'La Luna',
-        'Aunque esté lejos, siempre parece acompañarnos. 🌙'
+        'A veces alguien llega y, sin hacer demasiado, consigue cambiar por completo el paisaje. 🌙✨'
        )">
   </div>
 
+
+  <!-- ESTRELLA FUGAZ -->
 
   <div class="sky-star star4"
-       onclick="showPopup(
-        'Estrella fugaz',
-        'Pide un deseo... aunque yo ya tengo el mío: seguir compartiendo momentos contigo. 💫'
-       )">
+       onclick="showShootingStar()">
   </div>
 
+
+  <!-- GESIBEL -->
 
   <div class="sky-star star5"
        onclick="showPopup(
-        'Estrella desconocida',
-        'Quizá nadie conozca su nombre, pero yo sé exactamente por qué me recuerda a ti. ❤️'
+        'Gesibel',
+        'Esta fue la estrella que llegó a mi vida de manera repentina… y que jamás quiero que se vaya. ✨'
        )">
   </div>
 
+
+  <!-- POPUP NORMAL -->
 
   <div id="starPopup" class="star-popup">
 
@@ -1856,11 +2193,26 @@ button{
   </div>
 
 
+  <!-- MENSAJE ESPECIAL DE ESTRELLA FUGAZ -->
+
+  <div id="shootingMessage"
+       class="shooting-message">
+  </div>
+
+
+  <!-- ESTELA DE LA ESTRELLA FUGAZ -->
+
+  <div id="shootingTrail"
+       class="shooting-trail">
+  </div>
+
+
   <div style="
    position:absolute;
    bottom:25px;
    left:50%;
    transform:translateX(-50%);
+   z-index:10;
   ">
 
    <button class="next-btn"
@@ -2115,6 +2467,8 @@ createBackgroundStars();
 
 function showPopup(title,text){
 
+ closeShootingStar();
+
  document.getElementById('popupTitle').textContent=
   title;
 
@@ -2136,13 +2490,200 @@ function closePopup(){
 
 
 /* =========================================================
+   ESTRELLA FUGAZ — ANIMACIÓN ESPECIAL
+   ========================================================= */
+
+let shootingSequenceTimers=[];
+
+
+function clearShootingSequence(){
+
+ shootingSequenceTimers.forEach(timer=>{
+  clearTimeout(timer);
+ });
+
+ shootingSequenceTimers=[];
+
+}
+
+
+function closeShootingStar(){
+
+ clearShootingSequence();
+
+ const message=
+  document.getElementById(
+   'shootingMessage'
+  );
+
+ const trail=
+  document.getElementById(
+   'shootingTrail'
+  );
+
+
+ if(message){
+  message.classList.remove('show');
+  message.classList.remove('hide');
+ }
+
+
+ if(trail){
+  trail.classList.remove('animate');
+ }
+
+}
+
+
+function showShootingMessage(text){
+
+ const message=
+  document.getElementById(
+   'shootingMessage'
+  );
+
+
+ message.classList.remove('show');
+ message.classList.remove('hide');
+
+
+ void message.offsetWidth;
+
+
+ message.textContent=
+  text;
+
+
+ message.classList.add('show');
+
+}
+
+
+function hideShootingMessage(){
+
+ const message=
+  document.getElementById(
+   'shootingMessage'
+  );
+
+
+ message.classList.remove('show');
+
+
+ void message.offsetWidth;
+
+
+ message.classList.add('hide');
+
+}
+
+
+function showShootingStar(){
+
+ closePopup();
+
+ clearShootingSequence();
+
+
+ const trail=
+  document.getElementById(
+   'shootingTrail'
+  );
+
+
+ const message=
+  document.getElementById(
+   'shootingMessage'
+  );
+
+
+ trail.classList.remove('animate');
+
+ void trail.offsetWidth;
+
+ trail.classList.add('animate');
+
+
+ shootingSequenceTimers.push(
+
+  setTimeout(()=>{
+
+   showShootingMessage(
+    'Dicen que cuando ves una estrella fugaz debes pedir un deseo…'
+   );
+
+  },500)
+
+ );
+
+
+ shootingSequenceTimers.push(
+
+  setTimeout(()=>{
+
+   hideShootingMessage();
+
+  },3900)
+
+ );
+
+
+ shootingSequenceTimers.push(
+
+  setTimeout(()=>{
+
+   showShootingMessage(
+    'Yo ya pedí el mío: quedarme eternamente contigo. 💜'
+   );
+
+  },4800)
+
+ );
+
+
+ shootingSequenceTimers.push(
+
+  setTimeout(()=>{
+
+   hideShootingMessage();
+
+  },8000)
+
+ );
+
+
+ shootingSequenceTimers.push(
+
+  setTimeout(()=>{
+
+   showShootingMessage(
+    'Ahora es tu turno de pedir un deseo. 🌠'
+   );
+
+  },8900)
+
+ );
+
+
+ shootingSequenceTimers.push(
+
+  setTimeout(()=>{
+
+   hideShootingMessage();
+
+  },12200)
+
+ );
+
+}
+
+
+/* =========================================================
    CUENTA REGRESIVA
    ========================================================= */
 
 let countdownStarted=false;
 
-
-/* CREAR POLVO ESTELAR */
 
 function createCountdownStars(){
 
@@ -2209,8 +2750,6 @@ function createCountdownStars(){
 }
 
 
-/* ACTIVAR POLVO */
-
 function activateCountdownStars(){
 
  const stars=
@@ -2231,8 +2770,6 @@ function activateCountdownStars(){
 
 }
 
-
-/* REUNIR POLVO */
 
 function gatherCountdownStars(){
 
@@ -2256,10 +2793,6 @@ function gatherCountdownStars(){
 
 }
 
-
-/* =========================================================
-   INICIAR CUENTA
-   ========================================================= */
 
 function startCountdown(){
 
@@ -2433,8 +2966,6 @@ function createConstellation(){
 
  const letters=[
 
-  /* G */
-
   [
    "####.",
    "#....",
@@ -2445,9 +2976,6 @@ function createConstellation(){
    "####."
   ],
 
-
-  /* E */
-
   [
    "#####",
    "#....",
@@ -2457,9 +2985,6 @@ function createConstellation(){
    "#....",
    "#####"
   ],
-
-
-  /* S */
 
   [
    ".####",
@@ -2471,9 +2996,6 @@ function createConstellation(){
    "####."
   ],
 
-
-  /* I */
-
   [
    "#####",
    "..#..",
@@ -2483,9 +3005,6 @@ function createConstellation(){
    "..#..",
    "#####"
   ],
-
-
-  /* B */
 
   [
    "####.",
@@ -2497,9 +3016,6 @@ function createConstellation(){
    "####."
   ],
 
-
-  /* E */
-
   [
    "#####",
    "#....",
@@ -2509,9 +3025,6 @@ function createConstellation(){
    "#....",
    "#####"
   ],
-
-
-  /* L */
 
   [
    "#....",
@@ -2526,20 +3039,12 @@ function createConstellation(){
  ];
 
 
- /* =====================================================
-    CENTRADO AUTOMÁTICO REAL
-    ===================================================== */
-
  const availableWidth=
   container.clientWidth;
 
  const availableHeight=
   container.clientHeight;
 
-
- /*
-  * Tamaño inicial de las estrellas.
-  */
 
  let starSize=
   Math.max(
@@ -2581,11 +3086,6 @@ function createConstellation(){
   );
 
 
- /*
-  * Calculamos el ancho antes de crear
-  * las estrellas.
-  */
-
  let letterWidth=
   (5*starSize)+
   (4*horizontalGap);
@@ -2595,15 +3095,6 @@ function createConstellation(){
   (letterWidth*letters.length)+
   (letterGap*(letters.length-1));
 
-
- /*
-  * IMPORTANTE:
-  *
-  * Dejamos un margen de seguridad del 92%.
-  * Si GESIBEL no cabe en la pantalla,
-  * reducimos proporcionalmente todos
-  * los espacios y estrellas.
-  */
 
  const maxAllowedWidth=
   availableWidth*.92;
@@ -2633,21 +3124,9 @@ function createConstellation(){
  }
 
 
- /*
-  * CENTRADO HORIZONTAL.
-  *
-  * El primer punto comienza exactamente
-  * donde debe para que todo GESIBEL
-  * quede centrado.
-  */
-
  const startX=
   (availableWidth-totalWidth)/2;
 
-
- /*
-  * Alto total de las letras.
-  */
 
  const totalHeight=
   (7*starSize)+
@@ -2670,10 +3149,6 @@ function createConstellation(){
 
  const createdStars=[];
 
-
- /*
-  * CREAR ESTRELLAS
-  */
 
  letters.forEach(
   (pattern,letterIndex)=>{
@@ -2768,10 +3243,6 @@ function createConstellation(){
  );
 
 
- /*
-  * BUSCAR ESTRELLA
-  */
-
  const findStar=
   (letter,row,column)=>{
 
@@ -2784,10 +3255,6 @@ function createConstellation(){
 
   };
 
-
- /*
-  * CREAR LAS LÍNEAS
-  */
 
  letters.forEach(
   (pattern,letterIndex)=>{
@@ -2883,10 +3350,6 @@ function createConstellation(){
   }
  );
 
-
- /*
-  * CREAR CADA LÍNEA
-  */
 
  function createConstellationLine(
   a,
