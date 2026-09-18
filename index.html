@@ -143,11 +143,6 @@ body{
    ESTRELLAS FUGACES — FONDO
    ========================================================= */
 
-/*
- * La estrella ahora tiene una cabeza pequeña
- * y una cola fina, suave y difuminada.
- */
-
 .shooting-star{
  position:absolute;
  width:6px;
@@ -174,12 +169,6 @@ body{
 
  transform:rotate(-38deg);
 }
-
-
-/*
- * Cola principal.
- * Es mucho más fina y se desvanece hacia atrás.
- */
 
 .shooting-star::before{
  content:"";
@@ -214,12 +203,6 @@ body{
  transform-origin:right center;
 }
 
-
-/*
- * Bruma alrededor de la cola.
- * Muy suave para que no parezca una raya.
- */
-
 .shooting-star::after{
  content:"";
  position:absolute;
@@ -245,15 +228,6 @@ body{
 
  filter:blur(4px);
 }
-
-
-/*
- * Movimiento natural.
- *
- * La estrella entra desde arriba/derecha,
- * atraviesa una parte del cielo
- * y desaparece antes de hacer un recorrido exagerado.
- */
 
 @keyframes shootingStar{
 
@@ -1463,6 +1437,35 @@ body{
 }
 
 
+/* BOTÓN DE MÚSICA */
+.music-btn{
+ position:fixed;
+ top:18px;
+ right:18px;
+ z-index:9999;
+ width:48px;
+ height:48px;
+ border-radius:50%;
+ border:none;
+ background:rgba(38,16,54,.75);
+ border:1px solid rgba(255,183,220,.4);
+ color:white;
+ font-size:1.3rem;
+ cursor:pointer;
+ backdrop-filter:blur(8px);
+ display:flex;
+ align-items:center;
+ justify-content:center;
+ transition:.25s;
+ box-shadow:0 0 15px rgba(199,125,255,.25);
+}
+
+.music-btn:hover{
+ transform:scale(1.1);
+ background:rgba(60,25,80,.85);
+}
+
+
 /* RESPONSIVE */
 
 @media(max-width:700px){
@@ -1653,6 +1656,17 @@ button{
 <body>
 
 
+<!-- MÚSICA DE FONDO -->
+<audio id="bgMusic" loop preload="auto">
+ <source src="Tu Aprendiz - José y el Toro.mp3" type="audio/mpeg">
+</audio>
+
+<!-- BOTÓN DE MÚSICA -->
+<button class="music-btn" id="musicBtn" onclick="toggleMusic()" title="Silenciar / Activar música">
+ 🔊
+</button>
+
+
 <!-- PANTALLA 1 -->
 
 <section id="welcome" class="screen active">
@@ -1680,7 +1694,7 @@ button{
   <p>ESTE DETALLE ES PARA TI :)</p>
 
   <button class="start-btn"
-          onclick="goTo('garden')">
+          onclick="startExperience()">
    Abre tu regalo ✨
   </button>
 
@@ -2382,6 +2396,42 @@ button{
 
 
 <script>
+
+/* =========================================================
+   MÚSICA
+   ========================================================= */
+
+const music = document.getElementById('bgMusic');
+const musicBtn = document.getElementById('musicBtn');
+let musicStarted = false;
+
+// Volumen suave
+music.volume = 0.45;
+
+function startExperience() {
+  // Reproducir música al primer clic (requerido por los navegadores)
+  if (!musicStarted) {
+    music.play().then(() => {
+      musicStarted = true;
+      musicBtn.textContent = '🔊';
+    }).catch(err => {
+      console.log('No se pudo reproducir automáticamente:', err);
+    });
+  }
+  
+  goTo('garden');
+}
+
+function toggleMusic() {
+  if (music.paused) {
+    music.play();
+    musicBtn.textContent = '🔊';
+  } else {
+    music.pause();
+    musicBtn.textContent = '🔇';
+  }
+}
+
 
 /* =========================================================
    CAMBIAR DE PANTALLA
