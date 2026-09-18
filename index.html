@@ -1663,7 +1663,7 @@ button{
 
 <!-- BOTÓN DE MÚSICA -->
 <button class="music-btn" id="musicBtn" onclick="toggleMusic()" title="Silenciar / Activar música">
- 🔊
+ 🔇
 </button>
 
 
@@ -1694,7 +1694,7 @@ button{
   <p>ESTE DETALLE ES PARA TI :)</p>
 
   <button class="start-btn"
-          onclick="startExperience()">
+          onclick="goTo('garden')">
    Abre tu regalo ✨
   </button>
 
@@ -2408,20 +2408,6 @@ let musicStarted = false;
 // Volumen suave
 music.volume = 0.45;
 
-function startExperience() {
-  // Reproducir música al primer clic (requerido por los navegadores)
-  if (!musicStarted) {
-    music.play().then(() => {
-      musicStarted = true;
-      musicBtn.textContent = '🔊';
-    }).catch(err => {
-      console.log('No se pudo reproducir automáticamente:', err);
-    });
-  }
-  
-  goTo('garden');
-}
-
 function toggleMusic() {
   if (music.paused) {
     music.play();
@@ -2429,6 +2415,17 @@ function toggleMusic() {
   } else {
     music.pause();
     musicBtn.textContent = '🔇';
+  }
+}
+
+function playFinalMusic() {
+  if (!musicStarted) {
+    music.play().then(() => {
+      musicStarted = true;
+      musicBtn.textContent = '🔊';
+    }).catch(err => {
+      console.log('No se pudo reproducir la música:', err);
+    });
   }
 }
 
@@ -2460,6 +2457,7 @@ function goTo(id){
  if(id==='final'){
   createConstellation();
   createFinalDust();
+  playFinalMusic();   // ← Aquí se inicia la canción
  }
 
 }
