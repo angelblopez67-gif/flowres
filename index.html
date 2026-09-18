@@ -266,13 +266,6 @@ body{font-family:'Quicksand',sans-serif;background:#08051a;color:white;}
 .final-message span + span{margin-top:12px;}
 @keyframes fadeFinal{to{opacity:1;}}
 
-/* BOTÓN MÚSICA */
-.music-btn{position:fixed;top:18px;right:18px;z-index:9999;width:48px;height:48px;border-radius:50%;border:none;
- background:rgba(38,16,54,.75);border:1px solid rgba(255,183,220,.4);color:white;font-size:1.3rem;cursor:pointer;
- backdrop-filter:blur(8px);display:flex;align-items:center;justify-content:center;transition:.25s;
- box-shadow:0 0 15px rgba(199,125,255,.25);}
-.music-btn:hover{transform:scale(1.1);background:rgba(60,25,80,.85);}
-
 /* RESPONSIVE */
 @media(max-width:700px){
  .garden-message{width:140px;padding:12px;}
@@ -317,13 +310,10 @@ button{-webkit-tap-highlight-color:transparent;}
 </head>
 <body>
 
-<!-- MÚSICA DE FONDO -->
+<!-- MÚSICA DE FONDO (solo se reproduce en la pantalla final) -->
 <audio id="bgMusic" loop preload="auto">
  <source src="Tu Aprendiz - José y el Toro.mp3" type="audio/mpeg">
 </audio>
-
-<!-- BOTÓN DE MÚSICA -->
-<button class="music-btn" id="musicBtn" onclick="toggleMusic()" title="Silenciar / Activar música">🔇</button>
 
 <!-- PANTALLA 1 -->
 <section id="welcome" class="screen active">
@@ -454,35 +444,18 @@ button{-webkit-tap-highlight-color:transparent;}
 
 <script>
 /* =========================================================
-   MÚSICA  → Solo suena en la pantalla final
+   MÚSICA → Solo se reproduce automáticamente en la pantalla final
    ========================================================= */
 const music = document.getElementById('bgMusic');
-const musicBtn = document.getElementById('musicBtn');
 let musicStarted = false;
-
 music.volume = 0.45;
-
-function toggleMusic() {
-  if (music.paused) {
-    music.play().then(() => {
-      musicBtn.textContent = '🔊';
-      musicStarted = true;
-    }).catch(() => {
-      musicBtn.textContent = '🔇';
-    });
-  } else {
-    music.pause();
-    musicBtn.textContent = '🔇';
-  }
-}
 
 function playFinalMusic() {
   if (!musicStarted) {
     music.play().then(() => {
       musicStarted = true;
-      musicBtn.textContent = '🔊';
     }).catch(err => {
-      console.log('No se pudo reproducir la música:', err);
+      console.log('No se pudo reproducir la música (archivo faltante o bloqueo del navegador):', err);
     });
   }
 }
